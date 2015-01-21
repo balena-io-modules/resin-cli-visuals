@@ -1,0 +1,48 @@
+{
+  "name": "resin-cli-visuals",
+  "version": "0.0.1",
+  "description": "UI utilities for the Resin CLI",
+  "main": "build/visuals.js",
+  "homepage": "https://bitbucket.org/rulemotion/resin-cli-visuals",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:rulemotion/resin-cli-visuals.git"
+  },
+  "keywords": [
+    "cli",
+    "ui",
+    "console",
+    "terminal",
+    "widgets",
+    "resin"
+  ],
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "gulp test",
+    "prepublish": "gulp build"
+  },
+  "author": "Juan Cruz Viotti <juanchiviotti@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "~1.10.0",
+    "coffee-script": "~1.8.0",
+    "gulp": "~3.8.10",
+    "gulp-coffeelint": "~0.4.0",
+    "gulp-mocha": "~2.0.0",
+    "gulp-coffee": "~2.2.0",
+    "gulp-util": "~3.0.1",
+    "mocha": "~2.0.1",
+    "sinon": "~1.12.2",
+    "sinon-chai": "~2.6.0"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "cliff": "^0.1.10",
+    "inquirer": "^0.8.1",
+    "lodash": "~2.4.1",
+    "progress": "^1.1.8",
+    "underscore.string": "~2.4.0"
+  }
+}
