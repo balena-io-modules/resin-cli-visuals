@@ -6,6 +6,8 @@ resin-cli-visuals
 
 Collection of CLI UI widgets and patterns for the Resin CLI and it's plugins.
 
+**Warning:** This is a work in progress and things may change or get removed at any time.
+
 Features
 --------
 
