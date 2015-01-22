@@ -8,7 +8,7 @@ cliff = require('cliff');
 
 normalizeHeader = function(header) {
   header = header.toUpperCase();
-  return header.replace('_', ' ');
+  return header.replace(/_/g, ' ');
 };
 
 exports.vertical = function(data, ordering) {

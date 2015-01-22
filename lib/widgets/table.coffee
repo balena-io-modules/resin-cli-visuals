@@ -4,7 +4,7 @@ cliff = require('cliff')
 
 normalizeHeader = (header) ->
 	header = header.toUpperCase()
-	return header.replace('_', ' ')
+	return header.replace(/_/g, ' ')
 
 exports.vertical = (data, ordering = []) ->
 	return if _.isEmpty(data)
