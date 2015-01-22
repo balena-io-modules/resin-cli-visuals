@@ -13,10 +13,7 @@ normalizeHeader = function(header) {
 
 exports.vertical = function(data, ordering) {
   var next, normalizedHeader, result, _i, _len;
-  if (ordering == null) {
-    ordering = [];
-  }
-  if (_.isEmpty(data)) {
+  if (_.isEmpty(data) || _.isEmpty(ordering)) {
     return;
   }
   result = [];

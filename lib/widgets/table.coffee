@@ -6,8 +6,8 @@ normalizeHeader = (header) ->
 	header = header.toUpperCase()
 	return header.replace(/_/g, ' ')
 
-exports.vertical = (data, ordering = []) ->
-	return if _.isEmpty(data)
+exports.vertical = (data, ordering) ->
+	return if _.isEmpty(data) or _.isEmpty(ordering)
 
 	result = []
 

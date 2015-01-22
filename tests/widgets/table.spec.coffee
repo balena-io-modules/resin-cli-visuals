@@ -5,8 +5,17 @@ describe 'Table:', ->
 
 	describe '#vertical()', ->
 
+		it 'should return undefined if contents does not exist', ->
+			expect(table.vertical(undefined)).to.be.undefined
+
+		it 'should return undefined if no ordering', ->
+			expect(table.vertical({ foo: 'bar' })).to.be.undefined
+
+		it 'should return undefined if ordering is empty', ->
+			expect(table.vertical({ foo: 'bar'}, [])).to.be.undefined
+
 		it 'should return a string respecting the ordering', ->
-			ordering = [ 'One', 'Two', 'Three' ]
+			ordering = [ 'Two', 'One', 'Three' ]
 
 			result = table.vertical({
 				One: 'one'
@@ -15,15 +24,12 @@ describe 'Table:', ->
 			}, ordering).split('\n')
 
 			expected = [
-				'ONE: one'
 				'TWO: two'
+				'ONE: one'
 				'THREE: three'
 			]
 
 			expect(result).to.deep.equal(expected)
-
-		it 'should return undefined if contents does not exist', ->
-			expect(table.vertical(undefined)).to.be.undefined
 
 	describe '#horizontal()', ->
 
