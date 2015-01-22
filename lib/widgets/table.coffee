@@ -1,23 +1,28 @@
+_ = require('lodash')
+_.str = require('underscore.string')
 cliff = require('cliff')
-tableHelpers = require('./table-helpers')
 
-# TODO: Maybe there is a (sane) way to test this, given
-# that the result is not automatically printed by cliff?
-exports.horizontal = (contents, ordering, colours) ->
-	return if not contents?
-	contents = tableHelpers.processTableContents(contents)
-	ordering = tableHelpers.normaliseOrdering(ordering, contents)
-	return cliff.stringifyObjectRows(contents, ordering, colours)
+normalizeHeader = (header) ->
+	header = header.toUpperCase()
+	return header.replace('_', ' ')
 
-exports.vertical = (contents, ordering) ->
-	return if not contents?
-	contents = tableHelpers.processTableContents(contents)
-	ordering = tableHelpers.normaliseOrdering(ordering, contents)
+exports.vertical = (data, ordering = []) ->
+	return if _.isEmpty(data)
 
-	# TODO: Add some kind of separator to make clear
-	# when we're printing another content item
 	result = []
-	for item in contents
-		for next in ordering
-			result.push("#{next}: #{item[next]}")
+
+	for next in ordering
+		normalizedHeader = normalizeHeader(next)
+		result.push("#{normalizedHeader}: #{data[next]}")
+
+	return result.join('\n')
+
+exports.horizontal = (data, ordering) ->
+	return if _.isEmpty(data)
+
+	data = _.map data, (object) ->
+		return _.pick(object, ordering)
+
+	result = _.str.lines(cliff.stringifyObjectRows(data, ordering))
+	result[0] = normalizeHeader(result[0])
 	return result.join('\n')

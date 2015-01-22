@@ -1,32 +1,42 @@
-var cliff, tableHelpers;
+var cliff, normalizeHeader, _;
+
+_ = require('lodash');
+
+_.str = require('underscore.string');
 
 cliff = require('cliff');
 
-tableHelpers = require('./table-helpers');
-
-exports.horizontal = function(contents, ordering, colours) {
-  if (contents == null) {
-    return;
-  }
-  contents = tableHelpers.processTableContents(contents);
-  ordering = tableHelpers.normaliseOrdering(ordering, contents);
-  return cliff.stringifyObjectRows(contents, ordering, colours);
+normalizeHeader = function(header) {
+  header = header.toUpperCase();
+  return header.replace('_', ' ');
 };
 
-exports.vertical = function(contents, ordering) {
-  var item, next, result, _i, _j, _len, _len1;
-  if (contents == null) {
+exports.vertical = function(data, ordering) {
+  var next, normalizedHeader, result, _i, _len;
+  if (ordering == null) {
+    ordering = [];
+  }
+  if (_.isEmpty(data)) {
     return;
   }
-  contents = tableHelpers.processTableContents(contents);
-  ordering = tableHelpers.normaliseOrdering(ordering, contents);
   result = [];
-  for (_i = 0, _len = contents.length; _i < _len; _i++) {
-    item = contents[_i];
-    for (_j = 0, _len1 = ordering.length; _j < _len1; _j++) {
-      next = ordering[_j];
-      result.push("" + next + ": " + item[next]);
-    }
+  for (_i = 0, _len = ordering.length; _i < _len; _i++) {
+    next = ordering[_i];
+    normalizedHeader = normalizeHeader(next);
+    result.push("" + normalizedHeader + ": " + data[next]);
   }
+  return result.join('\n');
+};
+
+exports.horizontal = function(data, ordering) {
+  var result;
+  if (_.isEmpty(data)) {
+    return;
+  }
+  data = _.map(data, function(object) {
+    return _.pick(object, ordering);
+  });
+  result = _.str.lines(cliff.stringifyObjectRows(data, ordering));
+  result[0] = normalizeHeader(result[0]);
   return result.join('\n');
 };
