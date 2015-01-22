@@ -1,6 +1,6 @@
 var cliff, normalizeHeader, _;
 
-_ = require('lodash');
+_ = require('lodash-contrib');
 
 _.str = require('underscore.string');
 
@@ -30,7 +30,7 @@ exports.vertical = function(data, ordering) {
 
 exports.horizontal = function(data, ordering) {
   var result;
-  if (_.isEmpty(data)) {
+  if ((data == null) || _.isEmpty(ordering)) {
     return;
   }
   data = _.map(data, function(object) {
@@ -38,5 +38,6 @@ exports.horizontal = function(data, ordering) {
   });
   result = _.str.lines(cliff.stringifyObjectRows(data, ordering));
   result[0] = normalizeHeader(result[0]);
+  result = _.map(result, _.unary(_.str.trim));
   return result.join('\n');
 };

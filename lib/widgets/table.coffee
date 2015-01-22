@@ -1,4 +1,4 @@
-_ = require('lodash')
+_ = require('lodash-contrib')
 _.str = require('underscore.string')
 cliff = require('cliff')
 
@@ -18,11 +18,13 @@ exports.vertical = (data, ordering = []) ->
 	return result.join('\n')
 
 exports.horizontal = (data, ordering) ->
-	return if _.isEmpty(data)
+	return if not data? or _.isEmpty(ordering)
 
 	data = _.map data, (object) ->
 		return _.pick(object, ordering)
 
 	result = _.str.lines(cliff.stringifyObjectRows(data, ordering))
 	result[0] = normalizeHeader(result[0])
+	result = _.map(result, _.unary(_.str.trim))
+
 	return result.join('\n')

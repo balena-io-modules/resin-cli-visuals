@@ -42,6 +42,7 @@
     "cliff": "^0.1.10",
     "inquirer": "^0.8.0",
     "lodash": "~2.4.1",
+    "lodash-contrib": "^241.4.14",
     "progress": "^1.1.8",
     "underscore.string": "~2.4.0"
   }
