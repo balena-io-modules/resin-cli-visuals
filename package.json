@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "UI utilities for the Resin CLI",
   "main": "build/visuals.js",
-  "homepage": "https://bitbucket.org/rulemotion/resin-cli-visuals",
+  "homepage": "https://github.com/resin-io/resin-cli-visuals",
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:rulemotion/resin-cli-visuals.git"
+    "url": "git@github.com:resin-io/resin-cli-visuals.git"
   },
   "keywords": [
     "cli",
