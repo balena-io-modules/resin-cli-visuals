@@ -1,12 +1,10 @@
-var Progress, ProgressBar, inquirer, _,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var Progress, ProgressBarFormatter, inquirer, _;
 
 _ = require('lodash');
 
 inquirer = require('inquirer');
 
-ProgressBar = require('progress');
+ProgressBarFormatter = require('progress-bar-formatter');
 
 exports.table = require('./table');
 
@@ -102,21 +100,33 @@ exports.ask = function(question, callback) {
   });
 };
 
-exports.Progress = Progress = (function(_super) {
-  __extends(Progress, _super);
-
+exports.Progress = Progress = (function() {
   function Progress(message, size) {
-    var options;
-    message = "" + message + " [:bar] :percent :etas";
-    options = {
+    if (message == null) {
+      throw new Error('Missing message');
+    }
+    this.bar = new ProgressBarFormatter({
       complete: '=',
       incomplete: ' ',
-      width: 40,
-      total: size
-    };
-    Progress.__super__.constructor.call(this, message, options);
+      length: size
+    });
+    this.format = "" + message + " [<%= bar %>] <%= percentage %>% eta <%= eta %>s";
   }
+
+  Progress.prototype.tick = function(percentage, eta) {
+    if (percentage == null) {
+      throw new Error('Missing percentage');
+    }
+    if (eta == null) {
+      throw new Error('Missing eta');
+    }
+    return _.template(this.format, {
+      bar: this.bar.format(percentage / 100),
+      percentage: Math.floor(percentage),
+      eta: eta
+    });
+  };
 
   return Progress;
 
-})(ProgressBar);
+})();

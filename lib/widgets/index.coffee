@@ -1,6 +1,6 @@
 _ = require('lodash')
 inquirer = require('inquirer')
-ProgressBar = require('progress')
+ProgressBarFormatter = require('progress-bar-formatter')
 
 exports.table = require('./table')
 
@@ -87,14 +87,28 @@ exports.ask = (question, callback) ->
 	], (response) ->
 		return callback(null, response.answer)
 
-exports.Progress = class Progress extends ProgressBar
+exports.Progress = class Progress
 	constructor: (message, size) ->
-		message = "#{message} [:bar] :percent :etas"
-		options =
+
+		if not message?
+			throw new Error('Missing message')
+
+		@bar = new ProgressBarFormatter
 			complete: '='
 			incomplete: ' '
-			width: 40
-			total: size
-			stream: process.stdout
+			length: size
 
-		super(message, options)
+		@format = "#{message} [<%= bar %>] <%= percentage %>% eta <%= eta %>s"
+
+	tick: (percentage, eta) ->
+
+		if not percentage?
+			throw new Error('Missing percentage')
+
+		if not eta?
+			throw new Error('Missing eta')
+
+		return _.template @format,
+			bar: @bar.format(percentage / 100)
+			percentage: Math.floor(percentage)
+			eta: eta
