@@ -95,5 +95,6 @@ exports.Progress = class Progress extends ProgressBar
 			incomplete: ' '
 			width: 40
 			total: size
+			stream: process.stdout
 
 		super(message, options)
