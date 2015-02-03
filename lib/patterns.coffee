@@ -1,3 +1,5 @@
+_ = require('lodash')
+drivelist = require('drivelist')
 async = require('async')
 widgets = require('./widgets')
 
@@ -15,3 +17,15 @@ exports.remove = (name, confirmAttribute, deleteFunction, outerCallback) ->
 			deleteFunction(callback)
 
 	], outerCallback)
+
+exports.selectDrive = (callback) ->
+	drivelist.list (error, drives) ->
+		return callback(error) if error?
+
+		drives = _.map drives, (item) ->
+			return {
+				name: "#{item.device} (#{item.size}) - #{item.description}"
+				value: item.device
+			}
+
+		widgets.select('Select a drive', drives, callback)
