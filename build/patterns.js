@@ -1,6 +1,12 @@
-var async, widgets;
+var async, drivelist, resin, widgets, _;
+
+_ = require('lodash');
+
+drivelist = require('drivelist');
 
 async = require('async');
+
+resin = require('resin-sdk');
 
 widgets = require('./widgets');
 
@@ -18,4 +24,33 @@ exports.remove = function(name, confirmAttribute, deleteFunction, outerCallback)
       return deleteFunction(callback);
     }
   ], outerCallback);
+};
+
+exports.selectDrive = function(callback) {
+  return drivelist.list(function(error, drives) {
+    if (error != null) {
+      return callback(error);
+    }
+    drives = _.map(drives, function(item) {
+      return {
+        name: "" + item.device + " (" + item.size + ") - " + item.description,
+        value: item.device
+      };
+    });
+    return widgets.select('Select a drive', drives, callback);
+  });
+};
+
+exports.selectDeviceType = function(callback) {
+  var deviceTypes;
+  deviceTypes = resin.models.device.getSupportedDeviceTypes();
+  return widgets.select('Select a type', deviceTypes, callback);
+};
+
+exports.confirm = function(yesOption, message, callback) {
+  if (yesOption) {
+    return callback(null, true);
+  } else {
+    return widgets.confirm(message, callback);
+  }
 };
