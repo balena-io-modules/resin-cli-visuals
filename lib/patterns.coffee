@@ -1,6 +1,7 @@
 _ = require('lodash')
 drivelist = require('drivelist')
 async = require('async')
+resin = require('resin-sdk')
 widgets = require('./widgets')
 
 exports.remove = (name, confirmAttribute, deleteFunction, outerCallback) ->
@@ -29,3 +30,7 @@ exports.selectDrive = (callback) ->
 			}
 
 		widgets.select('Select a drive', drives, callback)
+
+exports.selectDeviceType = (callback) ->
+	deviceTypes = resin.models.device.getSupportedDeviceTypes()
+	widgets.select('Select a type', deviceTypes, callback)
