@@ -34,3 +34,9 @@ exports.selectDrive = (callback) ->
 exports.selectDeviceType = (callback) ->
 	deviceTypes = resin.models.device.getSupportedDeviceTypes()
 	widgets.select('Select a type', deviceTypes, callback)
+
+exports.confirm = (yesOption, message, callback) ->
+	if yesOption
+		return callback(null, true)
+	else
+		widgets.confirm(message, callback)
