@@ -1,4 +1,5 @@
 _ = require('lodash')
+_.str = require('underscore.string')
 ProgressBarFormatter = require('progress-bar-formatter')
 
 module.exports = class Progress
@@ -14,6 +15,8 @@ module.exports = class Progress
 
 		@format = "#{message} [<%= bar %>] <%= percentage %>% eta <%= eta %>s"
 
+	lines: []
+
 	tick: (state) ->
 
 		if not state.percentage?
@@ -22,7 +25,17 @@ module.exports = class Progress
 		if not state.eta?
 			throw new Error('Missing eta')
 
-		return _.template @format,
+		line = _.template @format,
 			bar: @bar.format(state.percentage / 100)
 			percentage: Math.floor(state.percentage)
 			eta: state.eta
+
+		@lines.push(line)
+		return line
+
+	update: (state) ->
+		bar = '\r' + @tick(state)
+		process.stdout.write(bar)
+
+	end: ->
+		process.stdout.write('\n')
