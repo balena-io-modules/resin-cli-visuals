@@ -14,15 +14,15 @@ module.exports = class Progress
 
 		@format = "#{message} [<%= bar %>] <%= percentage %>% eta <%= eta %>s"
 
-	tick: (percentage, eta) ->
+	tick: (state) ->
 
-		if not percentage?
+		if not state.percentage?
 			throw new Error('Missing percentage')
 
-		if not eta?
+		if not state.eta?
 			throw new Error('Missing eta')
 
 		return _.template @format,
-			bar: @bar.format(percentage / 100)
-			percentage: Math.floor(percentage)
-			eta: eta
+			bar: @bar.format(state.percentage / 100)
+			percentage: Math.floor(state.percentage)
+			eta: state.eta

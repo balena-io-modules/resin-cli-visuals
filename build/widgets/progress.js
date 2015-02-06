@@ -17,17 +17,17 @@ module.exports = Progress = (function() {
     this.format = "" + message + " [<%= bar %>] <%= percentage %>% eta <%= eta %>s";
   }
 
-  Progress.prototype.tick = function(percentage, eta) {
-    if (percentage == null) {
+  Progress.prototype.tick = function(state) {
+    if (state.percentage == null) {
       throw new Error('Missing percentage');
     }
-    if (eta == null) {
+    if (state.eta == null) {
       throw new Error('Missing eta');
     }
     return _.template(this.format, {
-      bar: this.bar.format(percentage / 100),
-      percentage: Math.floor(percentage),
-      eta: eta
+      bar: this.bar.format(state.percentage / 100),
+      percentage: Math.floor(state.percentage),
+      eta: state.eta
     });
   };
 
