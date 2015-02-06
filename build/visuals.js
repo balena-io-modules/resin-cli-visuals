@@ -1,4 +1,5 @@
 module.exports = {
   widgets: require('./widgets'),
-  patterns: require('./patterns')
+  patterns: require('./patterns'),
+  helpers: require('./helpers')
 };
