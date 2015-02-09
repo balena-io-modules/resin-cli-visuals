@@ -1,14 +1,20 @@
-var cliff, normalizeHeader, _;
+var columnify, normalizeHeader, normalizeTable, _;
 
 _ = require('lodash-contrib');
 
 _.str = require('underscore.string');
 
-cliff = require('cliff');
+columnify = require('columnify');
 
 normalizeHeader = function(header) {
   header = header.toUpperCase();
   return header.replace(/_/g, ' ');
+};
+
+normalizeTable = function(table) {
+  table = table.split('\n');
+  table[0] = normalizeHeader(table[0]);
+  return table.join('\n');
 };
 
 exports.vertical = function(data, ordering) {
@@ -26,15 +32,12 @@ exports.vertical = function(data, ordering) {
 };
 
 exports.horizontal = function(data, ordering) {
-  var result;
+  var table;
   if ((data == null) || _.isEmpty(ordering)) {
     return;
   }
-  data = _.map(data, function(object) {
-    return _.pick(object, ordering);
+  table = columnify(data, {
+    columns: ordering
   });
-  result = _.str.lines(cliff.stringifyObjectRows(data, ordering));
-  result[0] = normalizeHeader(result[0]);
-  result = _.map(result, _.unary(_.str.trim));
-  return result.join('\n');
+  return normalizeTable(table);
 };

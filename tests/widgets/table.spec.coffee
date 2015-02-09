@@ -84,16 +84,16 @@ describe 'Table:', ->
 			it 'should construct multi item tables correctly', ->
 				result = table.horizontal(@data, [ 'foo', 'bar' ])
 				expect(result).to.equal [
-					'FOO   BAR'
-					'bar   baz'
+					'FOO   BAR  '
+					'bar   baz  '
 					'hello world'
 				].join('\n')
 
 			it 'should be able to swap the ordering', ->
 				result = table.horizontal(@data, [ 'bar', 'foo' ])
 				expect(result).to.equal [
-					'BAR   FOO'
-					'baz   bar'
+					'BAR   FOO  '
+					'baz   bar  '
 					'world hello'
 				].join('\n')
 
@@ -109,7 +109,7 @@ describe 'Table:', ->
 				result = table.horizontal(@data, [ 'hello_world', 'foo_bar' ])
 				expect(result).to.equal [
 					'HELLO WORLD FOO BAR'
-					'hey         baz'
+					'hey         baz    '
 				 ].join('\n')
 
 		describe 'inconsistent data', ->

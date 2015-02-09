@@ -1,10 +1,15 @@
 _ = require('lodash-contrib')
 _.str = require('underscore.string')
-cliff = require('cliff')
+columnify = require('columnify')
 
 normalizeHeader = (header) ->
 	header = header.toUpperCase()
 	return header.replace(/_/g, ' ')
+
+normalizeTable = (table) ->
+	table = table.split('\n')
+	table[0] = normalizeHeader(table[0])
+	return table.join('\n')
 
 exports.vertical = (data, ordering) ->
 	return if _.isEmpty(data) or _.isEmpty(ordering)
@@ -19,12 +24,5 @@ exports.vertical = (data, ordering) ->
 
 exports.horizontal = (data, ordering) ->
 	return if not data? or _.isEmpty(ordering)
-
-	data = _.map data, (object) ->
-		return _.pick(object, ordering)
-
-	result = _.str.lines(cliff.stringifyObjectRows(data, ordering))
-	result[0] = normalizeHeader(result[0])
-	result = _.map(result, _.unary(_.str.trim))
-
-	return result.join('\n')
+	table = columnify(data, columns: ordering)
+	return normalizeTable(table)
