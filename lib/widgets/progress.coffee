@@ -15,8 +15,6 @@ module.exports = class Progress
 
 		@format = "#{message} [<%= bar %>] <%= percentage %>% eta <%= eta %>s"
 
-	lines: []
-
 	tick: (state) ->
 
 		if not state.percentage?
@@ -25,15 +23,20 @@ module.exports = class Progress
 		if not state.eta?
 			throw new Error('Missing eta')
 
-		line = _.template @format,
+		@lastLine = _.template @format,
 			bar: @bar.format(state.percentage / 100)
 			percentage: Math.floor(state.percentage)
 			eta: state.eta
 
-		@lines.push(line)
-		return line
+		return @lastLine
+
+	eraseLastLine: ->
+		return if not @lastLine?
+		eraser = _.str.repeat(' ', @lastLine.length)
+		process.stdout.write("\r#{eraser}")
 
 	update: (state) ->
+		@eraseLastLine()
 		bar = '\r' + @tick(state)
 		process.stdout.write(bar)
 

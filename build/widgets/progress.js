@@ -19,27 +19,33 @@ module.exports = Progress = (function() {
     this.format = "" + message + " [<%= bar %>] <%= percentage %>% eta <%= eta %>s";
   }
 
-  Progress.prototype.lines = [];
-
   Progress.prototype.tick = function(state) {
-    var line;
     if (state.percentage == null) {
       throw new Error('Missing percentage');
     }
     if (state.eta == null) {
       throw new Error('Missing eta');
     }
-    line = _.template(this.format, {
+    this.lastLine = _.template(this.format, {
       bar: this.bar.format(state.percentage / 100),
       percentage: Math.floor(state.percentage),
       eta: state.eta
     });
-    this.lines.push(line);
-    return line;
+    return this.lastLine;
+  };
+
+  Progress.prototype.eraseLastLine = function() {
+    var eraser;
+    if (this.lastLine == null) {
+      return;
+    }
+    eraser = _.str.repeat(' ', this.lastLine.length);
+    return process.stdout.write("\r" + eraser);
   };
 
   Progress.prototype.update = function(state) {
     var bar;
+    this.eraseLastLine();
     bar = '\r' + this.tick(state);
     return process.stdout.write(bar);
   };
