@@ -2,6 +2,8 @@ _ = require('lodash')
 _.str = require('underscore.string')
 ProgressBarFormatter = require('progress-bar-formatter')
 
+CARRIAGE_RETURN = '\u001b[1A'
+
 module.exports = class Progress
 	constructor: (message, size) ->
 
@@ -31,14 +33,14 @@ module.exports = class Progress
 		return @lastLine
 
 	eraseLastLine: ->
-		return if not @lastLine?
+		if not @lastLine?
+			process.stdout.write('\n')
+			return
+
 		eraser = _.str.repeat(' ', @lastLine.length)
-		process.stdout.write("\r#{eraser}")
+		console.log(CARRIAGE_RETURN + eraser)
 
 	update: (state) ->
 		@eraseLastLine()
-		bar = '\r' + @tick(state)
-		process.stdout.write(bar)
-
-	end: ->
-		process.stdout.write('\n')
+		bar = CARRIAGE_RETURN + @tick(state)
+		console.log(bar)

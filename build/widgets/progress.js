@@ -1,10 +1,12 @@
-var Progress, ProgressBarFormatter, _;
+var CARRIAGE_RETURN, Progress, ProgressBarFormatter, _;
 
 _ = require('lodash');
 
 _.str = require('underscore.string');
 
 ProgressBarFormatter = require('progress-bar-formatter');
+
+CARRIAGE_RETURN = '\u001b[1A';
 
 module.exports = Progress = (function() {
   function Progress(message, size) {
@@ -37,21 +39,18 @@ module.exports = Progress = (function() {
   Progress.prototype.eraseLastLine = function() {
     var eraser;
     if (this.lastLine == null) {
+      process.stdout.write('\n');
       return;
     }
     eraser = _.str.repeat(' ', this.lastLine.length);
-    return process.stdout.write("\r" + eraser);
+    return console.log(CARRIAGE_RETURN + eraser);
   };
 
   Progress.prototype.update = function(state) {
     var bar;
     this.eraseLastLine();
-    bar = '\r' + this.tick(state);
-    return process.stdout.write(bar);
-  };
-
-  Progress.prototype.end = function() {
-    return process.stdout.write('\n');
+    bar = CARRIAGE_RETURN + this.tick(state);
+    return console.log(bar);
   };
 
   return Progress;

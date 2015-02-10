@@ -11,9 +11,7 @@ tickBar = ->
 		percentage: x
 		eta: x * 3.14
 
-	if x >= 100
-		bar.end()
-		return
+	return if x >= 100
 
 	setTimeout(tickBar, 200)
 
