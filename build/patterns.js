@@ -41,15 +41,6 @@ exports.selectDrive = function(callback) {
   });
 };
 
-exports.selectDeviceType = function(callback) {
-  return resin.models.device.getSupportedDeviceTypes(function(error, deviceTypes) {
-    if (error != null) {
-      return callback(error);
-    }
-    return widgets.select('Select a type', deviceTypes, callback);
-  });
-};
-
 exports.confirm = function(yesOption, message, callback) {
   if (yesOption) {
     return callback(null, true);
