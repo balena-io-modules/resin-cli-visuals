@@ -31,13 +31,15 @@ exports.selectDrive = function(callback) {
     if (error != null) {
       return callback(error);
     }
-    drives = _.map(drives, function(item) {
-      return {
-        name: "" + item.device + " (" + item.size + ") - " + item.description,
-        value: item.device
-      };
+    return async.reject(drives, drivelist.isSystem, function(removableDrives) {
+      removableDrives = _.map(removableDrives, function(item) {
+        return {
+          name: "" + item.device + " (" + item.size + ") - " + item.description,
+          value: item.device
+        };
+      });
+      return widgets.select('Select a drive', removableDrives, callback);
     });
-    return widgets.select('Select a drive', drives, callback);
   });
 };
 

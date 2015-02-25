@@ -23,13 +23,15 @@ exports.selectDrive = (callback) ->
 	drivelist.list (error, drives) ->
 		return callback(error) if error?
 
-		drives = _.map drives, (item) ->
-			return {
-				name: "#{item.device} (#{item.size}) - #{item.description}"
-				value: item.device
-			}
+		async.reject drives, drivelist.isSystem, (removableDrives) ->
 
-		widgets.select('Select a drive', drives, callback)
+			removableDrives = _.map removableDrives, (item) ->
+				return {
+					name: "#{item.device} (#{item.size}) - #{item.description}"
+					value: item.device
+				}
+
+			widgets.select('Select a drive', removableDrives, callback)
 
 exports.confirm = (yesOption, message, callback) ->
 	if yesOption
