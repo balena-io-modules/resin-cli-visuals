@@ -25,6 +25,8 @@ exports.selectDrive = (callback) ->
 
 		async.reject drives, drivelist.isSystem, (removableDrives) ->
 
+			return callback() if _.isEmpty(removableDrives)
+
 			removableDrives = _.map removableDrives, (item) ->
 				return {
 					name: "#{item.device} (#{item.size}) - #{item.description}"

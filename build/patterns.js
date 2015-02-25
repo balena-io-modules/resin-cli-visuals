@@ -32,6 +32,9 @@ exports.selectDrive = function(callback) {
       return callback(error);
     }
     return async.reject(drives, drivelist.isSystem, function(removableDrives) {
+      if (_.isEmpty(removableDrives)) {
+        return callback();
+      }
       removableDrives = _.map(removableDrives, function(item) {
         return {
           name: "" + item.device + " (" + item.size + ") - " + item.description,
