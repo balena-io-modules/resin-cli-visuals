@@ -53,3 +53,40 @@ exports.confirm = function(yesOption, message, callback) {
     return widgets.confirm(message, callback);
   }
 };
+
+exports.selectNetworkParameters = function(outerCallback) {
+  var result;
+  result = {};
+  return async.waterfall([
+    function(callback) {
+      return widgets.select('Select a network type', ['ethernet', 'wifi'], function(error, networkType) {
+        if (error != null) {
+          return callback(error);
+        }
+        result.network = networkType;
+        return callback();
+      });
+    }, function(callback) {
+      if (result.network !== 'wifi') {
+        return outerCallback(null, result);
+      }
+      return widgets.ask('What\'s your wifi ssid?', null, function(error, ssid) {
+        if (error != null) {
+          return callback(error);
+        }
+        result.wifiSsid = ssid;
+        return callback();
+      });
+    }, function(callback) {
+      return widgets.ask('What\'s your wifi key?', null, function(error, key) {
+        if (error != null) {
+          return callback(error);
+        }
+        result.wifiKey = key;
+        return callback();
+      });
+    }, function(callback) {
+      return callback(null, result);
+    }
+  ], outerCallback);
+};

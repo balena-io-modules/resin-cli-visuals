@@ -40,3 +40,33 @@ exports.confirm = (yesOption, message, callback) ->
 		return callback(null, true)
 	else
 		widgets.confirm(message, callback)
+
+exports.selectNetworkParameters = (outerCallback) ->
+	result = {}
+
+	async.waterfall([
+
+		(callback) ->
+			widgets.select 'Select a network type', [ 'ethernet', 'wifi' ], (error, networkType) ->
+				return callback(error) if error?
+				result.network = networkType
+				return callback()
+
+		(callback) ->
+			return outerCallback(null, result) if result.network isnt 'wifi'
+
+			widgets.ask 'What\'s your wifi ssid?', null, (error, ssid) ->
+				return callback(error) if error?
+				result.wifiSsid = ssid
+				return callback()
+
+		(callback) ->
+			widgets.ask 'What\'s your wifi key?', null, (error, key) ->
+				return callback(error) if error?
+				result.wifiKey = key
+				return callback()
+
+		(callback) ->
+			return callback(null, result)
+
+	], outerCallback)
