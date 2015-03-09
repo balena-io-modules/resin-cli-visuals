@@ -75,12 +75,13 @@ exports.confirm = (message, callback) ->
 	], (response) ->
 		return callback(null, response.confirmed)
 
-exports.ask = (question, callback) ->
+exports.ask = (question, defaultValue, callback) ->
 	inquirer.prompt [
 		{
 			type: 'input'
 			name: 'answer'
 			message: question
+			default: defaultValue
 			validate: (input) ->
 				return _.isString(input) and not _.isEmpty(input)
 		}

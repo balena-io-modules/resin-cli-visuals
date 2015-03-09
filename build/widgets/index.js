@@ -85,12 +85,13 @@ exports.confirm = function(message, callback) {
   });
 };
 
-exports.ask = function(question, callback) {
+exports.ask = function(question, defaultValue, callback) {
   return inquirer.prompt([
     {
       type: 'input',
       name: 'answer',
       message: question,
+      "default": defaultValue,
       validate: function(input) {
         return _.isString(input) && !_.isEmpty(input);
       }
