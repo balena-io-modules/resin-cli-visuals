@@ -12,8 +12,17 @@ module.exports = class Spinner
 		@spinner = new CliSpinner(@message)
 		@spinner.setSpinnerString('|/-\\')
 
+		@running = false
+
+	isRunning: ->
+		return @running
+
 	start: ->
+		return if @isRunning()
 		@spinner.start()
+		@running = true
 
 	stop: ->
+		return if not @isRunning()
 		@spinner.stop(true)
+		@running = false

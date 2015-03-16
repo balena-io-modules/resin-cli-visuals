@@ -10,14 +10,27 @@ module.exports = Spinner = (function() {
     this.message = "%s " + message;
     this.spinner = new CliSpinner(this.message);
     this.spinner.setSpinnerString('|/-\\');
+    this.running = false;
   }
 
+  Spinner.prototype.isRunning = function() {
+    return this.running;
+  };
+
   Spinner.prototype.start = function() {
-    return this.spinner.start();
+    if (this.isRunning()) {
+      return;
+    }
+    this.spinner.start();
+    return this.running = true;
   };
 
   Spinner.prototype.stop = function() {
-    return this.spinner.stop(true);
+    if (!this.isRunning()) {
+      return;
+    }
+    this.spinner.stop(true);
+    return this.running = false;
   };
 
   return Spinner;
