@@ -3,6 +3,7 @@ inquirer = require('inquirer')
 
 exports.table = require('./table')
 exports.Progress = require('./progress')
+exports.Spinner = require('./spinner')
 
 exports.register = (callback) ->
 	inquirer.prompt([
