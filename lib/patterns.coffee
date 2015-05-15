@@ -25,7 +25,8 @@ exports.selectDrive = (callback) ->
 
 		async.reject drives, drivelist.isSystem, (removableDrives) ->
 
-			return callback() if _.isEmpty(removableDrives)
+			if _.isEmpty(removableDrives)
+				return callback(new Error('No available drives'))
 
 			removableDrives = _.map removableDrives, (item) ->
 				return {
