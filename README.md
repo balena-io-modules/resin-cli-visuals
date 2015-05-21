@@ -3,6 +3,7 @@ resin-cli-visuals
 
 [![npm version](https://badge.fury.io/js/resin-cli-visuals.svg)](http://badge.fury.io/js/resin-cli-visuals)
 [![dependencies](https://david-dm.org/resin-io/resin-cli-visuals.png)](https://david-dm.org/username/repo.png)
+[![Build Status](https://travis-ci.org/resin-io/resin-cli-visuals.svg?branch=master)](https://travis-ci.org/resin-io/resin-cli-visuals)
 [![Build status](https://ci.appveyor.com/api/projects/status/h43hsooenci0wk59?svg=true)](https://ci.appveyor.com/project/jviotti/resin-cli-visuals)
 
 Collection of CLI UI widgets and patterns for the Resin CLI and it's plugins.
