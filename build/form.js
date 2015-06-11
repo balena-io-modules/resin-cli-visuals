@@ -58,6 +58,7 @@ exports.parse = function(form) {
       result["default"] = !!option.value;
     } else if (option.type === 'text') {
       result.type = 'input';
+      result["default"] = option.value;
     } else if (option.type === 'password') {
       result.type = 'password';
     } else {
