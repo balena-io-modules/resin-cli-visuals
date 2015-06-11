@@ -46,7 +46,7 @@
     "lodash": "~2.4.1",
     "lodash-contrib": "^241.4.14",
     "progress-bar-formatter": "^2.0.1",
-    "resin-sdk": "^0.0.1",
+    "resin-sdk": "^1.8.0",
     "underscore.string": "^2.4.0"
   }
 }
