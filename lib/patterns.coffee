@@ -2,7 +2,7 @@ _ = require('lodash')
 drivelist = require('drivelist')
 async = require('async')
 resin = require('resin-sdk')
-form = require('form')
+form = require('./form')
 
 ###*
 # @summary Ask for registration details

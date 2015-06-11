@@ -8,7 +8,7 @@ async = require('async');
 
 resin = require('resin-sdk');
 
-form = require('form');
+form = require('./form');
 
 
 /**
