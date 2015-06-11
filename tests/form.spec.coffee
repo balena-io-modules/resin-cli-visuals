@@ -65,6 +65,25 @@ describe 'Form:', ->
 					message: 'Wifi Key'
 				]
 
+		describe 'given a text input with a default value', ->
+
+			beforeEach ->
+				@form = [
+					label: 'Project'
+					name: 'project'
+					type: 'text'
+					value: 'MyCoolProject'
+				]
+
+			it 'should create a valid inquirer input question', ->
+				question = form.parse(@form)
+				expect(question).to.deep.equal [
+					type: 'input'
+					name: 'project'
+					message: 'Project'
+					default: 'MyCoolProject'
+				]
+
 		describe 'given a password input', ->
 
 			beforeEach ->
