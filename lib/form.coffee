@@ -34,6 +34,7 @@ exports.parse = (form) ->
 		result =
 			message: option.label
 			name: option.name
+			validate: option.validate
 
 		if not _.isEmpty(option.when)
 			result.when = (answers) ->
@@ -51,6 +52,9 @@ exports.parse = (form) ->
 		else
 			throw new Error("Unsupported option type: #{option.type}")
 
+		# Delete properties containing undefined values
+		for key, value of result
+			delete result[key] if not value?
 		return result
 
 ###*

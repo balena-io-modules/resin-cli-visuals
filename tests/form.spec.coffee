@@ -1,3 +1,4 @@
+_ = require('lodash')
 chai = require('chai')
 expect = chai.expect
 sinon = require('sinon')
@@ -78,6 +79,21 @@ describe 'Form:', ->
 				expect =>
 					form.parse(@form)
 				.to.throw('Unsupported option type: foobar')
+
+		describe 'given an input with a validate property', ->
+
+			beforeEach ->
+				@form = [
+					label: 'Coprocessor cores'
+					name: 'coprocessorCore'
+					type: 'select'
+					values: [ '16', '64' ]
+					validate: _.noop
+				]
+
+			it 'should keep the validate function', ->
+				questions = form.parse(@form)
+				expect(questions[0].validate).to.deep.equal(_.noop)
 
 		describe 'given an input with an when property', ->
 
