@@ -36,10 +36,11 @@ inquirer = require('inquirer');
 
 exports.parse = function(form) {
   return _.map(form, function(option) {
-    var result;
+    var key, result, value;
     result = {
       message: option.label,
-      name: option.name
+      name: option.name,
+      validate: option.validate
     };
     if (!_.isEmpty(option.when)) {
       result.when = function(answers) {
@@ -59,6 +60,12 @@ exports.parse = function(form) {
       result.type = 'input';
     } else {
       throw new Error("Unsupported option type: " + option.type);
+    }
+    for (key in result) {
+      value = result[key];
+      if (value == null) {
+        delete result[key];
+      }
     }
     return result;
   });
