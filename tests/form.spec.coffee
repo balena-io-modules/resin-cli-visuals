@@ -180,3 +180,66 @@ describe 'Form:', ->
 				expect(error).to.not.exist
 				expect(result).to.deep.equal(foo: 'bar')
 				done()
+
+	describe '.ask()', ->
+
+		describe 'given there is an error running the question', ->
+
+			beforeEach ->
+				@formRunStub = sinon.stub(form, 'run')
+				@formRunStub.yields(new Error('form error'))
+
+			afterEach ->
+				@formRunStub.restore()
+
+			it 'should yield the error', (done) ->
+				form.ask
+					label: 'Processor'
+					type: 'select'
+					values: [ 'Z7010', 'Z7020' ]
+				, (error, answer) ->
+					expect(error).to.be.an.instanceof(Error)
+					expect(error.message).to.equal('form error')
+					expect(answer).to.not.exist
+					done()
+
+		describe 'given there is not an error running the question', ->
+
+			describe 'given a question without a name property', ->
+
+				beforeEach ->
+					@formRunStub = sinon.stub(form, 'run')
+					@formRunStub.yields(null, question: 'Z7010')
+
+				afterEach ->
+					@formRunStub.restore()
+
+				it 'should give the answer back', (done) ->
+					form.ask
+						label: 'Processor'
+						type: 'select'
+						values: [ 'Z7010', 'Z7020' ]
+					, (error, answer) ->
+						expect(error).to.not.exist
+						expect(answer).to.equal('Z7010')
+						done()
+
+			describe 'given a question with a name property', ->
+
+				beforeEach ->
+					@formRunStub = sinon.stub(form, 'run')
+					@formRunStub.yields(null, processorType: 'Z7010')
+
+				afterEach ->
+					@formRunStub.restore()
+
+				it 'should give the answer back', (done) ->
+					form.ask
+						label: 'Processor'
+						type: 'select'
+						name: 'processorType'
+						values: [ 'Z7010', 'Z7020' ]
+					, (error, answer) ->
+						expect(error).to.not.exist
+						expect(answer).to.equal('Z7010')
+						done()

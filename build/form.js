@@ -97,3 +97,34 @@ exports.parse = function(form) {
 exports.run = function(form, callback) {
   return inquirer.prompt(exports.parse(form), _.partial(callback, null));
 };
+
+
+/**
+ * @summary Run a single form question
+ * @function
+ * @public
+ *
+ * @param {Object} question - form question
+ * @param {Function} callback - callback (error, answer)
+ *
+ * @example
+ * visuals.form.ask
+ *		label: 'Processor'
+ *		type: 'select'
+ *		values: [ 'Z7010', 'Z7020' ]
+ * , (error, answer) ->
+ *		throw error if error?
+ *		console.log(answer)
+ */
+
+exports.ask = function(question, callback) {
+  if (question.name == null) {
+    question.name = 'question';
+  }
+  return exports.run([question], function(error, answers) {
+    if (error != null) {
+      return callback(error);
+    }
+    return callback(null, answers[question.name]);
+  });
+};
