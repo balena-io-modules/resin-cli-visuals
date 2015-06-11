@@ -2,80 +2,165 @@ _ = require('lodash')
 drivelist = require('drivelist')
 async = require('async')
 resin = require('resin-sdk')
-inquirer = require('inquirer')
+form = require('form')
 
+###*
+# @summary Ask for registration details
+# @function
+# @public
+#
+# @param {Function} callback - callback (error, answers)
+#
+# @example
+# visuals.patterns.register (error, answers) ->
+#		throw error if error?
+#
+#		console.log(answers.email)
+#		console.log(answers.username)
+#		console.log(answers.password)
+###
 exports.register = (callback) ->
-	inquirer.prompt([
-		{
-			type: 'input'
-			name: 'email'
-			message: 'Email'
-		}
-		{
-			type: 'input'
-			name: 'username'
-			message: 'Username'
-		}
-		{
-			type: 'password'
-			name: 'password'
-			message: 'Password'
-			validate: (input) ->
-				if input.length < 8
-					return 'Password should be 8 characters long'
+	form.run([
+		label: 'Email'
+		name: 'email'
+		type: 'text'
+	,
+		label: 'Username'
+		name: 'username'
+		type: 'text'
+	,
+		label: 'Password'
+		name: 'password'
+		type: 'password'
+		validate: (input) ->
+			if input.length < 8
+				return 'Password should be 8 characters long'
 
-				return true
-		}
-	], _.partial(callback, null))
+			return true
+	], callback)
 
+###*
+# @summary Ask for login credentials
+# @function
+# @public
+#
+# @param {Function} callback - callback (error, answers)
+#
+# @example
+# visuals.patterns.login (error, answers) ->
+#		throw error if error?
+#
+#		console.log(answers.username)
+#		console.log(answers.password)
+###
 exports.login = (callback) ->
-	inquirer.prompt([
-		{
-			type: 'input'
-			name: 'username'
-			message: 'Username'
-		}
-		{
-			type: 'password'
-			name: 'password'
-			message: 'Password'
-		}
-	], _.partial(callback, null))
+	form.run([
+		label: 'Username'
+		name: 'username'
+		type: 'text'
+	,
+		label: 'Password'
+		name: 'password'
+		type: 'password'
+		validate: (input) ->
+			if input.length < 8
+				return 'Password should be 8 characters long'
 
-exports.remove = (name, confirmAttribute, deleteFunction, outerCallback) ->
+			return true
+	], callback)
+
+###*
+# @summary Ask for login token
+# @function
+# @public
+#
+# @param {Function} callback - callback (error, token)
+#
+# @example
+# visuals.patterns.loginWithToken (error, token) ->
+#		throw error if error?
+#
+#		console.log(token)
+###
+exports.loginWithToken = (callback) ->
+	form.ask
+		label: 'What\'s your token? (visible in the preferences page)'
+		name: 'token'
+		type: 'text'
+	, callback
+
+###*
+# @summary Prompt for confirmation
+# @function
+# @public
+#
+# @param {Boolean} yesOption - will prompt interactively if false
+# @param {String} message - confirmation message
+# @param {Function} callback - callback (error, answer)
+#
+# @example
+# visuals.patterns.confirm false, 'Are you sure?', (error, answer) ->
+#		throw error if error?
+#
+#		if answer
+#			console.log('Yes, sure!')
+#		else
+#			console.log('You don\'t look so convinced!')
+###
+exports.confirm = (yesOption, message, callback) ->
+	if yesOption
+		return callback(null, true)
+	else
+		form.ask
+			label: message
+			type: 'checkbox'
+			name: 'confirm'
+			value: false
+		, callback
+
+###*
+# @summary Prompt for removal
+# @function
+# @public
+#
+# @param {String} name - resource name to remove
+# @param {Boolean} confirmAttribute - confirm attribute
+# @param {Function} deleteFunction - the function to perform the deletion (callback)
+# @param {Function} callback - callback (error)
+#
+# @example
+# visuals.patterns.remove 'application', false, (callback) ->
+#		console.log('Removing application')
+#		return callback()
+#	, (error) ->
+#		throw error if error?
+#		console.log('The application was removed')
+###
+exports.remove = (name, confirmAttribute, deleteFunction, callback) ->
 	async.waterfall([
 
 		(callback) ->
-			if confirmAttribute
-				return callback(null, true)
-
-			inquirer.prompt [
-				{
-					type: 'confirm'
-					name: 'confirmed'
-					message: "Are you sure you want to delete the #{name}?"
-					default: false
-				}
-			], (response) ->
-				return callback(null, response.confirmed)
+			exports.confirm(confirmAttribute, "Are you sure you want to delete the #{name}?", callback)
 
 		(confirmed, callback) ->
 			return callback() if not confirmed
 			deleteFunction(callback)
 
-	], outerCallback)
+	], callback)
 
-select = (message, list, callback) ->
-	inquirer.prompt [
-		{
-			type: 'list'
-			name: 'option'
-			message: message or 'Select an option'
-			choices: list
-		}
-	], (response) ->
-		return callback(null, response.option)
-
+###*
+# @summary Ask for a drive
+# @function
+# @public
+#
+# @param {Function} callback - callback (error, drive)
+#
+# @example
+# visuals.patterns.selectDrive (error, drive) ->
+#		throw error if error?
+#
+#		console.log(drive)
+###
 exports.selectDrive = (callback) ->
 	drivelist.list (error, drives) ->
 		return callback(error) if error?
@@ -85,74 +170,74 @@ exports.selectDrive = (callback) ->
 			if _.isEmpty(removableDrives)
 				return callback(new Error('No available drives'))
 
-			removableDrives = _.map removableDrives, (item) ->
-				return {
-					name: "#{item.device} (#{item.size}) - #{item.description}"
-					value: item.device
-				}
+			form.ask
+				label: 'Drive'
+				name: 'drive'
+				type: 'select'
+				values: _.map removableDrives, (item) ->
+					return {
+						name: "#{item.device} (#{item.size}) - #{item.description}"
+						value: item.device
+					}
+			, callback
 
-			select('Select a drive', removableDrives, callback)
+###*
+# @summary Ask for network parameters
+# @function
+# @public
+#
+# @param {Function} callback - callback (error, answers)
+#
+# @example
+# visuals.patterns.selectNetworkParameters (error, answers) ->
+#		throw error if error?
+#
+#		console.log(answers.network)
+#
+#		if answers.network is 'wifi'
+#			console.log(answers.wifiSsid)
+#			console.log(answers.wifiKey)
+###
+exports.selectNetworkParameters = (callback) ->
+	form.run([
+		label: 'Network Type'
+		name: 'network'
+		type: 'select'
+		values: [ 'ethernet', 'wifi' ]
+	,
+		label: 'Wifi Ssid'
+		name: 'wifiSsid'
+		type: 'text'
+		when:
+			network: 'wifi'
+	,
+		label: 'Wifi Key'
+		name: 'wifiKey'
+		type: 'text'
+		when:
+			network: 'wifi'
+	], callback)
 
-exports.confirm = (yesOption, message, callback) ->
-	if yesOption
-		return callback(null, true)
-	else
-		inquirer.prompt [
-			{
-				type: 'confirm'
-				name: 'confirmed'
-				message: message
-				default: false
-			}
-		], (response) ->
-			return callback(null, response.confirmed)
-
-ask = (message, callback) ->
-	inquirer.prompt [
-		{
-			type: 'input'
-			name: 'answer'
-			message: message
-			validate: (input) ->
-				return _.isString(input) and not _.isEmpty(input)
-		}
-	], (response) ->
-		return callback(null, response.answer)
-
-exports.selectNetworkParameters = (outerCallback) ->
-	result = {}
-
-	async.waterfall([
-
-		(callback) ->
-			select 'Select a network type', [ 'ethernet', 'wifi' ], (error, networkType) ->
-				return callback(error) if error?
-				result.network = networkType
-				return callback()
-
-		(callback) ->
-			return outerCallback(null, result) if result.network isnt 'wifi'
-
-			ask 'What\'s your wifi ssid?', (error, ssid) ->
-				return callback(error) if error?
-				result.wifiSsid = ssid
-				return callback()
-
-		(callback) ->
-			ask 'What\'s your wifi key?', (error, key) ->
-				return callback(error) if error?
-				result.wifiKey = key
-				return callback()
-
-		(callback) ->
-			return callback(null, result)
-
-	], outerCallback)
-
+###*
+# @summary Ask for a device type
+# @function
+# @public
+#
+# @param {Function} callback - callback (error, deviceType)
+#
+# @example
+# visuals.patterns.selectDeviceType (error, deviceType) ->
+#		throw error if error?
+#
+#		console.log(deviceType)
+###
 exports.selectDeviceType = (callback) ->
 	resin.models.device.getSupportedDeviceTypes (error, deviceTypes) ->
 		return callback(error) if error?
-		select('Select a type', deviceTypes, callback)
 
-exports.loginWithToken = (callback) ->
-	ask('What\'s your token? (visible in the preferences page)', callback)
+		form.ask
+			label: 'Device Type'
+			name: 'deviceType'
+			type: 'select'
+			values: deviceTypes
+		, callback
