@@ -83,3 +83,26 @@ exports.parse = (form) ->
 ###
 exports.run = (form, callback) ->
 	inquirer.prompt(exports.parse(form), _.partial(callback, null))
+
+###*
+# @summary Run a single form question
+# @function
+# @public
+#
+# @param {Object} question - form question
+# @param {Function} callback - callback (error, answer)
+#
+# @example
+# visuals.form.ask
+#		label: 'Processor'
+#		type: 'select'
+#		values: [ 'Z7010', 'Z7020' ]
+# , (error, answer) ->
+#		throw error if error?
+#		console.log(answer)
+###
+exports.ask = (question, callback) ->
+	question.name ?= 'question'
+	exports.run [ question ], (error, answers) ->
+		return callback(error) if error?
+		return callback(null, answers[question.name])
