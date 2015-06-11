@@ -49,6 +49,8 @@ exports.parse = (form) ->
 			result.default = !!option.value
 		else if option.type is 'text'
 			result.type = 'input'
+		else if option.type is 'password'
+			result.type = 'password'
 		else
 			throw new Error("Unsupported option type: #{option.type}")
 

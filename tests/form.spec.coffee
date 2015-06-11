@@ -65,6 +65,23 @@ describe 'Form:', ->
 					message: 'Wifi Key'
 				]
 
+		describe 'given a password input', ->
+
+			beforeEach ->
+				@form = [
+					label: 'Password'
+					name: 'password'
+					type: 'password'
+				]
+
+			it 'should create a valid inquirer password question', ->
+				question = form.parse(@form)
+				expect(question).to.deep.equal [
+					type: 'password'
+					name: 'password'
+					message: 'Password'
+				]
+
 		describe 'given an unknown input', ->
 
 			beforeEach ->
