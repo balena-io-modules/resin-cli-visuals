@@ -1,8 +1,12 @@
-var CARRIAGE_RETURN, Progress, ProgressBarFormatter, _;
+var CARRIAGE_RETURN, Progress, ProgressBarFormatter, moment, _;
 
 _ = require('lodash');
 
 _.str = require('underscore.string');
+
+moment = require('moment');
+
+require('moment-duration-format');
 
 ProgressBarFormatter = require('progress-bar-formatter');
 
@@ -18,7 +22,7 @@ module.exports = Progress = (function() {
       incomplete: ' ',
       length: size
     });
-    this.format = "" + message + " [<%= bar %>] <%= percentage %>% eta <%= eta %>s";
+    this.format = "" + message + " [<%= bar %>] <%= percentage %>% eta <%= eta %>";
   }
 
   Progress.prototype.tick = function(state) {
@@ -31,7 +35,7 @@ module.exports = Progress = (function() {
     this.lastLine = _.template(this.format, {
       bar: this.bar.format(state.percentage / 100),
       percentage: Math.floor(state.percentage),
-      eta: state.eta
+      eta: moment.duration(state.eta, 'seconds').format('m[m]ss[s]')
     });
     return this.lastLine;
   };
