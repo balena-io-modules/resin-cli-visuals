@@ -1,5 +1,7 @@
 _ = require('lodash')
 _.str = require('underscore.string')
+moment = require('moment')
+require('moment-duration-format')
 ProgressBarFormatter = require('progress-bar-formatter')
 
 CARRIAGE_RETURN = '\u001b[1A'
@@ -15,7 +17,7 @@ module.exports = class Progress
 			incomplete: ' '
 			length: size
 
-		@format = "#{message} [<%= bar %>] <%= percentage %>% eta <%= eta %>s"
+		@format = "#{message} [<%= bar %>] <%= percentage %>% eta <%= eta %>"
 
 	tick: (state) ->
 
@@ -28,7 +30,7 @@ module.exports = class Progress
 		@lastLine = _.template @format,
 			bar: @bar.format(state.percentage / 100)
 			percentage: Math.floor(state.percentage)
-			eta: state.eta
+			eta: moment.duration(state.eta, 'seconds').format('m[m]ss[s]')
 
 		return @lastLine
 
