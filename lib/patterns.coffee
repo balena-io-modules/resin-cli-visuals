@@ -213,7 +213,7 @@ exports.selectNetworkParameters = (callback) ->
 	,
 		label: 'Wifi Key'
 		name: 'wifiKey'
-		type: 'text'
+		type: 'password'
 		when:
 			network: 'wifi'
 	], callback)
