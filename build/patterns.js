@@ -1,4 +1,4 @@
-var async, drivelist, form, resin, _;
+var async, drivelist, form, prompt, resin, _;
 
 _ = require('lodash');
 
@@ -9,6 +9,8 @@ async = require('async');
 resin = require('resin-sdk');
 
 form = require('./form');
+
+prompt = require('prompt');
 
 
 /**
@@ -103,11 +105,26 @@ exports.login = function(callback) {
  */
 
 exports.loginWithToken = function(callback) {
-  return form.ask({
-    label: 'What\'s your token? (visible in the preferences page)',
-    name: 'token',
-    type: 'text'
-  }, callback);
+
+  /*
+  	 * Use of prompt package instead of inquirer in order to
+  	 * address bug declared in https://github.com/resin-io/resin-cli/issues/11, which results in
+  	 * repeated output of token when it is given as an input to the command-line through copy & paste.
+   */
+  prompt.message = '?'.green;
+  prompt.delimiter = ' ';
+  prompt.start();
+  return prompt.get([
+    {
+      name: 'token',
+      message: 'What\'s your token? (visible in the preferences page)'.bold.white
+    }
+  ], function(err, result) {
+    if (err != null) {
+      return callback(err);
+    }
+    return callback(null, result.token);
+  });
 };
 
 
