@@ -3,6 +3,7 @@ drivelist = require('drivelist')
 async = require('async')
 resin = require('resin-sdk')
 form = require('./form')
+prompt = require('prompt')
 
 ###*
 # @summary Ask for registration details
@@ -83,11 +84,21 @@ exports.login = (callback) ->
 #		console.log(token)
 ###
 exports.loginWithToken = (callback) ->
-	form.ask
-		label: 'What\'s your token? (visible in the preferences page)'
+
+	###
+	# Use of prompt package instead of inquirer in order to
+	# address bug declared in https://github.com/resin-io/resin-cli/issues/11, which results in
+	# repeated output of token when it is given as an input to the command-line through copy & paste.
+	###
+	prompt.message = '?'.green
+	prompt.delimiter = ' '
+	prompt.start()
+	prompt.get [
 		name: 'token'
-		type: 'text'
-	, callback
+		message: 'What\'s your token? (visible in the preferences page)'.bold.white
+	], (err, result) ->
+		return callback(err) if err?
+		return callback(null, result.token)
 
 ###*
 # @summary Prompt for confirmation
