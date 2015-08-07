@@ -29,5 +29,6 @@ THE SOFTWARE.
 module.exports = {
   Progress: require('./widgets/progress'),
   Spinner: require('./widgets/spinner'),
-  table: require('./widgets/table')
+  table: require('./widgets/table'),
+  drive: require('./widgets/drive')
 };
