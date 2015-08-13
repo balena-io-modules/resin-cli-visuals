@@ -22,12 +22,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ###
 
-###*
-# @namespace visuals
-###
+_ = require('lodash')
+async = require('async')
+Promise = require('bluebird')
+drivelist = Promise.promisifyAll(require('drivelist'))
+form = require('resin-cli-form')
 
-module.exports =
-	Progress: require('./widgets/progress')
-	Spinner: require('./widgets/spinner')
-	table: require('./widgets/table')
-	drive: require('./widgets/drive')
+getDrives = ->
+	drivelist.listAsync().then (drives) ->
+		Promise.fromNode (callback) ->
+			async.reject drives, drivelist.isSystem, (results) ->
+				return callback(null, results)
+
+###*
+# @summary Prompt the user to select a drive device
+# @name visuals.drive
+# @function
+# @public
+# @memberof visuals
+#
+# @description
+# Currently, this function only checks the drive list once. In the future, the dropdown will detect and autorefresh itself when the drive list changes.
+#
+# @returns {Promise<String>} device path
+#
+# @example
+# visuals.drive().then (drive) ->
+# 	console.log(drive)
+###
+module.exports = ->
+	getDrives().then (drives) ->
+
+		if _.isEmpty(drives)
+			throw new Error('No available drives')
+
+		form.ask
+			type: 'list'
+			name: 'drive'
+			message: 'Select a drive'
+			choices: _.map drives, (drive) ->
+				return {
+					name: "#{drive.device} (#{drive.size}) - #{drive.description}"
+					value: drive.device
+				}
