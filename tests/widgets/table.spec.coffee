@@ -21,7 +21,7 @@ describe 'Table:', ->
 			], [ 'job', 'age', 'name' ]
 
 			m.chai.expect(output).to.equal [
-				'JOB       AGE NAME    '
+				'JOB       AGE NAME'
 				'Developer 40  John Doe'
 				'Designer  30  Jane Doe'
 			].join('\n')
@@ -38,11 +38,11 @@ describe 'Table:', ->
 			], [ 'name', 'age', 'job' ]
 
 			m.chai.expect(output).to.equal [
-				'NAME     AGE JOB      '
+				'NAME     AGE JOB'
 				'John Doe 40  Developer'
-				'             Musician '
-				'Jane Doe 30  Designer '
-				'             Actress  '
+				'             Musician'
+				'Jane Doe 30  Designer'
+				'             Actress'
 			].join('\n')
 
 		it 'should remove underscores from titles', ->
@@ -56,8 +56,8 @@ describe 'Table:', ->
 
 			m.chai.expect(output).to.equal [
 				'FIRST NAME LAST NAME'
-				'John       Doe      '
-				'Jane       Doe      '
+				'John       Doe'
+				'Jane       Doe'
 			].join('\n')
 
 		it 'should handle camel case titles', ->
@@ -71,8 +71,8 @@ describe 'Table:', ->
 
 			m.chai.expect(output).to.equal [
 				'FIRST NAME LAST NAME'
-				'John       Doe      '
-				'Jane       Doe      '
+				'John       Doe'
+				'Jane       Doe'
 			].join('\n')
 
 		it 'should print all data if no ordering', ->
@@ -87,9 +87,9 @@ describe 'Table:', ->
 			]
 
 			m.chai.expect(output).to.equal [
-				'NAME     AGE JOB      '
+				'NAME     AGE JOB'
 				'John Doe 40  Developer'
-				'Jane Doe 30  Designer '
+				'Jane Doe 30  Designer'
 			].join('\n')
 
 		it 'should be able to dynamically rename columns', ->
@@ -109,8 +109,8 @@ describe 'Table:', ->
 
 			m.chai.expect(output).to.equal [
 				'THE NAME HOW OLD? LIFE REASON'
-				'John Doe 40       Developer  '
-				'Jane Doe 30       Designer   '
+				'John Doe 40       Developer'
+				'Jane Doe 30       Designer'
 			].join('\n')
 
 	describe '.vertical()', ->
@@ -123,8 +123,8 @@ describe 'Table:', ->
 			, [ 'name', 'age', 'job' ]
 
 			m.chai.expect(output).to.equal [
-				'NAME: John Doe '
-				'AGE:  40       '
+				'NAME: John Doe'
+				'AGE:  40'
 				'JOB:  Developer'
 			].join('\n')
 
@@ -136,9 +136,9 @@ describe 'Table:', ->
 			, [ 'age', 'job', 'name' ]
 
 			m.chai.expect(output).to.equal [
-				'AGE:  40       '
+				'AGE:  40'
 				'JOB:  Developer'
-				'NAME: John Doe '
+				'NAME: John Doe'
 			].join('\n')
 
 		it 'should preserve new lines', ->
@@ -149,10 +149,10 @@ describe 'Table:', ->
 			, [ 'name', 'age', 'job' ]
 
 			m.chai.expect(output).to.equal [
-				'NAME: John Doe '
-				'AGE:  40       '
+				'NAME: John Doe'
+				'AGE:  40'
 				'JOB:  Developer'
-				'      Musician '
+				'      Musician'
 			].join('\n')
 
 		it 'should remove underscores from titles', ->
@@ -163,7 +163,7 @@ describe 'Table:', ->
 
 			m.chai.expect(output).to.equal [
 				'FIRST NAME: John'
-				'LAST NAME:  Doe '
+				'LAST NAME:  Doe'
 			].join('\n')
 
 		it 'should handle camel case titles', ->
@@ -174,7 +174,7 @@ describe 'Table:', ->
 
 			m.chai.expect(output).to.equal [
 				'FIRST NAME: John'
-				'LAST NAME:  Doe '
+				'LAST NAME:  Doe'
 			].join('\n')
 
 		it 'should print all data if no ordering', ->
@@ -184,8 +184,8 @@ describe 'Table:', ->
 				job: 'Developer'
 
 			m.chai.expect(output).to.equal [
-				'NAME: John Doe '
-				'AGE:  40       '
+				'NAME: John Doe'
+				'AGE:  40'
 				'JOB:  Developer'
 			].join('\n')
 
@@ -201,8 +201,8 @@ describe 'Table:', ->
 			]
 
 			m.chai.expect(output).to.equal [
-				'THE NAME:    John Doe '
-				'HOW OLD?:    40       '
+				'THE NAME:    John Doe'
+				'HOW OLD?:    40'
 				'LIFE REASON: Developer'
 			].join('\n')
 
@@ -221,11 +221,11 @@ describe 'Table:', ->
 			]
 
 			m.chai.expect(output).to.equal [
-				'NAME:  John Doe '
-				'AGE:   40       '
-				'                '
+				'NAME:  John Doe'
+				'AGE:   40'
+				''
 				'JOB:   Developer'
-				'HOBBY: Musician '
+				'HOBBY: Musician'
 			].join('\n')
 
 		it 'should support separators as null', ->
@@ -243,11 +243,11 @@ describe 'Table:', ->
 			]
 
 			m.chai.expect(output).to.equal [
-				'NAME:  John Doe '
-				'AGE:   40       '
-				'                '
+				'NAME:  John Doe'
+				'AGE:   40'
+				''
 				'JOB:   Developer'
-				'HOBBY: Musician '
+				'HOBBY: Musician'
 			].join('\n')
 
 		it 'should support separators as blank strings', ->
@@ -265,11 +265,11 @@ describe 'Table:', ->
 			]
 
 			m.chai.expect(output).to.equal [
-				'NAME:  John Doe '
-				'AGE:   40       '
-				'                '
+				'NAME:  John Doe'
+				'AGE:   40'
+				''
 				'JOB:   Developer'
-				'HOBBY: Musician '
+				'HOBBY: Musician'
 			].join('\n')
 
 		it 'should support multiple separators', ->
@@ -289,13 +289,13 @@ describe 'Table:', ->
 			]
 
 			m.chai.expect(output).to.equal [
-				'NAME:  John Doe '
-				'                '
-				'AGE:   40       '
-				'                '
+				'NAME:  John Doe'
+				''
+				'AGE:   40'
+				''
 				'JOB:   Developer'
-				'                '
-				'HOBBY: Musician '
+				''
+				'HOBBY: Musician'
 			].join('\n')
 
 		it 'should support group subtitles', ->
@@ -315,13 +315,13 @@ describe 'Table:', ->
 			]
 
 			m.chai.expect(output).to.equal [
-				'== SUMMARY      '
-				'NAME:  John Doe '
-				'AGE:   40       '
-				'                '
-				'== EXTRAS       '
+				'== SUMMARY'
+				'NAME:  John Doe'
+				'AGE:   40'
+				''
+				'== EXTRAS'
 				'JOB:   Developer'
-				'HOBBY: Musician '
+				'HOBBY: Musician'
 			].join('\n')
 
 		it 'should support multi word group subtitles', ->
@@ -338,5 +338,5 @@ describe 'Table:', ->
 			m.chai.expect(output).to.equal [
 				'== PERSON SHORT SUMMARY'
 				'NAME: John Doe'
-				'AGE:  40      '
+				'AGE:  40'
 			].join('\n')

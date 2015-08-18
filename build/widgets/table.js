@@ -22,7 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
-var _, applySubtitles, columnify, getAlias, normalizeSubtitle, normalizeTitle, parseOrdering;
+var _, applySubtitles, columnify, getAlias, normalizeSubtitle, normalizeTitle, parseOrdering, trimRight;
 
 _ = require('lodash');
 
@@ -91,6 +91,15 @@ applySubtitles = function(table, ordering) {
   return titleizedTable.join('\n');
 };
 
+trimRight = function(table) {
+  var splitTable;
+  splitTable = _.str.lines(table);
+  splitTable = _.map(splitTable, function(row) {
+    return _.str.rtrim(row);
+  });
+  return splitTable.join('\n');
+};
+
 
 /**
  * @summary Make an horizontal table
@@ -123,13 +132,13 @@ exports.horizontal = function(data, ordering) {
     return;
   }
   ordering = parseOrdering(ordering, data);
-  return columnify(data, {
+  return trimRight(columnify(data, {
     columns: _.pluck(ordering, 'name'),
     preserveNewLines: true,
     headingTransform: function(heading) {
       return normalizeTitle(getAlias(ordering, heading) || heading);
     }
-  });
+  }));
 };
 
 
@@ -200,5 +209,5 @@ exports.vertical = function(data, ordering) {
     columns: ['property', 'value'],
     preserveNewLines: true
   });
-  return applySubtitles(table, ordering);
+  return trimRight(applySubtitles(table, ordering));
 };

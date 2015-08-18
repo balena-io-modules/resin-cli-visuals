@@ -77,6 +77,12 @@ applySubtitles = (table, ordering) ->
 
 	return titleizedTable.join('\n')
 
+trimRight = (table) ->
+	splitTable = _.str.lines(table)
+	splitTable = _.map splitTable, (row) ->
+		return _.str.rtrim(row)
+	return splitTable.join('\n')
+
 ###*
 # @summary Make an horizontal table
 # @name visuals.table.horizontal
@@ -107,7 +113,7 @@ exports.horizontal = (data, ordering) ->
 
 	ordering = parseOrdering(ordering, data)
 
-	return columnify data,
+	return trimRight columnify data,
 		columns: _.pluck(ordering, 'name')
 		preserveNewLines: true
 		headingTransform: (heading) ->
@@ -186,4 +192,4 @@ exports.vertical = (data, ordering) ->
 		columns: [ 'property', 'value' ]
 		preserveNewLines: true
 
-	return applySubtitles(table, ordering)
+	return trimRight(applySubtitles(table, ordering))
