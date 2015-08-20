@@ -44,13 +44,14 @@ getDrives = ->
 # @description
 # Currently, this function only checks the drive list once. In the future, the dropdown will detect and autorefresh itself when the drive list changes.
 #
+# @param {String} [message='Select a drive'] - message
 # @returns {Promise<String>} device path
 #
 # @example
-# visuals.drive().then (drive) ->
+# visuals.drive('Please select a drive').then (drive) ->
 # 	console.log(drive)
 ###
-module.exports = ->
+module.exports = (message = 'Select a drive') ->
 	getDrives().then (drives) ->
 
 		if _.isEmpty(drives)
@@ -59,7 +60,7 @@ module.exports = ->
 		form.ask
 			type: 'list'
 			name: 'drive'
-			message: 'Select a drive'
+			message: message
 			choices: _.map drives, (drive) ->
 				return {
 					name: "#{drive.device} (#{drive.size}) - #{drive.description}"

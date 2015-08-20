@@ -40,7 +40,7 @@ Documentation
   * [.table](#visuals.table) : <code>object</code>
     * [.horizontal(data, ordering)](#visuals.table.horizontal)
     * [.vertical(data, ordering)](#visuals.table.vertical)
-  * [.drive()](#visuals.drive) ⇒ <code>Promise.&lt;String&gt;</code>
+  * [.drive([message])](#visuals.drive) ⇒ <code>Promise.&lt;String&gt;</code>
 
 <a name="visuals.Progress"></a>
 ### visuals.Progress
@@ -205,16 +205,21 @@ AGE:       40
 JOB:       Developer
 ```
 <a name="visuals.drive"></a>
-### visuals.drive() ⇒ <code>Promise.&lt;String&gt;</code>
+### visuals.drive([message]) ⇒ <code>Promise.&lt;String&gt;</code>
 Currently, this function only checks the drive list once. In the future, the dropdown will detect and autorefresh itself when the drive list changes.
 
 **Kind**: static method of <code>[visuals](#visuals)</code>  
 **Summary**: Prompt the user to select a drive device  
 **Returns**: <code>Promise.&lt;String&gt;</code> - device path  
 **Access:** public  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [message] | <code>String</code> | <code>&#x27;Select a drive&#x27;</code> | message |
+
 **Example**  
 ```js
-visuals.drive().then (drive) ->
+visuals.drive('Please select a drive').then (drive) ->
 	console.log(drive)
 ```
 

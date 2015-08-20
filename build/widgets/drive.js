@@ -55,14 +55,18 @@ getDrives = function() {
  * @description
  * Currently, this function only checks the drive list once. In the future, the dropdown will detect and autorefresh itself when the drive list changes.
  *
+ * @param {String} [message='Select a drive'] - message
  * @returns {Promise<String>} device path
  *
  * @example
- * visuals.drive().then (drive) ->
+ * visuals.drive('Please select a drive').then (drive) ->
  * 	console.log(drive)
  */
 
-module.exports = function() {
+module.exports = function(message) {
+  if (message == null) {
+    message = 'Select a drive';
+  }
   return getDrives().then(function(drives) {
     if (_.isEmpty(drives)) {
       throw new Error('No available drives');
@@ -70,7 +74,7 @@ module.exports = function() {
     return form.ask({
       type: 'list',
       name: 'drive',
-      message: 'Select a drive',
+      message: message,
       choices: _.map(drives, function(drive) {
         return {
           name: drive.device + " (" + drive.size + ") - " + drive.description,
