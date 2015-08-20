@@ -208,6 +208,8 @@ JOB:       Developer
 ### visuals.drive([message]) ⇒ <code>Promise.&lt;String&gt;</code>
 Currently, this function only checks the drive list once. In the future, the dropdown will detect and autorefresh itself when the drive list changes.
 
+This widget automatically prompts for confirmation, and rejects with an error message if not confirmed.
+
 **Kind**: static method of <code>[visuals](#visuals)</code>  
 **Summary**: Prompt the user to select a drive device  
 **Returns**: <code>Promise.&lt;String&gt;</code> - device path  
