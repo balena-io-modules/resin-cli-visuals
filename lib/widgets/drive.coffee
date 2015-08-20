@@ -44,6 +44,8 @@ getDrives = ->
 # @description
 # Currently, this function only checks the drive list once. In the future, the dropdown will detect and autorefresh itself when the drive list changes.
 #
+# This widget automatically prompts for confirmation, and rejects with an error message if not confirmed.
+#
 # @param {String} [message='Select a drive'] - message
 # @returns {Promise<String>} device path
 #
@@ -66,3 +68,12 @@ module.exports = (message = 'Select a drive') ->
 					name: "#{drive.device} (#{drive.size}) - #{drive.description}"
 					value: drive.device
 				}
+
+	.then (drive) ->
+		form.ask
+			type: 'confirm'
+			default: false
+			message: "This will completely erase #{drive}. Are you sure you want to continue?"
+		.tap (confirmation) ->
+			throw new Error('Aborted') if not confirmation
+		.return(drive)
