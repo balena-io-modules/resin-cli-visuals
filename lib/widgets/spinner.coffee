@@ -55,6 +55,8 @@ module.exports = class Spinner
 		@spinner.setSpinnerString('|/-\\')
 		@spinner.setSpinnerDelay(60)
 
+		@started = false
+
 	###*
 	# @summary Start the spinner
 	# @name visuals.Spinner#start
@@ -66,7 +68,9 @@ module.exports = class Spinner
 	# spinner.start()
 	###
 	start: ->
+		return if @started
 		@spinner.start()
+		@started = true
 
 	###*
 	# @summary Stop the spinner
@@ -79,4 +83,6 @@ module.exports = class Spinner
 	# spinner.stop()
 	###
 	stop: ->
+		return if not @started
 		@spinner.stop(true)
+		@started = false
