@@ -54,6 +54,7 @@ module.exports = Spinner = (function() {
     this.spinner = new CliSpinner("%s " + message);
     this.spinner.setSpinnerString('|/-\\');
     this.spinner.setSpinnerDelay(60);
+    this.started = false;
   }
 
 
@@ -69,7 +70,11 @@ module.exports = Spinner = (function() {
    */
 
   Spinner.prototype.start = function() {
-    return this.spinner.start();
+    if (this.started) {
+      return;
+    }
+    this.spinner.start();
+    return this.started = true;
   };
 
 
@@ -85,7 +90,11 @@ module.exports = Spinner = (function() {
    */
 
   Spinner.prototype.stop = function() {
-    return this.spinner.stop(true);
+    if (!this.started) {
+      return;
+    }
+    this.spinner.stop(true);
+    return this.started = false;
   };
 
   return Spinner;
