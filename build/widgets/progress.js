@@ -92,13 +92,10 @@ module.exports = Progress = (function() {
     if (state.percentage == null) {
       throw new Error('Missing percentage');
     }
-    if (state.eta == null) {
-      throw new Error('Missing eta');
-    }
     data = {
       bar: this._bar.format(state.percentage / 100),
       percentage: Math.floor(state.percentage),
-      eta: moment.duration(state.eta, 'seconds').format('m[m]ss[s]')
+      eta: moment.duration(state.eta || 0, 'seconds').format('m[m]ss[s]')
     };
     this._lastLine = _.template(this._format)(data);
     return this._lastLine;

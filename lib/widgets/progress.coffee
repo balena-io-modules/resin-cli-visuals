@@ -86,13 +86,10 @@ module.exports = class Progress
 		if not state.percentage?
 			throw new Error('Missing percentage')
 
-		if not state.eta?
-			throw new Error('Missing eta')
-
 		data =
 			bar: @_bar.format(state.percentage / 100)
 			percentage: Math.floor(state.percentage)
-			eta: moment.duration(state.eta, 'seconds').format('m[m]ss[s]')
+			eta: moment.duration(state.eta or 0, 'seconds').format('m[m]ss[s]')
 
 		@_lastLine = _.template(@_format)(data)
 
