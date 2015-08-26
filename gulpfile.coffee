@@ -4,6 +4,7 @@ mocha = require('gulp-mocha')
 gutil = require('gulp-util')
 coffeelint = require('gulp-coffeelint')
 coffee = require('gulp-coffee')
+sequence = require('gulp-sequence')
 
 OPTIONS =
 	config:
@@ -31,11 +32,7 @@ gulp.task 'lint', ->
 		}))
 		.pipe(coffeelint.reporter())
 
-gulp.task 'build', [
-	'lint'
-	'test'
-	'coffee'
-]
+gulp.task('build', sequence('lint', 'test', 'coffee'))
 
 gulp.task 'watch', [ 'build' ], ->
 	gulp.watch([ OPTIONS.files.coffee ], [ 'build' ])
