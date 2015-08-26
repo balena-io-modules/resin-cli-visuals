@@ -36,10 +36,12 @@ describe 'Progress:', ->
 						@progress.update(eta: 300)
 					.to.throw('Missing percentage')
 
-				it 'should throw if no eta', ->
-					m.chai.expect =>
-						@progress.update(percentage: 50)
-					.to.throw('Missing eta')
+				it 'should assume 0 if no eta', ->
+					m.chai.expect(@stdout.data).to.equal('')
+					@progress.update(percentage: 20)
+
+					progress = '\n\u001b[1Afoo [=====                   ] 20% eta 0s\n'
+					m.chai.expect(@stdout.data).to.equal(progress)
 
 				it 'should print a progress bar with no progress', ->
 					m.chai.expect(@stdout.data).to.equal('')
