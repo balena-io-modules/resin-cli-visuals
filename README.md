@@ -206,7 +206,7 @@ JOB:       Developer
 ```
 <a name="visuals.drive"></a>
 ### visuals.drive([message]) ⇒ <code>Promise.&lt;String&gt;</code>
-Currently, this function only checks the drive list once. In the future, the dropdown will detect and autorefresh itself when the drive list changes.
+The dropdown detects and autorefreshes itself when the drive list changes.
 
 **Kind**: static method of <code>[visuals](#visuals)</code>  
 **Summary**: Prompt the user to select a drive device  
