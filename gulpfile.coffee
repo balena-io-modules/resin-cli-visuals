@@ -19,7 +19,7 @@ gulp.task 'coffee', ->
 		.pipe(coffee(bare: true)).on('error', gutil.log)
 		.pipe(gulp.dest('build/'))
 
-gulp.task 'test', ->
+gulp.task 'test', [ 'coffee', 'lint' ], ->
 	gulp.src(OPTIONS.files.tests, read: false)
 		.pipe(mocha({
 			reporter: 'min'

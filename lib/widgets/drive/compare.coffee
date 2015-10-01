@@ -23,46 +23,39 @@ THE SOFTWARE.
 ###
 
 _ = require('lodash')
-async = require('async')
-Promise = require('bluebird')
-drivelist = Promise.promisifyAll(require('drivelist'))
-form = require('resin-cli-form')
 
-getDrives = ->
-	drivelist.listAsync().then (drives) ->
-		Promise.fromNode (callback) ->
-			async.reject drives, drivelist.isSystem, (results) ->
-				return callback(null, results)
+containsDeep = (array, item) ->
+	return _.any(_.map(array, _.partial(_.isEqual, item)))
+
+differenceDeep = (x, y) ->
+	return _.filter(x, _.partial(_.negate(containsDeep), y))
+
+createDiffOperation = (type, element) ->
+	return {
+		type: type
+		drive: element
+	}
 
 ###*
-# @summary Prompt the user to select a drive device
-# @name visuals.drive
+# @summary Detect changes regarding drives between different time intervals
 # @function
-# @public
-# @memberof visuals
+# @protected
 #
-# @description
-# Currently, this function only checks the drive list once. In the future, the dropdown will detect and autorefresh itself when the drive list changes.
-#
-# @param {String} [message='Select a drive'] - message
-# @returns {Promise<String>} device path
+# @param {Array} - previous drive list
+# @param {Array} - current drive list
+# @returns {Object[]} - current drive list, potential differences with previous one
 #
 # @example
-# visuals.drive('Please select a drive').then (drive) ->
-# 	console.log(drive)
+# compare(previousDrives, currentDrives)
 ###
-module.exports = (message = 'Select a drive') ->
-	getDrives().then (drives) ->
+module.exports = (previous, current) ->
+	additions = differenceDeep(current, previous)
+	removals = differenceDeep(previous, current)
 
-		if _.isEmpty(drives)
-			throw new Error('No available drives')
+	mappingAdditions = _.map(additions, _.partial(createDiffOperation, 'add'))
+	mappingRemovals = _.map(removals, _.partial(createDiffOperation, 'remove'))
 
-		form.ask
-			type: 'list'
-			name: 'drive'
-			message: message
-			choices: _.map drives, (drive) ->
-				return {
-					name: "#{drive.device} (#{drive.size}) - #{drive.description}"
-					value: drive.device
-				}
+	return {
+		drives: current
+		diff: _.union(mappingAdditions, mappingRemovals)
+	}
