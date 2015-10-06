@@ -90,9 +90,17 @@ module.exports = (message = 'Select a drive') ->
 
 		list = new InquirerList(options, ui.rl)
 
+		list.isEmpty = ->
+			return list.opt.choices.length is 0
+
+		onSubmit = list.onSubmit
+		list.onSubmit = ->
+			return if list.isEmpty()
+			onSubmit.apply(list, arguments)
+
 		render = list.render
 		list.render = ->
-			if list.opt.choices.length is 0
+			if list.isEmpty()
 
 				# By using this.screen.render() the module
 				# knows how many lines to clean automatically.

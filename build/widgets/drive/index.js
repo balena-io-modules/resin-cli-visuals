@@ -87,7 +87,7 @@ module.exports = function(message) {
     message = 'Select a drive';
   }
   return getDrives().then(function(drives) {
-    var list, options, render, scanner, ui;
+    var list, onSubmit, options, render, scanner, ui;
     options = {
       message: message,
       name: 'drives',
@@ -98,6 +98,13 @@ module.exports = function(message) {
       output: process.stdout
     });
     list = new InquirerList(options, ui.rl);
+    onSubmit = list.onSubmit;
+    list.onSubmit = function() {
+      if (list.opt.choices.length === 0) {
+        return;
+      }
+      return onSubmit.apply(list, arguments);
+    };
     render = list.render;
     list.render = function() {
       if (list.opt.choices.length === 0) {
