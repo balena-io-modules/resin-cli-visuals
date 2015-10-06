@@ -22,7 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
-var DriveScanner, InquirerList, Promise, UI, _, async, cleanupList, driveToChoice, drivelist, getDrives;
+var DriveScanner, DynamicList, Promise, _, async, driveToChoice, drivelist, getDrives;
 
 _ = require('lodash');
 
@@ -32,25 +32,15 @@ Promise = require('bluebird');
 
 drivelist = Promise.promisifyAll(require('drivelist'));
 
-InquirerList = require('inquirer/lib/prompts/list');
-
-UI = require('inquirer/lib/ui/baseUI');
-
 DriveScanner = require('./drive-scanner');
+
+DynamicList = require('./dynamic-list');
 
 driveToChoice = function(drive) {
   return {
     name: drive.device + " (" + drive.size + ") - " + drive.description,
     value: drive.device
   };
-};
-
-cleanupList = function(previous, current) {
-  var removedDrive;
-  removedDrive = driveToChoice(current);
-  return _.reject(previous, function(drive) {
-    return _.isEqual(_.pick(drive, 'name', 'value'), removedDrive);
-  });
 };
 
 getDrives = function() {
@@ -87,49 +77,24 @@ module.exports = function(message) {
     message = 'Select a drive';
   }
   return getDrives().then(function(drives) {
-    var list, onSubmit, options, render, scanner, ui;
-    options = {
-      message: message,
-      name: 'drives',
-      choices: _.map(drives, driveToChoice)
-    };
-    ui = new UI({
-      input: process.stdin,
-      output: process.stdout
-    });
-    list = new InquirerList(options, ui.rl);
-    onSubmit = list.onSubmit;
-    list.onSubmit = function() {
-      if (list.opt.choices.length === 0) {
-        return;
-      }
-      return onSubmit.apply(list, arguments);
-    };
-    render = list.render;
-    list.render = function() {
-      if (list.opt.choices.length === 0) {
-        return list.screen.render('No available drives');
-      }
-      return render.apply(list, arguments);
-    };
+    var list, scanner;
     scanner = new DriveScanner(getDrives, {
       interval: 1000,
       drives: drives
     });
+    list = new DynamicList({
+      message: message,
+      emptyMessage: 'No available drives',
+      choices: _.map(drives, driveToChoice)
+    });
     scanner.on('add', function(drive) {
-      list.opt.choices.push(driveToChoice(drive));
+      list.addChoice(driveToChoice(drive));
       return list.render();
     });
     scanner.on('remove', function(drive) {
-      list.opt.choices.choices = cleanupList(list.opt.choices.choices, drive);
-      list.opt.choices.realChoices = cleanupList(list.opt.choices.realChoices, drive);
+      list.removeChoice(driveToChoice(drive));
       return list.render();
     });
-    return Promise.fromNode(function(callback) {
-      return list.run(function(answers) {
-        ui.close();
-        return callback(null, answers);
-      });
-    }).tap(_.bind(scanner.stop, scanner));
+    return list.run().tap(_.bind(scanner.stop, scanner));
   });
 };
