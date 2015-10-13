@@ -22,9 +22,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
-var DriveScanner, DynamicList, Promise, _, async, driveToChoice, drivelist, getDrives;
+var DriveScanner, DynamicList, Promise, _, async, chalk, driveToChoice, drivelist, getDrives;
 
 _ = require('lodash');
+
+chalk = require('chalk');
 
 async = require('async');
 
@@ -84,7 +86,7 @@ module.exports = function(message) {
     });
     list = new DynamicList({
       message: message,
-      emptyMessage: 'No available drives',
+      emptyMessage: (chalk.red('x')) + " No available drives, plug one!",
       choices: _.map(drives, driveToChoice)
     });
     scanner.on('add', function(drive) {
