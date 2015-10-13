@@ -23,6 +23,7 @@ THE SOFTWARE.
 ###
 
 _ = require('lodash')
+chalk = require('chalk')
 async = require('async')
 Promise = require('bluebird')
 drivelist = Promise.promisifyAll(require('drivelist'))
@@ -66,7 +67,7 @@ module.exports = (message = 'Select a drive') ->
 
 		list = new DynamicList
 			message: message
-			emptyMessage: 'No available drives'
+			emptyMessage: "#{chalk.red('x')} No available drives, plug one!"
 			choices: _.map(drives, driveToChoice)
 
 		scanner.on 'add', (drive) ->
