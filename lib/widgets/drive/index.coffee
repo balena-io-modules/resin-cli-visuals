@@ -26,8 +26,8 @@ _ = require('lodash')
 chalk = require('chalk')
 Promise = require('bluebird')
 drivelist = Promise.promisifyAll(require('drivelist'))
+DynamicList = require('inquirer-dynamic-list')
 DriveScanner = require('./drive-scanner')
-DynamicList = require('./dynamic-list')
 
 driveToChoice = (drive) ->
 	return {

@@ -32,9 +32,9 @@ Promise = require('bluebird');
 
 drivelist = Promise.promisifyAll(require('drivelist'));
 
-DriveScanner = require('./drive-scanner');
+DynamicList = require('inquirer-dynamic-list');
 
-DynamicList = require('./dynamic-list');
+DriveScanner = require('./drive-scanner');
 
 driveToChoice = function(drive) {
   return {
