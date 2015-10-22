@@ -22,13 +22,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
-var DriveScanner, DynamicList, Promise, _, async, chalk, driveToChoice, drivelist, getDrives;
+var DriveScanner, DynamicList, Promise, _, chalk, driveToChoice, drivelist, getDrives;
 
 _ = require('lodash');
 
 chalk = require('chalk');
-
-async = require('async');
 
 Promise = require('bluebird');
 
@@ -47,10 +45,8 @@ driveToChoice = function(drive) {
 
 getDrives = function() {
   return drivelist.listAsync().then(function(drives) {
-    return Promise.fromNode(function(callback) {
-      return async.reject(drives, drivelist.isSystem, function(results) {
-        return callback(null, results);
-      });
+    return _.reject(drives, {
+      system: true
     });
   });
 };
