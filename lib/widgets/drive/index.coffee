@@ -24,7 +24,6 @@ THE SOFTWARE.
 
 _ = require('lodash')
 chalk = require('chalk')
-async = require('async')
 Promise = require('bluebird')
 drivelist = Promise.promisifyAll(require('drivelist'))
 DriveScanner = require('./drive-scanner')
@@ -38,9 +37,7 @@ driveToChoice = (drive) ->
 
 getDrives = ->
 	drivelist.listAsync().then (drives) ->
-		Promise.fromNode (callback) ->
-			async.reject drives, drivelist.isSystem, (results) ->
-				return callback(null, results)
+		return _.reject(drives, system: true)
 
 ###*
 # @summary Prompt the user to select a drive device

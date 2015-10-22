@@ -38,12 +38,11 @@
     "mochainon": "^1.0.0"
   },
   "dependencies": {
-    "async": "^1.4.0",
     "bluebird": "^2.9.34",
     "chalk": "^1.1.1",
     "cli-spinner": "^0.2.1",
     "columnify": "^1.5.1",
-    "drivelist": "^1.2.2",
+    "drivelist": "^2.0.0",
     "inquirer": "^0.10.0",
     "lodash": "^3.10.0",
     "moment": "^2.10.3",
