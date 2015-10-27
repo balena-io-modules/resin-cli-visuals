@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.6] - 2015-10-27
+
+### Changed
+
+- Upgrade Inquirer to v0.11.0.
+
 ## [1.2.5] - 2015-10-13
 
 ### Changed
@@ -46,6 +52,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Add `drive` widget.
 
+[1.2.6]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.5...v1.2.6
 [1.2.5]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.3...v1.2.4
 [1.2.3]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.2...v1.2.3
