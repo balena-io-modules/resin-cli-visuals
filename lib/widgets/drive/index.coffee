@@ -64,7 +64,7 @@ module.exports = (message = 'Select a drive') ->
 
 		list = new DynamicList
 			message: message
-			emptyMessage: "#{chalk.red('x')} No available drives, plug one!"
+			emptyMessage: "#{chalk.red('x')} No available drives were detected, plug one in!"
 			choices: _.map(drives, driveToChoice)
 
 		scanner.on 'add', (drive) ->
