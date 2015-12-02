@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.7] - 2015-12-02
+
+### Changed
+
+- Improve no available drives message.
+
 ## [1.2.6] - 2015-10-27
 
 ### Changed
@@ -52,6 +58,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Add `drive` widget.
 
+[1.2.7]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.6...v1.2.7
 [1.2.6]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.5...v1.2.6
 [1.2.5]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.4...v1.2.5
 [1.2.4]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.3...v1.2.4
