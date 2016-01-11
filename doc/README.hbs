@@ -6,6 +6,8 @@ resin-cli-visuals
 [![Build Status](https://travis-ci.org/resin-io/resin-cli-visuals.svg?branch=master)](https://travis-ci.org/resin-io/resin-cli-visuals)
 [![Build status](https://ci.appveyor.com/api/projects/status/dljdbst05bp29wgv?svg=true)](https://ci.appveyor.com/project/jviotti/resin-cli-visuals)
 
+Join our online chat at [![Gitter chat](https://badges.gitter.im/resin-io/chat.png)](https://gitter.im/resin-io/chat)
+
 Resin CLI UI widgets.
 
 Role
