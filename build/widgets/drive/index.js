@@ -29,8 +29,10 @@ DynamicList = require('inquirer-dynamic-list');
 DriveScanner = require('./drive-scanner');
 
 driveToChoice = function(drive) {
+  var size;
+  size = drive.size / 1000000000;
   return {
-    name: drive.device + " (" + drive.size + ") - " + drive.description,
+    name: drive.device + " (" + (size.toFixed(1)) + " GB) - " + drive.description,
     value: drive.device
   };
 };
