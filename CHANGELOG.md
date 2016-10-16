@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.3.0] - 2016-10-15
+
+### Added
+
+- Add `SpinnerPromise` class.
+
 ## [1.2.9] - 2016-05-03
 
 ### Changed
@@ -70,6 +76,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Add `drive` widget.
 
+[1.3.0]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.9...v1.3.0
 [1.2.9]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.8...v1.2.9
 [1.2.8]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.7...v1.2.8
 [1.2.7]: https://github.com/resin-io/resin-cli-visuals/compare/v1.2.6...v1.2.7
