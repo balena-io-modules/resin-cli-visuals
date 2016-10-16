@@ -28,33 +28,38 @@ Documentation
 -------------
 
 <a name="visuals"></a>
+
 ## visuals : <code>object</code>
 **Kind**: global namespace  
 
 * [visuals](#visuals) : <code>object</code>
-  * [.Progress](#visuals.Progress)
-    * [new Progress(message)](#new_visuals.Progress_new)
-    * [.update(state)](#visuals.Progress+update)
-  * [.Spinner](#visuals.Spinner)
-    * [new Spinner(message)](#new_visuals.Spinner_new)
-    * [.start()](#visuals.Spinner+start)
-    * [.stop()](#visuals.Spinner+stop)
-  * [.table](#visuals.table) : <code>object</code>
-    * [.horizontal(data, ordering)](#visuals.table.horizontal)
-    * [.vertical(data, ordering)](#visuals.table.vertical)
-  * [.drive([message])](#visuals.drive) ⇒ <code>Promise.&lt;String&gt;</code>
+    * [.Progress](#visuals.Progress)
+        * [new Progress(message)](#new_visuals.Progress_new)
+        * [.update(state)](#visuals.Progress+update)
+    * [.Spinner](#visuals.Spinner)
+        * [new Spinner(message)](#new_visuals.Spinner_new)
+        * [.start()](#visuals.Spinner+start)
+        * [.stop()](#visuals.Spinner+stop)
+    * [.SpinnerPromise](#visuals.SpinnerPromise)
+        * [new SpinnerPromise(options)](#new_visuals.SpinnerPromise_new)
+    * [.table](#visuals.table) : <code>object</code>
+        * [.horizontal(data, ordering)](#visuals.table.horizontal)
+        * [.vertical(data, ordering)](#visuals.table.vertical)
+    * [.drive([message])](#visuals.drive) ⇒ <code>Promise.&lt;String&gt;</code>
 
 <a name="visuals.Progress"></a>
+
 ### visuals.Progress
 **Kind**: static class of <code>[visuals](#visuals)</code>  
 **Summary**: Create a CLI Progress Bar  
 **Access:** public  
 
 * [.Progress](#visuals.Progress)
-  * [new Progress(message)](#new_visuals.Progress_new)
-  * [.update(state)](#visuals.Progress+update)
+    * [new Progress(message)](#new_visuals.Progress_new)
+    * [.update(state)](#visuals.Progress+update)
 
 <a name="new_visuals.Progress_new"></a>
+
 #### new Progress(message)
 **Returns**: <code>Progress</code> - progress bar instance  
 **Throws**:
@@ -71,6 +76,7 @@ Documentation
 progress = new visuals.Progress('Hello World')
 ```
 <a name="visuals.Progress+update"></a>
+
 #### progress.update(state)
 **Kind**: instance method of <code>[Progress](#visuals.Progress)</code>  
 **Summary**: Update the progress bar  
@@ -88,17 +94,19 @@ progress = new visuals.Progress('Hello World')
 progress.update(percentage: 49, eta: 300)
 ```
 <a name="visuals.Spinner"></a>
+
 ### visuals.Spinner
 **Kind**: static class of <code>[visuals](#visuals)</code>  
 **Summary**: Create a CLI Spinner  
 **Access:** public  
 
 * [.Spinner](#visuals.Spinner)
-  * [new Spinner(message)](#new_visuals.Spinner_new)
-  * [.start()](#visuals.Spinner+start)
-  * [.stop()](#visuals.Spinner+stop)
+    * [new Spinner(message)](#new_visuals.Spinner_new)
+    * [.start()](#visuals.Spinner+start)
+    * [.stop()](#visuals.Spinner+stop)
 
 <a name="new_visuals.Spinner_new"></a>
+
 #### new Spinner(message)
 **Returns**: <code>Spinner</code> - spinner instance  
 **Throws**:
@@ -115,6 +123,7 @@ progress.update(percentage: 49, eta: 300)
 spinner = new visuals.Spinner('Hello World')
 ```
 <a name="visuals.Spinner+start"></a>
+
 #### spinner.start()
 **Kind**: instance method of <code>[Spinner](#visuals.Spinner)</code>  
 **Summary**: Start the spinner  
@@ -125,6 +134,7 @@ spinner = new visuals.Spinner('Hello World')
 spinner.start()
 ```
 <a name="visuals.Spinner+stop"></a>
+
 #### spinner.stop()
 **Kind**: instance method of <code>[Spinner](#visuals.Spinner)</code>  
 **Summary**: Stop the spinner  
@@ -134,15 +144,49 @@ spinner.start()
 spinner = new visuals.Spinner('Hello World')
 spinner.stop()
 ```
+<a name="visuals.SpinnerPromise"></a>
+
+### visuals.SpinnerPromise
+**Kind**: static class of <code>[visuals](#visuals)</code>  
+**Summary**: Create a CLI Spinner that spins on a promise  
+**Access:** public  
+**Fulfil**: <code>Object</code> value - resolved or rejected promise  
+<a name="new_visuals.SpinnerPromise_new"></a>
+
+#### new SpinnerPromise(options)
+This function will start a Spinner and stop it when the
+passed promise is either fulfilled or rejected. The function
+returns the passed promise which will be in either rejected or
+resolved state.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> | spinner promise options |
+| options.promise | <code>Promise</code> | promise to spin upon |
+| options.startMessage | <code>String</code> | start spinner message |
+| options.stopMessage | <code>String</code> | stop spinner message |
+
+**Example**  
+```js
+visuals.SpinnerPromise
+		 promise: scanDevicesPromise
+		 startMessage: "Scanning devices"
+		 stopMessage: "Scanned devices"
+ .then (devices) ->
+		 console.log devices
+```
 <a name="visuals.table"></a>
+
 ### visuals.table : <code>object</code>
 **Kind**: static namespace of <code>[visuals](#visuals)</code>  
 
 * [.table](#visuals.table) : <code>object</code>
-  * [.horizontal(data, ordering)](#visuals.table.horizontal)
-  * [.vertical(data, ordering)](#visuals.table.vertical)
+    * [.horizontal(data, ordering)](#visuals.table.horizontal)
+    * [.vertical(data, ordering)](#visuals.table.vertical)
 
 <a name="visuals.table.horizontal"></a>
+
 #### table.horizontal(data, ordering)
 Notice that you can rename columns by using the CURRENT => NEW syntax in the ordering configuration.
 
@@ -170,6 +214,7 @@ John Doe  40
 Jane Doe  35
 ```
 <a name="visuals.table.vertical"></a>
+
 #### table.vertical(data, ordering)
 Notice that you can rename columns by using the CURRENT => NEW syntax in the ordering configuration.
 
@@ -207,6 +252,7 @@ AGE:       40
 JOB:       Developer
 ```
 <a name="visuals.drive"></a>
+
 ### visuals.drive([message]) ⇒ <code>Promise.&lt;String&gt;</code>
 The dropdown detects and autorefreshes itself when the drive list changes.
 
