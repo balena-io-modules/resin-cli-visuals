@@ -21,6 +21,7 @@ limitations under the License.
 module.exports = {
   Progress: require('./widgets/progress'),
   Spinner: require('./widgets/spinner'),
+  SpinnerPromise: require('./widgets/spinnerpromise'),
   table: require('./widgets/table'),
   drive: require('./widgets/drive')
 };
