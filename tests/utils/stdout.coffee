@@ -1,17 +1,19 @@
+_ = require('lodash')
+
 # This function provides a handy way to
 # intercept stdout for testing purposes.
 exports.intercept = ->
-	write = process.stdout.write
+	write = _.bind(process.stdout.write, process.stdout)
 
 	result =
 		data: ''
 
 	result.restore = ->
-		result.data = ''
 		process.stdout.write = write
+		result.data = ''
 
 	process.stdout.write = (data) ->
 		result.data += data
-		write.apply(process.stdout, arguments)
+		write(arguments...)
 
 	return result
