@@ -66,7 +66,7 @@ module.exports = Progress = (function() {
   	 *
   	 * @param {Object} state - progress state
   	 * @param {Number} state.percentage - percentage
-  	 * @param {Number} state.eta - eta in seconds
+  	 * @param {Number} [state.eta] - eta in seconds
   	 *
   	 * @throws Will throw if no percentage.
   	 * @throws Will throw if no eta.
@@ -124,7 +124,7 @@ module.exports = Progress = (function() {
   	 *
   	 * @param {Object} state - progress state
   	 * @param {Number} state.percentage - percentage
-  	 * @param {Number} state.eta - eta in seconds
+  	 * @param {Number} [state.eta] - eta in seconds
   	 *
   	 * @example
   	 * progress = new visuals.Progress('Hello World')

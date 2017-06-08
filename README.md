@@ -33,13 +33,13 @@ Documentation
 **Kind**: global namespace  
 
 * [visuals](#visuals) : <code>object</code>
-    * [.Progress](#visuals.Progress)
-        * [new Progress(message)](#new_visuals.Progress_new)
-        * [.update(state)](#visuals.Progress+update)
     * [.Spinner](#visuals.Spinner)
         * [new Spinner(message)](#new_visuals.Spinner_new)
         * [.start()](#visuals.Spinner+start)
         * [.stop()](#visuals.Spinner+stop)
+    * [.Progress](#visuals.Progress)
+        * [new Progress(message)](#new_visuals.Progress_new)
+        * [.update(state)](#visuals.Progress+update)
     * [.SpinnerPromise](#visuals.SpinnerPromise)
         * [new SpinnerPromise(options)](#new_visuals.SpinnerPromise_new)
     * [.table](#visuals.table) : <code>object</code>
@@ -47,52 +47,6 @@ Documentation
         * [.vertical(data, ordering)](#visuals.table.vertical)
     * [.drive([message])](#visuals.drive) ⇒ <code>Promise.&lt;String&gt;</code>
 
-<a name="visuals.Progress"></a>
-
-### visuals.Progress
-**Kind**: static class of <code>[visuals](#visuals)</code>  
-**Summary**: Create a CLI Progress Bar  
-**Access:** public  
-
-* [.Progress](#visuals.Progress)
-    * [new Progress(message)](#new_visuals.Progress_new)
-    * [.update(state)](#visuals.Progress+update)
-
-<a name="new_visuals.Progress_new"></a>
-
-#### new Progress(message)
-**Returns**: <code>Progress</code> - progress bar instance  
-**Throws**:
-
-- Will throw if no message.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| message | <code>String</code> | message |
-
-**Example**  
-```js
-progress = new visuals.Progress('Hello World')
-```
-<a name="visuals.Progress+update"></a>
-
-#### progress.update(state)
-**Kind**: instance method of <code>[Progress](#visuals.Progress)</code>  
-**Summary**: Update the progress bar  
-**Access:** public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| state | <code>Object</code> | progress state |
-| state.percentage | <code>Number</code> | percentage |
-| state.eta | <code>Number</code> | eta in seconds |
-
-**Example**  
-```js
-progress = new visuals.Progress('Hello World')
-progress.update(percentage: 49, eta: 300)
-```
 <a name="visuals.Spinner"></a>
 
 ### visuals.Spinner
@@ -143,6 +97,52 @@ spinner.start()
 ```js
 spinner = new visuals.Spinner('Hello World')
 spinner.stop()
+```
+<a name="visuals.Progress"></a>
+
+### visuals.Progress
+**Kind**: static class of <code>[visuals](#visuals)</code>  
+**Summary**: Create a CLI Progress Bar  
+**Access:** public  
+
+* [.Progress](#visuals.Progress)
+    * [new Progress(message)](#new_visuals.Progress_new)
+    * [.update(state)](#visuals.Progress+update)
+
+<a name="new_visuals.Progress_new"></a>
+
+#### new Progress(message)
+**Returns**: <code>Progress</code> - progress bar instance  
+**Throws**:
+
+- Will throw if no message.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | message |
+
+**Example**  
+```js
+progress = new visuals.Progress('Hello World')
+```
+<a name="visuals.Progress+update"></a>
+
+#### progress.update(state)
+**Kind**: instance method of <code>[Progress](#visuals.Progress)</code>  
+**Summary**: Update the progress bar  
+**Access:** public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| state | <code>Object</code> | progress state |
+| state.percentage | <code>Number</code> | percentage |
+| [state.eta] | <code>Number</code> | eta in seconds |
+
+**Example**  
+```js
+progress = new visuals.Progress('Hello World')
+progress.update(percentage: 49, eta: 300)
 ```
 <a name="visuals.SpinnerPromise"></a>
 
