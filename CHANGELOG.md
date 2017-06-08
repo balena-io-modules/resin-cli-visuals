@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### Changed
+
+- Hide the progress ETA if not specified, rather than assuming it to be 0s
+
 ## [1.3.1] - 2017-05-10
 
 ### Changed

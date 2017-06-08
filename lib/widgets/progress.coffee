@@ -40,18 +40,16 @@ module.exports = class Progress
 	# progress = new visuals.Progress('Hello World')
 	###
 	constructor: (message) ->
-
 		if _.str.isBlank(message)
 			throw new Error('Missing message')
 
+		@_message = message
 		@_bar = new ProgressBarFormatter
 			complete: '='
 			incomplete: ' '
 
 			# Width of the progress bar
 			length: 24
-
-		@_format = "#{message} [<%= bar %>] <%= percentage %>% eta <%= eta %>"
 
 	###*
 	# @summary Get progress string from a state
@@ -78,12 +76,13 @@ module.exports = class Progress
 		if not state.percentage?
 			throw new Error('Missing percentage')
 
-		data =
-			bar: @_bar.format(state.percentage / 100)
-			percentage: Math.floor(state.percentage)
-			eta: moment.duration(state.eta or 0, 'seconds').format('m[m]ss[s]')
+		bar = @_bar.format(state.percentage / 100)
+		percentage = Math.floor(state.percentage)
 
-		@_lastLine = _.template(@_format)(data)
+		@_lastLine = "#{@_message} [#{bar}] #{percentage}%"
+
+		if state.eta?
+			@_lastLine += " eta #{moment.duration(state.eta, 'seconds').format('m[m]ss[s]')}"
 
 		return @_lastLine
 
