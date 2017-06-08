@@ -49,12 +49,12 @@ module.exports = Progress = (function() {
     if (_.str.isBlank(message)) {
       throw new Error('Missing message');
     }
+    this._message = message;
     this._bar = new ProgressBarFormatter({
       complete: '=',
       incomplete: ' ',
       length: 24
     });
-    this._format = message + " [<%= bar %>] <%= percentage %>% eta <%= eta %>";
   }
 
 
@@ -80,16 +80,16 @@ module.exports = Progress = (function() {
    */
 
   Progress.prototype._tick = function(state) {
-    var data;
+    var bar, percentage;
     if (state.percentage == null) {
       throw new Error('Missing percentage');
     }
-    data = {
-      bar: this._bar.format(state.percentage / 100),
-      percentage: Math.floor(state.percentage),
-      eta: moment.duration(state.eta || 0, 'seconds').format('m[m]ss[s]')
-    };
-    this._lastLine = _.template(this._format)(data);
+    bar = this._bar.format(state.percentage / 100);
+    percentage = Math.floor(state.percentage);
+    this._lastLine = this._message + " [" + bar + "] " + percentage + "%";
+    if (state.eta != null) {
+      this._lastLine += " eta " + (moment.duration(state.eta, 'seconds').format('m[m]ss[s]'));
+    }
     return this._lastLine;
   };
 
