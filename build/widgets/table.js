@@ -1,4 +1,3 @@
-
 /*
 Copyright 2016 Resin.io
 
@@ -13,7 +12,11 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
- */
+*/
+   /**
+    * @namespace table
+    * @memberof visuals
+    */
 var _, applySubtitles, columnify, getAlias, normalizeSubtitle, normalizeTitle, parseOrdering, trimRight;
 
 _ = require('lodash');
@@ -21,12 +24,6 @@ _ = require('lodash');
 _.str = require('underscore.string');
 
 columnify = require('columnify');
-
-
-/**
- * @namespace table
- * @memberof visuals
- */
 
 parseOrdering = function(ordering, data) {
   return _.compact(_.map(ordering, function(column) {
@@ -65,7 +62,7 @@ normalizeTitle = function(title) {
 };
 
 normalizeSubtitle = function(subtitle, width) {
-  return _.str.rpad("== " + (normalizeTitle(subtitle)), width, ' ');
+  return _.str.rpad(`== ${normalizeTitle(subtitle)}`, width, ' ');
 };
 
 applySubtitles = function(table, ordering) {
@@ -92,7 +89,6 @@ trimRight = function(table) {
   return splitTable.join('\n');
 };
 
-
 /**
  * @summary Make an horizontal table
  * @name visuals.table.horizontal
@@ -118,7 +114,6 @@ trimRight = function(table) {
  * John Doe  40
  * Jane Doe  35
  */
-
 exports.horizontal = function(data, ordering) {
   if (data == null) {
     return;
@@ -132,7 +127,6 @@ exports.horizontal = function(data, ordering) {
     }
   }));
 };
-
 
 /**
  * @summary Make a vertical table
@@ -169,7 +163,6 @@ exports.horizontal = function(data, ordering) {
  * == EXTRAS
  * JOB:       Developer
  */
-
 exports.vertical = function(data, ordering) {
   var orderedData, table;
   if (ordering == null) {
@@ -187,7 +180,15 @@ exports.vertical = function(data, ordering) {
       };
     } else if (column.type === 'subtitle') {
       return {
-        property: "$X$" + index,
+        // We use $X$ to mark titles to be able to replace them later
+        // since including it here as property will result in the title
+        // expanding the column if it's larger than the other properties.
+        // Using $X$ is efficient since there cannot be a case where
+        // other property is surrounded by dollar signs at this point
+        // since it would have been considered a title.
+        // We also use an index after the token to be able to identify
+        // it more easily.
+        property: `$X$${index}`,
         value: null
       };
     }

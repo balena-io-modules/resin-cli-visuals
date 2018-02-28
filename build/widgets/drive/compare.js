@@ -1,4 +1,3 @@
-
 /*
 Copyright 2016 Resin.io
 
@@ -13,7 +12,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
- */
+*/
 var _, containsDeep, createDiffOperation, differenceDeep;
 
 _ = require('lodash');
@@ -33,7 +32,6 @@ createDiffOperation = function(type, element) {
   };
 };
 
-
 /**
  * @summary Detect changes regarding drives between different time intervals
  * @function
@@ -46,7 +44,6 @@ createDiffOperation = function(type, element) {
  * @example
  * compare(previousDrives, currentDrives)
  */
-
 module.exports = function(previous, current) {
   var additions, mappingAdditions, mappingRemovals, removals;
   additions = differenceDeep(current, previous);

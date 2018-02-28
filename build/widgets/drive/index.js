@@ -1,4 +1,3 @@
-
 /*
 Copyright 2016 Resin.io
 
@@ -13,7 +12,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
- */
+*/
 var DriveScanner, DynamicList, Promise, _, chalk, driveToChoice, drivelist, getDrives;
 
 _ = require('lodash');
@@ -32,7 +31,7 @@ driveToChoice = function(drive) {
   var size;
   size = drive.size / 1000000000;
   return {
-    name: drive.device + " (" + (size.toFixed(1)) + " GB) - " + drive.description,
+    name: `${drive.device} (${size.toFixed(1)} GB) - ${drive.description}`,
     value: drive.device
   };
 };
@@ -44,7 +43,6 @@ getDrives = function() {
     });
   });
 };
-
 
 /**
  * @summary Prompt the user to select a drive device
@@ -63,11 +61,7 @@ getDrives = function() {
  * visuals.drive('Please select a drive').then (drive) ->
  * 	console.log(drive)
  */
-
-module.exports = function(message) {
-  if (message == null) {
-    message = 'Select a drive';
-  }
+module.exports = function(message = 'Select a drive') {
   return getDrives().then(function(drives) {
     var list, scanner;
     scanner = new DriveScanner(getDrives, {
@@ -76,7 +70,7 @@ module.exports = function(message) {
     });
     list = new DynamicList({
       message: message,
-      emptyMessage: (chalk.red('x')) + " No available drives were detected, plug one in!",
+      emptyMessage: `${chalk.red('x')} No available drives were detected, plug one in!`,
       choices: _.map(drives, driveToChoice)
     });
     scanner.on('add', function(drive) {
