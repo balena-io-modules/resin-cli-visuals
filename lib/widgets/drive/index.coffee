@@ -31,7 +31,7 @@ driveToChoice = (drive) ->
 
 getDrives = ->
 	drivelist.listAsync().then (drives) ->
-		return _.reject(drives, system: true)
+		return _.reject(drives, isSystem: true)
 
 ###*
 # @summary Prompt the user to select a drive device
