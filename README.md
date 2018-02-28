@@ -27,12 +27,69 @@ $ npm install --save resin-cli-visuals
 Documentation
 -------------
 
+## Classes
+
+<dl>
+<dt><a href="#DriveScanner">DriveScanner</a></dt>
+<dd></dd>
+</dl>
+
+## Objects
+
+<dl>
+<dt><a href="#visuals">visuals</a> : <code>object</code></dt>
+<dd></dd>
+</dl>
+
+<a name="DriveScanner"></a>
+
+## DriveScanner
+**Kind**: global class  
+**Summary**: Dynamically detect changes of connected drives  
+**Access**: protected  
+
+* [DriveScanner](#DriveScanner)
+    * [new DriveScanner(driveFinder, [options])](#new_DriveScanner_new)
+    * [.stop()](#DriveScanner+stop)
+
+<a name="new_DriveScanner_new"></a>
+
+### new DriveScanner(driveFinder, [options])
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| driveFinder | <code>function</code> |  | drive finder |
+| [options] | <code>Object</code> |  | scan options |
+| [options.interval] | <code>Number</code> | <code>1000</code> | interval |
+| [options.drives] | <code>Array.&lt;Object&gt;</code> |  | current drives |
+
+**Example**  
+```js
+scanner = new DriveScanner driveFinder,
+	interval: 1000
+	drives: [
+		{ foo: 'bar' }
+	]
+```
+<a name="DriveScanner+stop"></a>
+
+### driveScanner.stop()
+**Kind**: instance method of [<code>DriveScanner</code>](#DriveScanner)  
+**Summary**: Stop the interval  
+**Access**: public  
+**Example**  
+```js
+scanner = new DriveScanner(@driveFinder, interval: 1000)
+scanner.stop()
+```
 <a name="visuals"></a>
 
 ## visuals : <code>object</code>
 **Kind**: global namespace  
 
 * [visuals](#visuals) : <code>object</code>
+    * [.SpinnerPromise](#visuals.SpinnerPromise)
+        * [new SpinnerPromise(options)](#new_visuals.SpinnerPromise_new)
     * [.Spinner](#visuals.Spinner)
         * [new Spinner(message)](#new_visuals.Spinner_new)
         * [.start()](#visuals.Spinner+start)
@@ -40,116 +97,17 @@ Documentation
     * [.Progress](#visuals.Progress)
         * [new Progress(message)](#new_visuals.Progress_new)
         * [.update(state)](#visuals.Progress+update)
-    * [.SpinnerPromise](#visuals.SpinnerPromise)
-        * [new SpinnerPromise(options)](#new_visuals.SpinnerPromise_new)
     * [.table](#visuals.table) : <code>object</code>
         * [.horizontal(data, ordering)](#visuals.table.horizontal)
         * [.vertical(data, ordering)](#visuals.table.vertical)
     * [.drive([message])](#visuals.drive) ⇒ <code>Promise.&lt;String&gt;</code>
 
-<a name="visuals.Spinner"></a>
-
-### visuals.Spinner
-**Kind**: static class of <code>[visuals](#visuals)</code>  
-**Summary**: Create a CLI Spinner  
-**Access:** public  
-
-* [.Spinner](#visuals.Spinner)
-    * [new Spinner(message)](#new_visuals.Spinner_new)
-    * [.start()](#visuals.Spinner+start)
-    * [.stop()](#visuals.Spinner+stop)
-
-<a name="new_visuals.Spinner_new"></a>
-
-#### new Spinner(message)
-**Returns**: <code>Spinner</code> - spinner instance  
-**Throws**:
-
-- Will throw if no message.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| message | <code>String</code> | message |
-
-**Example**  
-```js
-spinner = new visuals.Spinner('Hello World')
-```
-<a name="visuals.Spinner+start"></a>
-
-#### spinner.start()
-**Kind**: instance method of <code>[Spinner](#visuals.Spinner)</code>  
-**Summary**: Start the spinner  
-**Access:** public  
-**Example**  
-```js
-spinner = new visuals.Spinner('Hello World')
-spinner.start()
-```
-<a name="visuals.Spinner+stop"></a>
-
-#### spinner.stop()
-**Kind**: instance method of <code>[Spinner](#visuals.Spinner)</code>  
-**Summary**: Stop the spinner  
-**Access:** public  
-**Example**  
-```js
-spinner = new visuals.Spinner('Hello World')
-spinner.stop()
-```
-<a name="visuals.Progress"></a>
-
-### visuals.Progress
-**Kind**: static class of <code>[visuals](#visuals)</code>  
-**Summary**: Create a CLI Progress Bar  
-**Access:** public  
-
-* [.Progress](#visuals.Progress)
-    * [new Progress(message)](#new_visuals.Progress_new)
-    * [.update(state)](#visuals.Progress+update)
-
-<a name="new_visuals.Progress_new"></a>
-
-#### new Progress(message)
-**Returns**: <code>Progress</code> - progress bar instance  
-**Throws**:
-
-- Will throw if no message.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| message | <code>String</code> | message |
-
-**Example**  
-```js
-progress = new visuals.Progress('Hello World')
-```
-<a name="visuals.Progress+update"></a>
-
-#### progress.update(state)
-**Kind**: instance method of <code>[Progress](#visuals.Progress)</code>  
-**Summary**: Update the progress bar  
-**Access:** public  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| state | <code>Object</code> | progress state |
-| state.percentage | <code>Number</code> | percentage |
-| [state.eta] | <code>Number</code> | eta in seconds |
-
-**Example**  
-```js
-progress = new visuals.Progress('Hello World')
-progress.update(percentage: 49, eta: 300)
-```
 <a name="visuals.SpinnerPromise"></a>
 
 ### visuals.SpinnerPromise
-**Kind**: static class of <code>[visuals](#visuals)</code>  
+**Kind**: static class of [<code>visuals</code>](#visuals)  
 **Summary**: Create a CLI Spinner that spins on a promise  
-**Access:** public  
+**Access**: public  
 **Fulfil**: <code>Object</code> value - resolved or rejected promise  
 <a name="new_visuals.SpinnerPromise_new"></a>
 
@@ -176,10 +134,107 @@ visuals.SpinnerPromise
  .then (devices) ->
 		 console.log devices
 ```
+<a name="visuals.Spinner"></a>
+
+### visuals.Spinner
+**Kind**: static class of [<code>visuals</code>](#visuals)  
+**Summary**: Create a CLI Spinner  
+**Access**: public  
+
+* [.Spinner](#visuals.Spinner)
+    * [new Spinner(message)](#new_visuals.Spinner_new)
+    * [.start()](#visuals.Spinner+start)
+    * [.stop()](#visuals.Spinner+stop)
+
+<a name="new_visuals.Spinner_new"></a>
+
+#### new Spinner(message)
+**Returns**: <code>Spinner</code> - spinner instance  
+**Throws**:
+
+- Will throw if no message.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | message |
+
+**Example**  
+```js
+spinner = new visuals.Spinner('Hello World')
+```
+<a name="visuals.Spinner+start"></a>
+
+#### spinner.start()
+**Kind**: instance method of [<code>Spinner</code>](#visuals.Spinner)  
+**Summary**: Start the spinner  
+**Access**: public  
+**Example**  
+```js
+spinner = new visuals.Spinner('Hello World')
+spinner.start()
+```
+<a name="visuals.Spinner+stop"></a>
+
+#### spinner.stop()
+**Kind**: instance method of [<code>Spinner</code>](#visuals.Spinner)  
+**Summary**: Stop the spinner  
+**Access**: public  
+**Example**  
+```js
+spinner = new visuals.Spinner('Hello World')
+spinner.stop()
+```
+<a name="visuals.Progress"></a>
+
+### visuals.Progress
+**Kind**: static class of [<code>visuals</code>](#visuals)  
+**Summary**: Create a CLI Progress Bar  
+**Access**: public  
+
+* [.Progress](#visuals.Progress)
+    * [new Progress(message)](#new_visuals.Progress_new)
+    * [.update(state)](#visuals.Progress+update)
+
+<a name="new_visuals.Progress_new"></a>
+
+#### new Progress(message)
+**Returns**: <code>Progress</code> - progress bar instance  
+**Throws**:
+
+- Will throw if no message.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| message | <code>String</code> | message |
+
+**Example**  
+```js
+progress = new visuals.Progress('Hello World')
+```
+<a name="visuals.Progress+update"></a>
+
+#### progress.update(state)
+**Kind**: instance method of [<code>Progress</code>](#visuals.Progress)  
+**Summary**: Update the progress bar  
+**Access**: public  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| state | <code>Object</code> | progress state |
+| state.percentage | <code>Number</code> | percentage |
+| [state.eta] | <code>Number</code> | eta in seconds |
+
+**Example**  
+```js
+progress = new visuals.Progress('Hello World')
+progress.update(percentage: 49, eta: 300)
+```
 <a name="visuals.table"></a>
 
 ### visuals.table : <code>object</code>
-**Kind**: static namespace of <code>[visuals](#visuals)</code>  
+**Kind**: static namespace of [<code>visuals</code>](#visuals)  
 
 * [.table](#visuals.table) : <code>object</code>
     * [.horizontal(data, ordering)](#visuals.table.horizontal)
@@ -190,9 +245,9 @@ visuals.SpinnerPromise
 #### table.horizontal(data, ordering)
 Notice that you can rename columns by using the CURRENT => NEW syntax in the ordering configuration.
 
-**Kind**: static method of <code>[table](#visuals.table)</code>  
+**Kind**: static method of [<code>table</code>](#visuals.table)  
 **Summary**: Make an horizontal table  
-**Access:** public  
+**Access**: public  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -220,9 +275,9 @@ Notice that you can rename columns by using the CURRENT => NEW syntax in the ord
 
 Vertical tables also accept separators and subtitles, which are represented in the ordering configuration as empty strings and strings surrounded by dollar signs respectively.
 
-**Kind**: static method of <code>[table](#visuals.table)</code>  
+**Kind**: static method of [<code>table</code>](#visuals.table)  
 **Summary**: Make a vertical table  
-**Access:** public  
+**Access**: public  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -256,10 +311,10 @@ JOB:       Developer
 ### visuals.drive([message]) ⇒ <code>Promise.&lt;String&gt;</code>
 The dropdown detects and autorefreshes itself when the drive list changes.
 
-**Kind**: static method of <code>[visuals](#visuals)</code>  
+**Kind**: static method of [<code>visuals</code>](#visuals)  
 **Summary**: Prompt the user to select a drive device  
 **Returns**: <code>Promise.&lt;String&gt;</code> - device path  
-**Access:** public  
+**Access**: public  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
