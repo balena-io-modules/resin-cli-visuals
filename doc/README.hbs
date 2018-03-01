@@ -1,12 +1,14 @@
 resin-cli-visuals
 -----------------
 
-[![npm version](https://badge.fury.io/js/resin-cli-visuals.svg)](http://badge.fury.io/js/resin-cli-visuals)
-[![dependencies](https://david-dm.org/resin-io/resin-cli-visuals.png)](https://david-dm.org/resin-io/resin-cli-visuals.png)
-[![Build Status](https://travis-ci.org/resin-io/resin-cli-visuals.svg?branch=master)](https://travis-ci.org/resin-io/resin-cli-visuals)
-[![Build status](https://ci.appveyor.com/api/projects/status/dljdbst05bp29wgv?svg=true)](https://ci.appveyor.com/project/jviotti/resin-cli-visuals)
+[![Current Release](https://img.shields.io/npm/v/resin-cli-visuals.svg?style=flat-square)](https://npmjs.com/package/resin-cli-visuals)
+[![License](https://img.shields.io/npm/l/resin-cli-visuals.svg?style=flat-square)](https://npmjs.com/package/resin-cli-visuals)
+[![Downloads](https://img.shields.io/npm/dm/resin-cli-visuals.svg?style=flat-square)](https://npmjs.com/package/resin-cli-visuals)
+[![Travis CI status](https://img.shields.io/travis/resin-io-modules/resin-cli-visuals/master.svg?style=flat-square)](https://travis-ci.org/resin-io-modules/resin-cli-visuals/branches)
+[![AppVeyor status](https://img.shields.io/appveyor/ci/resin-io/resin-cli-visuals/master.svg?style=flat-square)](https://ci.appveyor.com/project/resin-io/resin-cli-visuals/branch/master)
+[![Dependencies](https://img.shields.io/david/resin-io-modules/resin-cli-visuals.svg)](https://david-dm.org/resin-io-modules/resin-cli-visuals)
 
-Join our online chat at [![Gitter chat](https://badges.gitter.im/resin-io/chat.png)](https://gitter.im/resin-io/chat)
+Join our online chat at [![Gitter Chat](https://img.shields.io/gitter/room/resin-io/chat.svg?style=flat-square)](https://gitter.im/resin-io/chat)
 
 Resin CLI UI widgets.
 
