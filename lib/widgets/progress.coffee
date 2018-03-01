@@ -59,6 +59,7 @@ module.exports = class Progress
 	#
 	# @param {Object} state - progress state
 	# @param {Number} state.percentage - percentage
+	# @param {String} [state.message] - message
 	# @param {Number} [state.eta] - eta in seconds
 	#
 	# @throws Will throw if no percentage.
@@ -79,8 +80,10 @@ module.exports = class Progress
 		bar = @_bar.format(state.percentage / 100)
 		percentage = Math.floor(state.percentage)
 
-		@_lastLine = "#{@_message} [#{bar}] #{percentage}%"
-
+		@_lastLine = "#{@_message}"
+		if state.message?
+			@_lastLine = "#{state.message}"
+		@_lastLine += " [#{bar}] #{percentage}%"
 		if state.eta?
 			@_lastLine += " eta #{moment.duration(state.eta, 'seconds').format('m[m]ss[s]')}"
 
@@ -112,6 +115,7 @@ module.exports = class Progress
 	#
 	# @param {Object} state - progress state
 	# @param {Number} state.percentage - percentage
+	# @parm  {String} [state.message] - message
 	# @param {Number} [state.eta] - eta in seconds
 	#
 	# @example
