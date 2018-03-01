@@ -86,3 +86,10 @@ describe 'Progress:', ->
 					].join('')
 
 					m.chai.expect(@stdout.data).to.equal(progress)
+
+				it 'should print progress bar with a new message', ->
+					m.chai.expect(@stdout.data).to.equal('')
+					@progress.update(percentage: 20, eta: 20, message: 'bar')
+
+					progress = '\n\u001b[1Abar [=====                   ] 20% eta 20s\n'
+					m.chai.expect(@stdout.data).to.equal(progress)
