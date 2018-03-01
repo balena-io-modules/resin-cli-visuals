@@ -1,4 +1,3 @@
-
 /*
 Copyright 2016 Resin.io
 
@@ -13,7 +12,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
- */
+*/
 var CliSpinner, Spinner, _;
 
 _ = require('lodash');
@@ -22,73 +21,69 @@ _.str = require('underscore.string');
 
 CliSpinner = require('cli-spinner').Spinner;
 
-module.exports = Spinner = (function() {
-
+module.exports = Spinner = class Spinner {
   /**
-  	 * @summary Create a CLI Spinner
-  	 * @name Spinner
-  	 * @class
-  	 * @public
-  	 * @memberof visuals
-  	 *
-  	 * @param {String} message - message
-  	 * @returns {Spinner} spinner instance
-  	 *
-  	 * @throws Will throw if no message.
-  	 *
-  	 * @example
-  	 * spinner = new visuals.Spinner('Hello World')
+   * @summary Create a CLI Spinner
+   * @name Spinner
+   * @class
+   * @public
+   * @memberof visuals
+   *
+   * @param {String} message - message
+   * @returns {Spinner} spinner instance
+   *
+   * @throws Will throw if no message.
+   *
+   * @example
+   * spinner = new visuals.Spinner('Hello World')
    */
-  function Spinner(message) {
+  constructor(message) {
+    // The message is not strictly necessary
+    // however we require it to force clients
+    // to be descriptive about the on going process
     if (_.str.isBlank(message)) {
       throw new Error('Missing message');
     }
-    this.spinner = new CliSpinner("%s " + message);
+    this.spinner = new CliSpinner(`%s ${message}`);
     this.spinner.setSpinnerString('|/-\\');
     this.spinner.setSpinnerDelay(60);
     this.started = false;
   }
 
-
   /**
-  	 * @summary Start the spinner
-  	 * @name visuals.Spinner#start
-  	 * @method
-  	 * @public
-  	 *
-  	 * @example
-  	 * spinner = new visuals.Spinner('Hello World')
-  	 * spinner.start()
+   * @summary Start the spinner
+   * @name visuals.Spinner#start
+   * @method
+   * @public
+   *
+   * @example
+   * spinner = new visuals.Spinner('Hello World')
+   * spinner.start()
    */
-
-  Spinner.prototype.start = function() {
+  start() {
     if (this.started) {
       return;
     }
     this.spinner.start();
     return this.started = true;
-  };
-
+  }
 
   /**
-  	 * @summary Stop the spinner
-  	 * @name visuals.Spinner#stop
-  	 * @method
-  	 * @public
-  	 *
-  	 * @example
-  	 * spinner = new visuals.Spinner('Hello World')
-  	 * spinner.stop()
+   * @summary Stop the spinner
+   * @name visuals.Spinner#stop
+   * @method
+   * @public
+   *
+   * @example
+   * spinner = new visuals.Spinner('Hello World')
+   * spinner.stop()
    */
-
-  Spinner.prototype.stop = function() {
+  stop() {
     if (!this.started) {
       return;
     }
     this.spinner.stop(true);
     return this.started = false;
-  };
+  }
 
-  return Spinner;
-
-})();
+};
