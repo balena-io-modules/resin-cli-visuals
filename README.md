@@ -90,8 +90,6 @@ scanner.stop()
 **Kind**: global namespace  
 
 * [visuals](#visuals) : <code>object</code>
-    * [.SpinnerPromise](#visuals.SpinnerPromise)
-        * [new SpinnerPromise(options)](#new_visuals.SpinnerPromise_new)
     * [.Spinner](#visuals.Spinner)
         * [new Spinner(message)](#new_visuals.Spinner_new)
         * [.start()](#visuals.Spinner+start)
@@ -99,43 +97,13 @@ scanner.stop()
     * [.Progress](#visuals.Progress)
         * [new Progress(message)](#new_visuals.Progress_new)
         * [.update(state)](#visuals.Progress+update)
+    * [.SpinnerPromise](#visuals.SpinnerPromise)
+        * [new SpinnerPromise(options)](#new_visuals.SpinnerPromise_new)
     * [.table](#visuals.table) : <code>object</code>
         * [.horizontal(data, ordering)](#visuals.table.horizontal)
         * [.vertical(data, ordering)](#visuals.table.vertical)
     * [.drive([message])](#visuals.drive) ⇒ <code>Promise.&lt;String&gt;</code>
 
-<a name="visuals.SpinnerPromise"></a>
-
-### visuals.SpinnerPromise
-**Kind**: static class of [<code>visuals</code>](#visuals)  
-**Summary**: Create a CLI Spinner that spins on a promise  
-**Access**: public  
-**Fulfil**: <code>Object</code> value - resolved or rejected promise  
-<a name="new_visuals.SpinnerPromise_new"></a>
-
-#### new SpinnerPromise(options)
-This function will start a Spinner and stop it when the
-passed promise is either fulfilled or rejected. The function
-returns the passed promise which will be in either rejected or
-resolved state.
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>Object</code> | spinner promise options |
-| options.promise | <code>Promise</code> | promise to spin upon |
-| options.startMessage | <code>String</code> | start spinner message |
-| options.stopMessage | <code>String</code> | stop spinner message |
-
-**Example**  
-```js
-visuals.SpinnerPromise
-		 promise: scanDevicesPromise
-		 startMessage: "Scanning devices"
-		 stopMessage: "Scanned devices"
- .then (devices) ->
-		 console.log devices
-```
 <a name="visuals.Spinner"></a>
 
 ### visuals.Spinner
@@ -221,6 +189,7 @@ progress = new visuals.Progress('Hello World')
 **Kind**: instance method of [<code>Progress</code>](#visuals.Progress)  
 **Summary**: Update the progress bar  
 **Access**: public  
+**Parm**: <code>String</code> [state.message] - message  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -232,6 +201,38 @@ progress = new visuals.Progress('Hello World')
 ```js
 progress = new visuals.Progress('Hello World')
 progress.update(percentage: 49, eta: 300)
+```
+<a name="visuals.SpinnerPromise"></a>
+
+### visuals.SpinnerPromise
+**Kind**: static class of [<code>visuals</code>](#visuals)  
+**Summary**: Create a CLI Spinner that spins on a promise  
+**Access**: public  
+**Fulfil**: <code>Object</code> value - resolved or rejected promise  
+<a name="new_visuals.SpinnerPromise_new"></a>
+
+#### new SpinnerPromise(options)
+This function will start a Spinner and stop it when the
+passed promise is either fulfilled or rejected. The function
+returns the passed promise which will be in either rejected or
+resolved state.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> | spinner promise options |
+| options.promise | <code>Promise</code> | promise to spin upon |
+| options.startMessage | <code>String</code> | start spinner message |
+| options.stopMessage | <code>String</code> | stop spinner message |
+
+**Example**  
+```js
+visuals.SpinnerPromise
+		 promise: scanDevicesPromise
+		 startMessage: "Scanning devices"
+		 stopMessage: "Scanned devices"
+ .then (devices) ->
+		 console.log devices
 ```
 <a name="visuals.table"></a>
 

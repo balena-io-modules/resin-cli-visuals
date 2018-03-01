@@ -64,6 +64,7 @@ module.exports = Progress = class Progress {
    *
    * @param {Object} state - progress state
    * @param {Number} state.percentage - percentage
+   * @param {String} [state.message] - message
    * @param {Number} [state.eta] - eta in seconds
    *
    * @throws Will throw if no percentage.
@@ -83,7 +84,11 @@ module.exports = Progress = class Progress {
     }
     bar = this._bar.format(state.percentage / 100);
     percentage = Math.floor(state.percentage);
-    this._lastLine = `${this._message} [${bar}] ${percentage}%`;
+    this._lastLine = `${this._message}`;
+    if (state.message != null) {
+      this._lastLine = `${state.message}`;
+    }
+    this._lastLine += ` [${bar}] ${percentage}%`;
     if (state.eta != null) {
       this._lastLine += ` eta ${moment.duration(state.eta, 'seconds').format('m[m]ss[s]')}`;
     }
@@ -118,6 +123,7 @@ module.exports = Progress = class Progress {
    *
    * @param {Object} state - progress state
    * @param {Number} state.percentage - percentage
+   * @parm  {String} [state.message] - message
    * @param {Number} [state.eta] - eta in seconds
    *
    * @example

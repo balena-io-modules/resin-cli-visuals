@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.4.1 - 2018-03-01
+
+* Upgrade(package): Update to drivelist@6.0.4 [Jonas Hermsmeier]
+* Allow updater to specify custom message [Theodor Gherzan]
+* Test(ci): Fix Node versions used on CI [Jonas Hermsmeier]
+* Doc(README): Fix badge links [Jonas Hermsmeier]
+* Test(ci): Update Node versions tested against on CI [Jonas Hermsmeier]
+* Doc(README): Regenerate README with updated jsdoc2md [Jonas Hermsmeier]
+* Chore(build): Update build files [Jonas Hermsmeier]
+* Upgrade(package): Bump dependencies [Jonas Hermsmeier]
+
 ## [1.4.0] - 2017-06-09
 
 ### Changed

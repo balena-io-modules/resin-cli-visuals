@@ -39,7 +39,7 @@ driveToChoice = function(drive) {
 getDrives = function() {
   return drivelist.listAsync().then(function(drives) {
     return _.reject(drives, {
-      system: true
+      isSystem: true
     });
   });
 };
