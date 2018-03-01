@@ -11,8 +11,8 @@ cache:
 # what combinations to test
 environment:
   matrix:
-    - nodejs_version: 0.11
-    - nodejs_version: 0.12
+    - nodejs_version: 8
+    - nodejs_version: 6
 
 install:
   - ps: Install-Product node $env:nodejs_version x64
