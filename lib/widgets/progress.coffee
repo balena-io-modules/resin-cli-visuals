@@ -105,7 +105,7 @@ module.exports = class Progress
 			return
 
 		eraser = _.str.repeat(' ', @_lastLine.length)
-		console.log(CARRIAGE_RETURN + eraser)
+		process.stdout.write(CARRIAGE_RETURN + eraser + '\n')
 
 	###*
 	# @summary Update the progress bar
@@ -124,4 +124,4 @@ module.exports = class Progress
 	###
 	update: (state) ->
 		@_eraseLastLine()
-		console.log(CARRIAGE_RETURN + @_tick(state))
+		process.stdout.write(CARRIAGE_RETURN + @_tick(state) + '\n')
