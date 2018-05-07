@@ -17,7 +17,7 @@ limitations under the License.
 _ = require('lodash')
 _.str = require('underscore.string')
 moment = require('moment')
-require('moment-duration-format')
+require('moment-duration-format')(moment)
 ProgressBarFormatter = require('progress-bar-formatter')
 
 CARRIAGE_RETURN = '\u001b[1A'

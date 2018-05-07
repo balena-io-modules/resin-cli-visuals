@@ -21,7 +21,7 @@ _.str = require('underscore.string');
 
 moment = require('moment');
 
-require('moment-duration-format');
+require('moment-duration-format')(moment);
 
 ProgressBarFormatter = require('progress-bar-formatter');
 
@@ -112,7 +112,7 @@ module.exports = Progress = class Progress {
       return;
     }
     eraser = _.str.repeat(' ', this._lastLine.length);
-    return console.log(CARRIAGE_RETURN + eraser);
+    return process.stdout.write(CARRIAGE_RETURN + eraser + '\n');
   }
 
   /**
@@ -132,7 +132,7 @@ module.exports = Progress = class Progress {
    */
   update(state) {
     this._eraseLastLine();
-    return console.log(CARRIAGE_RETURN + this._tick(state));
+    return process.stdout.write(CARRIAGE_RETURN + this._tick(state) + '\n');
   }
 
 };
