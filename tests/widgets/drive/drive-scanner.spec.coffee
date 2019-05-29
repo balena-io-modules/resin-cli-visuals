@@ -163,5 +163,5 @@ describe 'Drive Scanner:', ->
 
 		it 'should throw an error if stop() can not find the interval id', ->
 			m.chai.expect =>
-				@scanner.stop.call(null)
+				@scanner.stop.call({})
 			.to.throw('Can\'t stop interval. Are you calling stop() with the right context?')
