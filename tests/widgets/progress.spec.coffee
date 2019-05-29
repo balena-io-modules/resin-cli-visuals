@@ -79,9 +79,9 @@ describe 'Progress:', ->
 
 					progress = [
 						'\n\u001b[1Afoo [=====                   ] 20% eta 20s\n'
-					  	'\u001b[1A                                          '
+						'\u001b[1A                                          '
 						'\n\u001b[1Afoo [=====                   ] 21% eta 19s\n'
-					  	'\u001b[1A                                          '
+						'\u001b[1A                                          '
 						'\n\u001b[1Afoo [=====                   ] 22% eta 18s\n'
 					].join('')
 

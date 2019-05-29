@@ -19,12 +19,6 @@ gulp.task 'coffee', ->
 		.pipe(coffee(bare: true)).on('error', gutil.log)
 		.pipe(gulp.dest('build/'))
 
-gulp.task 'test', [ 'coffee', 'lint' ], ->
-	gulp.src(OPTIONS.files.tests, read: false)
-		.pipe(mocha({
-			reporter: 'min'
-		}))
-
 gulp.task 'lint', ->
 	gulp.src(OPTIONS.files.coffee)
 		.pipe(coffeelint({
@@ -32,7 +26,18 @@ gulp.task 'lint', ->
 		}))
 		.pipe(coffeelint.reporter())
 
-gulp.task('build', sequence('lint', 'test', 'coffee'))
+gulp.task 'test', gulp.series [ 'coffee', 'lint' ], ->
+	gulp.src(OPTIONS.files.tests, read: false)
+		.pipe(mocha({
+			reporter: 'min'
+			require: 'coffeescript/register'
+		}))
 
-gulp.task 'watch', [ 'build' ], ->
+gulp.task 'build', gulp.series [
+	'lint'
+	'test'
+	'coffee'
+]
+
+gulp.task 'watch', gulp.series [ 'build' ], ->
 	gulp.watch([ OPTIONS.files.coffee ], [ 'build' ])
