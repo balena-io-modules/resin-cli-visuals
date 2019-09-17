@@ -36,6 +36,7 @@ module.exports = Progress = class Progress {
    * @memberof visuals
    *
    * @param {String} message - message
+   * @param {WritableStream} stream
    * @returns {Progress} progress bar instance
    *
    * @throws Will throw if no message.
@@ -43,10 +44,11 @@ module.exports = Progress = class Progress {
    * @example
    * progress = new visuals.Progress('Hello World')
    */
-  constructor(message) {
+  constructor(message, stream = process.stdout) {
     if (_.str.isBlank(message)) {
       throw new Error('Missing message');
     }
+    this._stream = stream;
     this._message = message;
     this._bar = new ProgressBarFormatter({
       complete: '=',
@@ -108,11 +110,11 @@ module.exports = Progress = class Progress {
   _eraseLastLine() {
     var eraser;
     if (this._lastLine == null) {
-      process.stdout.write('\n');
+      this._stream.write('\n');
       return;
     }
     eraser = _.str.repeat(' ', this._lastLine.length);
-    return process.stdout.write(CARRIAGE_RETURN + eraser + '\n');
+    return this._stream.write(CARRIAGE_RETURN + eraser + '\n');
   }
 
   /**
@@ -132,7 +134,7 @@ module.exports = Progress = class Progress {
    */
   update(state) {
     this._eraseLastLine();
-    return process.stdout.write(CARRIAGE_RETURN + this._tick(state) + '\n');
+    return this._stream.write(CARRIAGE_RETURN + this._tick(state) + '\n');
   }
 
 };

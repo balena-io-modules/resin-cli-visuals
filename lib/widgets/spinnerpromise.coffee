@@ -48,7 +48,7 @@ module.exports = class SpinnerPromise
 	#  .then (devices) ->
 	#		 console.log devices
 	###
-	constructor: (options = {}) ->
+	constructor: (options = {}, stream = process.stdout) ->
 
 		{ promise, startMessage, stopMessage } = options
 
@@ -63,6 +63,6 @@ module.exports = class SpinnerPromise
 			console.log(stopMessage) if stopMessage?
 			return promise
 
-		@spinner = new Spinner(startMessage)
+		@spinner = new Spinner(startMessage, stream)
 		@spinner.start()
 		return promise.then(clearSpinner, clearSpinner)

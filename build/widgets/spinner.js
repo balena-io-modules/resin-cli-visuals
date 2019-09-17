@@ -29,6 +29,7 @@ module.exports = Spinner = class Spinner {
    * @public
    * @memberof visuals
    *
+   * @param {WritableStream} stream
    * @param {String} message - message
    * @returns {Spinner} spinner instance
    *
@@ -37,14 +38,17 @@ module.exports = Spinner = class Spinner {
    * @example
    * spinner = new visuals.Spinner('Hello World')
    */
-  constructor(message) {
+  constructor(message, stream = process.stdout) {
     // The message is not strictly necessary
     // however we require it to force clients
     // to be descriptive about the on going process
     if (_.str.isBlank(message)) {
       throw new Error('Missing message');
     }
-    this.spinner = new CliSpinner(`%s ${message}`);
+    this.spinner = new CliSpinner({
+      text: `${message}`,
+      stream
+    });
     this.spinner.setSpinnerString('|/-\\');
     this.spinner.setSpinnerDelay(60);
     this.started = false;

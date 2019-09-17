@@ -52,7 +52,7 @@ module.exports = SpinnerPromise = class SpinnerPromise {
    *  .then (devices) ->
    *		 console.log devices
    */
-  constructor(options = {}) {
+  constructor(options = {}, stream = process.stdout) {
     var clearSpinner, promise, startMessage, stopMessage;
     ({promise, startMessage, stopMessage} = options);
     if (!isPromise(promise)) {
@@ -71,7 +71,7 @@ module.exports = SpinnerPromise = class SpinnerPromise {
       }
       return promise;
     };
-    this.spinner = new Spinner(startMessage);
+    this.spinner = new Spinner(startMessage, stream);
     this.spinner.start();
     return promise.then(clearSpinner, clearSpinner);
   }

@@ -27,6 +27,7 @@ module.exports = class Spinner
 	# @public
 	# @memberof visuals
 	#
+	# @param {WritableStream} stream
 	# @param {String} message - message
 	# @returns {Spinner} spinner instance
 	#
@@ -35,7 +36,7 @@ module.exports = class Spinner
 	# @example
 	# spinner = new visuals.Spinner('Hello World')
 	###
-	constructor: (message) ->
+	constructor: (message, stream = process.stdout) ->
 
 		# The message is not strictly necessary
 		# however we require it to force clients
@@ -43,7 +44,7 @@ module.exports = class Spinner
 		if _.str.isBlank(message)
 			throw new Error('Missing message')
 
-		@spinner = new CliSpinner("%s #{message}")
+		@spinner = new CliSpinner({ text: "#{message}", stream })
 		@spinner.setSpinnerString('|/-\\')
 		@spinner.setSpinnerDelay(60)
 

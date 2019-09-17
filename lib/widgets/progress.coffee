@@ -32,6 +32,7 @@ module.exports = class Progress
 	# @memberof visuals
 	#
 	# @param {String} message - message
+	# @param {WritableStream} stream
 	# @returns {Progress} progress bar instance
 	#
 	# @throws Will throw if no message.
@@ -39,10 +40,11 @@ module.exports = class Progress
 	# @example
 	# progress = new visuals.Progress('Hello World')
 	###
-	constructor: (message) ->
+	constructor: (message, stream = process.stdout) ->
 		if _.str.isBlank(message)
 			throw new Error('Missing message')
 
+		@_stream = stream
 		@_message = message
 		@_bar = new ProgressBarFormatter
 			complete: '='
@@ -101,11 +103,11 @@ module.exports = class Progress
 	###
 	_eraseLastLine: ->
 		if not @_lastLine?
-			process.stdout.write('\n')
+			@_stream.write('\n')
 			return
 
 		eraser = _.str.repeat(' ', @_lastLine.length)
-		process.stdout.write(CARRIAGE_RETURN + eraser + '\n')
+		@_stream.write(CARRIAGE_RETURN + eraser + '\n')
 
 	###*
 	# @summary Update the progress bar
@@ -124,4 +126,4 @@ module.exports = class Progress
 	###
 	update: (state) ->
 		@_eraseLastLine()
-		process.stdout.write(CARRIAGE_RETURN + @_tick(state) + '\n')
+		@_stream.write(CARRIAGE_RETURN + @_tick(state) + '\n')
