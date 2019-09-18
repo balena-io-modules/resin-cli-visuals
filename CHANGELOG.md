@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+## 1.4.4 - 2019-09-18
+
+* Allow our widgets to take an optional stream parameter [Theodor Gherzan]
+
 ## 1.4.3 - 2019-05-29
 
 * Dependencies: update to Node 12 compilation [Gergely Imreh]
