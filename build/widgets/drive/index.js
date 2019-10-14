@@ -21,7 +21,7 @@ chalk = require('chalk');
 
 Promise = require('bluebird');
 
-drivelist = Promise.promisifyAll(require('drivelist'));
+drivelist = require('drivelist');
 
 DynamicList = require('inquirer-dynamic-list');
 
@@ -37,7 +37,7 @@ driveToChoice = function(drive) {
 };
 
 getDrives = function() {
-  return drivelist.listAsync().then(function(drives) {
+  return drivelist.list().then(function(drives) {
     return _.reject(drives, {
       isSystem: true
     });
