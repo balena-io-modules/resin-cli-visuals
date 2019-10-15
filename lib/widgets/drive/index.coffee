@@ -17,7 +17,7 @@ limitations under the License.
 _ = require('lodash')
 chalk = require('chalk')
 Promise = require('bluebird')
-drivelist = Promise.promisifyAll(require('drivelist'))
+drivelist = require('drivelist')
 DynamicList = require('inquirer-dynamic-list')
 DriveScanner = require('./drive-scanner')
 
@@ -30,7 +30,7 @@ driveToChoice = (drive) ->
 	}
 
 getDrives = ->
-	drivelist.listAsync().then (drives) ->
+	drivelist.list().then (drives) ->
 		return _.reject(drives, isSystem: true)
 
 ###*
