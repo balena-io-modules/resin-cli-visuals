@@ -52,7 +52,7 @@ parseOrdering = function(ordering, data) {
 };
 
 getAlias = function(ordering, column) {
-  return _.result(_.findWhere(ordering, {
+  return _.result(_.find(ordering, {
     name: column
   }), 'alias');
 };
@@ -120,7 +120,7 @@ exports.horizontal = function(data, ordering) {
   }
   ordering = parseOrdering(ordering, data);
   return trimRight(columnify(data, {
-    columns: _.pluck(ordering, 'name'),
+    columns: _.map(ordering, 'name'),
     preserveNewLines: true,
     headingTransform: function(heading) {
       return normalizeTitle(getAlias(ordering, heading) || heading);

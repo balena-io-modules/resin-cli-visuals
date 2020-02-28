@@ -50,7 +50,7 @@ parseOrdering = (ordering, data) ->
 		return result
 
 getAlias = (ordering, column) ->
-	return _.result(_.findWhere(ordering, name: column), 'alias')
+	return _.result(_.find(ordering, name: column), 'alias')
 
 normalizeTitle = (title) ->
 	return _.str.underscored(title).toUpperCase().replace(/_/g, ' ')
@@ -106,7 +106,7 @@ exports.horizontal = (data, ordering) ->
 	ordering = parseOrdering(ordering, data)
 
 	return trimRight columnify data,
-		columns: _.pluck(ordering, 'name')
+		columns: _.map(ordering, 'name')
 		preserveNewLines: true
 		headingTransform: (heading) ->
 			return normalizeTitle(getAlias(ordering, heading) or heading)

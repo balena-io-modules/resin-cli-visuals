@@ -18,7 +18,7 @@ var _, containsDeep, createDiffOperation, differenceDeep;
 _ = require('lodash');
 
 containsDeep = function(array, item) {
-  return _.any(_.map(array, _.partial(_.isEqual, item)));
+  return _.some(_.map(array, _.partial(_.isEqual, item)));
 };
 
 differenceDeep = function(x, y) {
