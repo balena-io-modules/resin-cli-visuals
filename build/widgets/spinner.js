@@ -17,8 +17,6 @@ var CliSpinner, Spinner, _;
 
 _ = require('lodash');
 
-_.str = require('underscore.string');
-
 CliSpinner = require('cli-spinner').Spinner;
 
 module.exports = Spinner = class Spinner {
@@ -41,7 +39,7 @@ module.exports = Spinner = class Spinner {
     // The message is not strictly necessary
     // however we require it to force clients
     // to be descriptive about the on going process
-    if (_.str.isBlank(message)) {
+    if (_.trim(message) === '') {
       throw new Error('Missing message');
     }
     this.spinner = new CliSpinner(`%s ${message}`);

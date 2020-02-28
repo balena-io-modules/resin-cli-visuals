@@ -15,7 +15,6 @@ limitations under the License.
 ###
 
 _ = require('lodash')
-_.str = require('underscore.string')
 columnify = require('columnify')
 
 ###*
@@ -25,7 +24,7 @@ columnify = require('columnify')
 
 parseOrdering = (ordering, data) ->
 	return _.compact _.map ordering, (column) ->
-		if _.str.isBlank(column)
+		if _.trim(column) == ''
 			return {
 				type: 'separator'
 			}
@@ -53,16 +52,16 @@ getAlias = (ordering, column) ->
 	return _.result(_.find(ordering, name: column), 'alias')
 
 normalizeTitle = (title) ->
-	return _.str.underscored(title).toUpperCase().replace(/_/g, ' ')
+	return _.trim(title).replace(/([a-z\d])([A-Z]+)/g, '$1 $2').replace(/[_-\s]+/g, ' ').toUpperCase()
 
 normalizeSubtitle = (subtitle, width) ->
-	return _.str.rpad("== #{normalizeTitle(subtitle)}", width, ' ')
+	return _.padEnd("== #{normalizeTitle(subtitle)}", width, ' ')
 
 applySubtitles = (table, ordering) ->
-	splitTable = _.str.lines(table)
+	splitTable = table.split(/\r\n?|\n/)
 
 	titleizedTable = _.map splitTable, (row) ->
-		return row if not _.str.startsWith(row, '$X$')
+		return row if not _.startsWith(row, '$X$')
 		rowWidth = row.length
 		rowIndex = _.indexOf(splitTable, row)
 		return normalizeSubtitle(ordering[rowIndex].value, rowWidth)
@@ -70,9 +69,9 @@ applySubtitles = (table, ordering) ->
 	return titleizedTable.join('\n')
 
 trimRight = (table) ->
-	splitTable = _.str.lines(table)
+	splitTable = table.split(/\r\n?|\n/)
 	splitTable = _.map splitTable, (row) ->
-		return _.str.rtrim(row)
+		return _.trimEnd(row)
 	return splitTable.join('\n')
 
 ###*
