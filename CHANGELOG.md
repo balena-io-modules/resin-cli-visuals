@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+## 1.4.6 - 2020-02-29
+
+* Remove underscore.string [Pagan Gazzard]
+* Update to lodash 4.x [Pagan Gazzard]
+
 ## 1.4.5 - 2020-02-28
 
 * Lazy-load inquirer-dynamic-list and drivelist [Pagan Gazzard]
