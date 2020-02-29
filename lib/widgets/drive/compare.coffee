@@ -17,7 +17,7 @@ limitations under the License.
 _ = require('lodash')
 
 containsDeep = (array, item) ->
-	return _.any(_.map(array, _.partial(_.isEqual, item)))
+	return _.some(_.map(array, _.partial(_.isEqual, item)))
 
 differenceDeep = (x, y) ->
 	return _.filter(x, _.partial(_.negate(containsDeep), y))

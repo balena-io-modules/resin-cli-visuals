@@ -17,8 +17,6 @@ var CARRIAGE_RETURN, Progress, ProgressBarFormatter, _, moment;
 
 _ = require('lodash');
 
-_.str = require('underscore.string');
-
 moment = require('moment');
 
 require('moment-duration-format')(moment);
@@ -44,7 +42,7 @@ module.exports = Progress = class Progress {
    * progress = new visuals.Progress('Hello World')
    */
   constructor(message) {
-    if (_.str.isBlank(message)) {
+    if (_.trim(message) === '') {
       throw new Error('Missing message');
     }
     this._message = message;
@@ -111,7 +109,7 @@ module.exports = Progress = class Progress {
       process.stdout.write('\n');
       return;
     }
-    eraser = _.str.repeat(' ', this._lastLine.length);
+    eraser = _.repeat(' ', this._lastLine.length);
     return process.stdout.write(CARRIAGE_RETURN + eraser + '\n');
   }
 

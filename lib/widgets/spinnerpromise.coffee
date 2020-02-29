@@ -15,7 +15,6 @@ limitations under the License.
 ###
 
 _ = require('lodash')
-_.str = require('underscore.string')
 Spinner = require('./spinner')
 isPromise = require('is-promise')
 module.exports = class SpinnerPromise
@@ -55,7 +54,7 @@ module.exports = class SpinnerPromise
 		if not isPromise(promise)
 			return Promise.reject(new Error("'promise' must be a Promises/A+ compatible promise"))
 
-		if _.str.isBlank(startMessage)
+		if _.trim(startMessage) == ''
 			return Promise.reject(new Error('Missing spinner start message'))
 
 		clearSpinner = =>

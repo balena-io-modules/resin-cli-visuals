@@ -21,14 +21,12 @@ var _, applySubtitles, columnify, getAlias, normalizeSubtitle, normalizeTitle, p
 
 _ = require('lodash');
 
-_.str = require('underscore.string');
-
 columnify = require('columnify');
 
 parseOrdering = function(ordering, data) {
   return _.compact(_.map(ordering, function(column) {
     var aliasMatches, result, subtitleMatches;
-    if (_.str.isBlank(column)) {
+    if (_.trim(column) === '') {
       return {
         type: 'separator'
       };
@@ -52,25 +50,25 @@ parseOrdering = function(ordering, data) {
 };
 
 getAlias = function(ordering, column) {
-  return _.result(_.findWhere(ordering, {
+  return _.result(_.find(ordering, {
     name: column
   }), 'alias');
 };
 
 normalizeTitle = function(title) {
-  return _.str.underscored(title).toUpperCase().replace(/_/g, ' ');
+  return _.trim(title).replace(/([a-z\d])([A-Z]+)/g, '$1 $2').replace(/[_-\s]+/g, ' ').toUpperCase();
 };
 
 normalizeSubtitle = function(subtitle, width) {
-  return _.str.rpad(`== ${normalizeTitle(subtitle)}`, width, ' ');
+  return _.padEnd(`== ${normalizeTitle(subtitle)}`, width, ' ');
 };
 
 applySubtitles = function(table, ordering) {
   var splitTable, titleizedTable;
-  splitTable = _.str.lines(table);
+  splitTable = table.split(/\r\n?|\n/);
   titleizedTable = _.map(splitTable, function(row) {
     var rowIndex, rowWidth;
-    if (!_.str.startsWith(row, '$X$')) {
+    if (!_.startsWith(row, '$X$')) {
       return row;
     }
     rowWidth = row.length;
@@ -82,9 +80,9 @@ applySubtitles = function(table, ordering) {
 
 trimRight = function(table) {
   var splitTable;
-  splitTable = _.str.lines(table);
+  splitTable = table.split(/\r\n?|\n/);
   splitTable = _.map(splitTable, function(row) {
-    return _.str.rtrim(row);
+    return _.trimEnd(row);
   });
   return splitTable.join('\n');
 };
@@ -120,7 +118,7 @@ exports.horizontal = function(data, ordering) {
   }
   ordering = parseOrdering(ordering, data);
   return trimRight(columnify(data, {
-    columns: _.pluck(ordering, 'name'),
+    columns: _.map(ordering, 'name'),
     preserveNewLines: true,
     headingTransform: function(heading) {
       return normalizeTitle(getAlias(ordering, heading) || heading);

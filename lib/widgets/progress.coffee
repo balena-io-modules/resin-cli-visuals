@@ -15,7 +15,6 @@ limitations under the License.
 ###
 
 _ = require('lodash')
-_.str = require('underscore.string')
 moment = require('moment')
 require('moment-duration-format')(moment)
 ProgressBarFormatter = require('progress-bar-formatter')
@@ -40,7 +39,7 @@ module.exports = class Progress
 	# progress = new visuals.Progress('Hello World')
 	###
 	constructor: (message) ->
-		if _.str.isBlank(message)
+		if _.trim(message) == ''
 			throw new Error('Missing message')
 
 		@_message = message
@@ -104,7 +103,7 @@ module.exports = class Progress
 			process.stdout.write('\n')
 			return
 
-		eraser = _.str.repeat(' ', @_lastLine.length)
+		eraser = _.repeat(' ', @_lastLine.length)
 		process.stdout.write(CARRIAGE_RETURN + eraser + '\n')
 
 	###*

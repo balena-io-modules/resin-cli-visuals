@@ -15,7 +15,6 @@ limitations under the License.
 ###
 
 _ = require('lodash')
-_.str = require('underscore.string')
 CliSpinner = require('cli-spinner').Spinner
 
 module.exports = class Spinner
@@ -40,7 +39,7 @@ module.exports = class Spinner
 		# The message is not strictly necessary
 		# however we require it to force clients
 		# to be descriptive about the on going process
-		if _.str.isBlank(message)
+		if _.trim(message) == ''
 			throw new Error('Missing message')
 
 		@spinner = new CliSpinner("%s #{message}")
