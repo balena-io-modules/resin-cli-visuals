@@ -17,8 +17,6 @@ limitations under the License.
 _ = require('lodash')
 chalk = require('chalk')
 Promise = require('bluebird')
-drivelist = require('drivelist')
-DynamicList = require('inquirer-dynamic-list')
 DriveScanner = require('./drive-scanner')
 
 driveToChoice = (drive) ->
@@ -30,7 +28,7 @@ driveToChoice = (drive) ->
 	}
 
 getDrives = ->
-	drivelist.list().then (drives) ->
+	require('drivelist').list().then (drives) ->
 		return _.reject(drives, isSystem: true)
 
 ###*
@@ -56,6 +54,7 @@ module.exports = (message = 'Select a drive') ->
 			interval: 1000
 			drives: drives
 
+		DynamicList = require('inquirer-dynamic-list')
 		list = new DynamicList
 			message: message
 			emptyMessage: "#{chalk.red('x')} No available drives were detected, plug one in!"

@@ -13,17 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-var DriveScanner, DynamicList, Promise, _, chalk, driveToChoice, drivelist, getDrives;
+var DriveScanner, Promise, _, chalk, driveToChoice, getDrives;
 
 _ = require('lodash');
 
 chalk = require('chalk');
 
 Promise = require('bluebird');
-
-drivelist = require('drivelist');
-
-DynamicList = require('inquirer-dynamic-list');
 
 DriveScanner = require('./drive-scanner');
 
@@ -37,7 +33,7 @@ driveToChoice = function(drive) {
 };
 
 getDrives = function() {
-  return drivelist.list().then(function(drives) {
+  return require('drivelist').list().then(function(drives) {
     return _.reject(drives, {
       isSystem: true
     });
@@ -63,11 +59,12 @@ getDrives = function() {
  */
 module.exports = function(message = 'Select a drive') {
   return getDrives().then(function(drives) {
-    var list, scanner;
+    var DynamicList, list, scanner;
     scanner = new DriveScanner(getDrives, {
       interval: 1000,
       drives: drives
     });
+    DynamicList = require('inquirer-dynamic-list');
     list = new DynamicList({
       message: message,
       emptyMessage: `${chalk.red('x')} No available drives were detected, plug one in!`,
