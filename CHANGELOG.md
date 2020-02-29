@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+## 1.4.5 - 2020-02-28
+
+* Lazy-load inquirer-dynamic-list and drivelist [Pagan Gazzard]
+
 ## 1.4.4 - 2019-10-14
 
 * Update drivelist import (fix balena-cli "os initialize") [Paulo Castro]
