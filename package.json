@@ -20,7 +20,7 @@
   },
   "scripts": {
     "test": "gulp test",
-    "prepublish": "gulp build",
+    "prepare": "gulp build",
     "readme": "jsdoc2md --template doc/README.hbs `find build -name '*.js'` > README.md"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
