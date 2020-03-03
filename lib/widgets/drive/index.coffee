@@ -54,7 +54,7 @@ module.exports = (message = 'Select a drive') ->
 			interval: 1000
 			drives: drives
 
-		DynamicList = require('inquirer-dynamic-list')
+		DynamicList = require('./dynamic-list')
 		list = new DynamicList
 			message: message
 			emptyMessage: "#{chalk.red('x')} No available drives were detected, plug one in!"
