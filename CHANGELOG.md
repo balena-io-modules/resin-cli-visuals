@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+## 1.4.7 - 2020-03-03
+
+* Remove build output from the repo [Pagan Gazzard]
+
 ## 1.4.6 - 2020-02-29
 
 * Remove underscore.string [Pagan Gazzard]
