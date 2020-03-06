@@ -1,5 +1,4 @@
 m = require('mochainon')
-_ = require('lodash')
 Promise = require('bluebird')
 DriveScanner = require('../../../lib/widgets/drive/drive-scanner')
 

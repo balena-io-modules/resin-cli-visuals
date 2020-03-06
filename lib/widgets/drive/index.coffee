@@ -16,7 +16,6 @@ limitations under the License.
 
 _ = require('lodash')
 chalk = require('chalk')
-Promise = require('bluebird')
 DriveScanner = require('./drive-scanner')
 
 driveToChoice = (drive) ->

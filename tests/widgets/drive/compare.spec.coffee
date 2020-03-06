@@ -30,8 +30,8 @@ describe 'Drive Compare:', ->
 		previous = []
 
 		current = [
-			{ foo: 'bar'}
-			{ foo: 'baz'}
+			{ foo: 'bar' }
+			{ foo: 'baz' }
 		]
 
 		m.chai.expect(compare(previous, current)).to.deep.equal
@@ -55,7 +55,7 @@ describe 'Drive Compare:', ->
 
 	it 'should compare multiple drive additions', ->
 		previous = [
-			{ foo: 'bar'}
+			{ foo: 'bar' }
 		]
 
 		current = [
@@ -90,12 +90,12 @@ describe 'Drive Compare:', ->
 		]
 
 		current = [
-			{ foo: 'bar'}
+			{ foo: 'bar' }
 		]
 
 		m.chai.expect(compare(previous, current)).to.deep.equal
 			drives: [
-				{ foo: 'bar'}
+				{ foo: 'bar' }
 			]
 
 			diff: [
@@ -108,7 +108,7 @@ describe 'Drive Compare:', ->
 
 	it 'should compare multiple drive removals', ->
 		previous = [
-			{ foo: 'bar'}
+			{ foo: 'bar' }
 			{ bar: 'baz' }
 			{ baz: 'bar' }
 		]
@@ -225,14 +225,14 @@ describe 'Drive Compare:', ->
 		]
 
 		current = [
-			{ bar: 'baz'}
-			{ baz: 'bar'}
+			{ bar: 'baz' }
+			{ baz: 'bar' }
 		]
 
 		m.chai.expect(compare(previous, current)).to.deep.equal
 			drives: [
-				{ bar: 'baz'}
-				{ baz: 'bar'}
+				{ bar: 'baz' }
+				{ baz: 'bar' }
 			]
 
 			diff: [

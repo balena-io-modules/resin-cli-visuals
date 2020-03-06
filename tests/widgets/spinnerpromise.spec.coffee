@@ -1,5 +1,4 @@
 m = require('mochainon')
-stdout = require('../utils/stdout')
 SpinnerPromise = require('../../lib/widgets/spinnerpromise')
 BluebirdPromise = require('bluebird')
 
