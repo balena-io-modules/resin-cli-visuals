@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+## 1.5.1 - 2020-03-06
+
+* Add linting [Pagan Gazzard]
+
 ## 1.5.0 - 2020-03-03
 
 * Bring inquirer-dynamic-list into the module so it uses inquirer 7.x [Pagan Gazzard]
