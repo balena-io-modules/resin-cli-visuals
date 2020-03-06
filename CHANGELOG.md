@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+## 1.5.0 - 2020-03-03
+
+* Bring inquirer-dynamic-list into the module so it uses inquirer 7.x [Pagan Gazzard]
+
 ## 1.4.7 - 2020-03-03
 
 * Remove build output from the repo [Pagan Gazzard]
