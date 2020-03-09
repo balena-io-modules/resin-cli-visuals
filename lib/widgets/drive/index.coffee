@@ -14,9 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-_ = require('lodash')
 chalk = require('chalk')
-DriveScanner = require('./drive-scanner')
+Promise = require('bluebird')
 
 driveToChoice = (drive) ->
 	size = drive.size / 1000000000
@@ -25,10 +24,6 @@ driveToChoice = (drive) ->
 		name: "#{drive.device} (#{size.toFixed(1)} GB) - #{drive.description}"
 		value: drive.device
 	}
-
-getDrives = ->
-	require('drivelist').list().then (drives) ->
-		return _.reject(drives, isSystem: true)
 
 ###*
 # @summary Prompt the user to select a drive device
@@ -48,23 +43,24 @@ getDrives = ->
 # 	console.log(drive)
 ###
 module.exports = (message = 'Select a drive') ->
-	getDrives().then (drives) ->
-		scanner = new DriveScanner getDrives,
-			interval: 1000
-			drives: drives
-
+	scanner = require('etcher-sdk/build/scanner')
+	adapter = new scanner.adapters.BlockDeviceAdapter(-> false)
+	scanner = new scanner.Scanner([adapter])
+	Promise.resolve(scanner.start()).then ->
 		DynamicList = require('./dynamic-list')
 		list = new DynamicList
 			message: message
 			emptyMessage: "#{chalk.red('x')} No available drives were detected, plug one in!"
-			choices: _.map(drives, driveToChoice)
+			choices: Array.from(scanner.drives).map(driveToChoice)
 
-		scanner.on 'add', (drive) ->
+		scanner.on('attach', (drive) ->
 			list.addChoice(driveToChoice(drive))
 			list.render()
-
-		scanner.on 'remove', (drive) ->
+		)
+		scanner.on('detach', (drive) ->
 			list.removeChoice(driveToChoice(drive))
 			list.render()
+		)
 
-		list.run().tap(_.bind(scanner.stop, scanner))
+		list.run()
+	.finally -> scanner.stop()
