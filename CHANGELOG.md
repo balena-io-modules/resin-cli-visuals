@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+## 1.5.2 - 2020-03-06
+
+* Convert dynamic-list to typescript [Pagan Gazzard]
+
 ## 1.5.1 - 2020-03-06
 
 * Add linting [Pagan Gazzard]
