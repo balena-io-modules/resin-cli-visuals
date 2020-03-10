@@ -36,7 +36,7 @@ describe 'Spinner:', ->
 					m.chai.expect(@stdout.data).to.equal('')
 
 					@spinner.start()
-					clock.tick(60 * 4)
+					clock.tick(60 * 3)
 
 					m.chai.expect(@stdout.data).to.equal [
 						'\u001b[2K\u001b[1G| foo'
