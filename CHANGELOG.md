@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+## 1.7.0 - 2020-03-09
+
+* Update dependencies [Pagan Gazzard]
+
 ## 1.6.0 - 2020-03-09
 
 * Switch to using the drive scanner from etcher-sdk [Pagan Gazzard]
