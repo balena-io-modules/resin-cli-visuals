@@ -44,7 +44,7 @@ driveToChoice = (drive) ->
 ###
 module.exports = (message = 'Select a drive') ->
 	scanner = require('etcher-sdk/build/scanner')
-	adapter = new scanner.adapters.BlockDeviceAdapter()
+	adapter = new scanner.adapters.BlockDeviceAdapter({})
 	scanner = new scanner.Scanner([adapter])
 	Promise.resolve(scanner.start()).then ->
 		DynamicList = require('./dynamic-list')
