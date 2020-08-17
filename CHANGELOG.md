@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v1.7.2
+## (2020-08-17)
+
+* Fix missing param [Pagan Gazzard]
+
 # v1.7.1
 ## (2020-08-17)
 
