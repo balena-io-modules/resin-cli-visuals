@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v1.8.0
+## (2021-03-01)
+
+* package: Bump etcher-sdk to v6.2.0 [Marios Balamatsias]
+
 # v1.7.2
 ## (2020-08-17)
 
