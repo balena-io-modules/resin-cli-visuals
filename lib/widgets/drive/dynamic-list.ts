@@ -31,7 +31,7 @@ import InquirerList = require('inquirer/lib/prompts/list');
 import UI = require('inquirer/lib/ui/baseUI');
 import * as _ from 'lodash';
 
-export = class DynamicList extends InquirerList {
+class DynamicList extends InquirerList {
 	public options: ConstructorParameters<typeof InquirerList>[0] & {
 		emptyMessage: string;
 	};
@@ -245,4 +245,6 @@ export = class DynamicList extends InquirerList {
 			(this.ui as any).close();
 		});
 	}
-};
+}
+
+export default DynamicList;
