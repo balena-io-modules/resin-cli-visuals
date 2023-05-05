@@ -43,7 +43,7 @@
     "chalk": "^3.0.0",
     "cli-spinner": "^0.2.10",
     "columnify": "^1.5.1",
-    "etcher-sdk": "^6.2.0",
+    "etcher-sdk": "^8.5.3",
     "inquirer": "^7.3.3",
     "is-promise": "^4.0.0",
     "lodash": "^4.17.20",
