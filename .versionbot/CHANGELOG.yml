@@ -1,0 +1,425 @@
+- commits:
+    - subject: Update etcher-sdk to v8
+      hash: f2a3329bbf82f63cd491376977bbea7c8343b1f5
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Felipe Lalanne
+    - subject: Setup flowzone
+      hash: 934e4effb8cb2922dd30d0d30052f7f50ebe4e28
+      body: |
+        This also updates some dependencies to allow the code
+        to build with newer node versions
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Felipe Lalanne
+  version: 1.8.1
+  title: ""
+  date: 2023-05-08T16:19:34.536Z
+- version: 1.8.0
+  date: 2021-03-01T12:54:32Z
+  commits:
+    - hash: d077061fcaf32d8103e5e6082086aae6dfb08a95
+      author: Marios Balamatsias
+      footers:
+        connects-to: https://github.com/balena-io/balena-cli/issues/2079
+        change-type: minor
+        signed-off-by: Marios Balamatsias <mbalamatsias@gmail.com>
+      subject: "package: Bump etcher-sdk to v6.2.0"
+      body: null
+- version: 1.7.2
+- date: 2020-08-17T14:10:35Z
+- commits:
+    - hash: 228f879439aa4fab96848004031129a07c5329ef
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Fix missing param
+- commits:
+    - body: null
+- version: 1.7.1
+- date: 2020-08-17T13:52:11Z
+- commits:
+    - hash: 4f6cb4f8f6fb1384dfeb0bc07fcaf67b82351276
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Update etcher-sdk to 4.x
+- commits:
+    - body: null
+- commits:
+    - hash: 17af08404912ff10f47246b8bf54340fedae233a
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Update dependencies
+- commits:
+    - body: null
+- version: 1.7.0
+- date: 2020-03-10T13:21:55Z
+- commits:
+    - hash: 87001e5f5eb9bbfc916c164024999259089a48a1
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - subject: Update dependencies
+- commits:
+    - body: This will now only show the spinner if stdout is a tty
+- version: 1.6.0
+- date: 2020-03-09T15:46:34Z
+- commits:
+    - hash: bbd986119111a4ca81e396bfc742ddd832b6d297
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - subject: Switch to using the drive scanner from etcher-sdk
+- commits:
+    - body: null
+- version: 1.5.2
+- date: 2020-03-09T10:11:17Z
+- commits:
+    - hash: 141c68dc82da51b1cbe8677885dab55f3f0a18e2
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Convert dynamic-list to typescript
+- commits:
+    - body: null
+- version: 1.5.1
+- date: 2020-03-06T14:01:32Z
+- commits:
+    - hash: 45d5548d2589e6de4ff4493076981f7767d36587
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Add linting
+- commits:
+    - body: null
+- version: 1.5.0
+- date: 2020-03-06T11:46:19Z
+- commits:
+    - hash: f234e0f29175218a97daeee4485773d03484d5d5
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - subject: Bring inquirer-dynamic-list into the module so it uses inquirer 7.x
+- commits:
+    - body: null
+- version: 1.4.7
+- date: 2020-03-03T10:44:39Z
+- commits:
+    - hash: 19c74d6e91a5b66f0593ac7514db72e7de890108
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Remove build output from the repo
+- commits:
+    - body: null
+- version: 1.4.6
+- date: 2020-02-29T20:54:10Z
+- commits:
+    - hash: dc23faecefd10d42d7951ae0e4290f5cba369f5d
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Update to lodash 4.x
+- commits:
+    - body: null
+- commits:
+    - hash: 864ce7516bd66ad1d1d1e0d39b2f4f79df12b099
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Remove underscore.string
+- commits:
+    - body: null
+- version: 1.4.5
+- date: 2020-02-29T12:40:26Z
+- commits:
+    - hash: 8d2eb803313ec3e522c3c8ed0c33f4a05afd785e
+- commits:
+    - author: Pagan Gazzard
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: Lazy-load inquirer-dynamic-list and drivelist
+- commits:
+    - body: They're rarely used but quite costly to `require`
+- version: 1.4.4
+- date: 2019-10-15T00:47:05Z
+- commits:
+    - hash: 989423f654b46f640595745a5d4b85193412437d
+- commits:
+    - author: Paulo Castro
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Paulo Castro <paulo@balena.io>
+- commits:
+    - subject: Update drivelist import (fix balena-cli "os initialize")
+- commits:
+    - body: null
+- version: 1.4.3
+- date: 2019-05-29T13:13:14Z
+- commits:
+    - hash: c4e4c6651e321f7448c5a37083543536f6d18e4d
+- commits:
+    - author: Gergely Imreh
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Gergely Imreh <gergely@balena.io>
+- commits:
+    - subject: "dependencies: update to Node 12 compilation"
+- commits:
+    - body: |-
+        * update required upstrem dependencies
+        * fix tests that didn't work since node 6
+        * update testing framework
+        * update travis config to test the versions we support
+- version: 1.4.2
+- date: 2018-05-07T19:48:24Z
+- commits:
+    - hash: 19f64fa6671b7a7b174d25fbdb8198dee09d1739
+- commits:
+    - author: HAKASHUN
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "refactor(progress.js): setup moment duration format before use"
+- commits:
+    - body: null
+- commits:
+    - hash: 5c68c4820067c8f442bec35c959b5cefbd4d5e3f
+- commits:
+    - author: Jonas Hermsmeier
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "fix(perf): Avoid blocking writes to stdout in progress"
+- commits:
+    - body: |-
+        This uses `process.stdout.write()` directly to avoid blocking I/O
+        when displaying progress bars in processes that are heavy on I/O,
+        namely the Etcher CLI.
+- version: 1.4.1
+- date: 2018-03-01T17:02:58Z
+- commits:
+    - hash: 1bc084c5f9649319305e3a2a08d78abe858dec28
+- commits:
+    - author: Jonas Hermsmeier
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "test(ci): Fix Node versions used on CI"
+- commits:
+    - body: |-
+        Due to me previously forgetting about AppVeyor, and that
+        the updated `coffee-script` dependency doesn't support Node v4 anymore,
+        here's a followup patch for the Node versions used in CI tests.
+- commits:
+    - hash: abe351abed5e2b7c420c46c26f5e310c81c5d430
+- commits:
+    - author: Jonas Hermsmeier
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "doc(README): Fix badge links"
+- commits:
+    - body: null
+- commits:
+    - hash: 32c038c26c8cd0d72ad0074810182cee5d1fadae
+- commits:
+    - author: Theodor Gherzan
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - footers:
+        signed-off-by: Theodor Gherzan <theodor@resin.io>
+- commits:
+    - subject: Allow updater to specify custom message
+- commits:
+    - body: |-
+        The message displayed by the progress bar should be allowed to vary
+        when the bar is updated.
+        Add a testcase for this feature.
+- commits:
+    - hash: 012f076ec5f18590511897b1027d56e366959678
+- commits:
+    - author: Jonas Hermsmeier
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "upgrade(package): Update to drivelist@6.0.4"
+- commits:
+    - body: |-
+        This updates `drivelist` from 5.0.20 -> 6.0.4,
+        adjusting for introduced breaking changes on the way.
+- commits:
+    - hash: d877e30d5be8ad92936f570b1e0e05b00edcb0ea
+- commits:
+    - author: Jonas Hermsmeier
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "test(ci): Update Node versions tested against on CI"
+- commits:
+    - body: This updates `.travis.yml` to test against Node.js versions 4, 6, and 8
+- commits:
+    - hash: 1389f2764daeeedbe8dff62c5d02f7873d318c04
+- commits:
+    - author: Jonas Hermsmeier
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "upgrade(package): Bump dependencies"
+- commits:
+    - body: |-
+        Dependencies:
+        - bluebird 2.9.34 -> 3.5.1
+        - chalk 1.1.1 -> 2.3.1
+        - cli-spinner 0.2.1 -> 0.2.7
+        - moment-duration-format 1.3.0 -> 2.2.2
+        NOTE: Pinned `cli-spinner` to 0.2.7, because 0.2.8 breaks the tests
+        Dev-dependencies:
+        - gulp-coffee 2.3.1 -> 3.0.2
+        - gulp-coffeelint 0.5.0 -> 0.6.0
+        - gulp-sequence 0.4.1 -> 1.0.0
+        - jsdoc-to-markdown 1.1.1 -> 4.0.1
+        - mocha 2.2.5 -> 5.0.1
+        - mochainon 1.0.0 -> 2.0.0
+        Packages not updated:
+        These dependencies were not updated, as they break the tests,
+        or cannot be safely determined not to break at this point:
+        - cli-spinner
+        - gulp-mocha
+        - inquirer (can't confirm it doesn't break things)
+        - lodash
+        - drivelist (known breaking API changes)
+- commits:
+    - hash: baff3b8fa2fd829df8f1bf50d8e1d8b8582d0d37
+- commits:
+    - author: Jonas Hermsmeier
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "chore(build): Update build files"
+- commits:
+    - body: null
+- commits:
+    - hash: d4e754d56e67b389db0eb262fdcc806e410d494a
+- commits:
+    - author: Jonas Hermsmeier
+- commits:
+    - footers:
+        change-type: patch
+- commits:
+    - subject: "doc(README): Regenerate README with updated jsdoc2md"
+- commits:
+    - body: null
+- version: 1.4.0
+- date: 2017-06-08T22:00:29Z
+- commits:
+    - hash: a5f334ebc4e372271d7ab1f186a11566d742bf10
+- commits:
+    - author: Tim Perry
+- commits:
+    - footers:
+        connects-to: "#42"
+- commits:
+    - footers:
+        change-type: minor
+- commits:
+    - subject: Hide the ETA, if no ETA is specified
+- commits:
+    - body: |-
+        This behaviour is non-breaking, but does visually differ from previous
+        behaviour, where the ETA was assumed to be 0s if not specified. You
+        explicitly pass 0, if you like, to get the previous output.
+- commits:
+    - hash: 737ed6126ade82c61485f4e01d7b2c1d4d210bfb
+- commits:
+    - author: Juan Cruz Viotti
+- commits:
+    - footers:
+        signed-off-by: Juan Cruz Viotti <jviotti@openmailbox.org>
+- commits:
+    - subject: Upgrade drivelist to v5.0.20
+- commits:
+    - body: null
+- commits:
+    - hash: dd58c823f982271364d80ebd574cabf84af10b29
+- commits:
+    - author: Kostas Lekkas
+- commits:
+    - subject: Implement SpinnerPromise
+- commits:
+    - body: null
+- commits:
+    - hash: a7b38777d83d00bba59496de0b7ca8aaf1224ffd
+- commits:
+    - author: Kostas Lekkas
+- commits:
+    - subject: Drop support for node < 0.11
+- commits:
+    - body: null
+- commits:
+    - hash: 03408e937e29dfb640cdba9f47d6beb921d908c1
+- commits:
+    - author: Juan Cruz Viotti
+- commits:
+    - footers:
+        signed-off-by: Juan Cruz Viotti <jviottidc@gmail.com>
+- commits:
+    - subject: Upgrade drivelist to v3.1.0
+- commits:
+    - body: null
