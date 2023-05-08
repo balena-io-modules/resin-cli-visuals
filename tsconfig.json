@@ -11,7 +11,8 @@
     "noUnusedParameters": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "skipLibCheck": true
   },
   "include": [
     "lib/**/*.ts"
