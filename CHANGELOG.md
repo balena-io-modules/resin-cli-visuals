@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v1.8.2
+## (2023-05-09)
+
+* Configure pseudo tty emulation for flowzone [Felipe Lalanne]
+
 # v1.8.1
 ## (2023-05-08)
 

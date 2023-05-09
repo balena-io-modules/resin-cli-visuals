@@ -1,4 +1,19 @@
 - commits:
+    - subject: Configure pseudo tty emulation for flowzone
+      hash: 99b2ebd564b20591b57c7403220b02b21e046b53
+      body: |
+        This allows tests to work the same in the local dev machin as they do in
+        the CI
+      footer:
+        Change-type: patch
+        change-type: patch
+        Depends-on: product-os/flowzone#633
+        depends-on: product-os/flowzone#633
+      author: Felipe Lalanne
+  version: 1.8.2
+  title: ""
+  date: 2023-05-09T14:27:41.183Z
+- commits:
     - subject: Update etcher-sdk to v8
       hash: f2a3329bbf82f63cd491376977bbea7c8343b1f5
       body: ""
