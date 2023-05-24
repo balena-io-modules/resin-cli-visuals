@@ -47,7 +47,7 @@ module.exports = (message = 'Select a drive') ->
 	adapter = new scanner.adapters.BlockDeviceAdapter({})
 	scanner = new scanner.Scanner([adapter])
 	Promise.resolve(scanner.start()).then ->
-		DynamicList = require('./dynamic-list')
+		DynamicList = require('./dynamic-list').default
 		list = new DynamicList
 			message: message
 			emptyMessage: "#{chalk.red('x')} No available drives were detected, plug one in!"
