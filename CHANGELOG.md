@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v1.8.3
+## (2023-05-24)
+
+* Fix the drive widget failing to instantiate the DynamicList [Thodoris Greasidis]
+
 # v1.8.2
 ## (2023-05-09)
 

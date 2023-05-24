@@ -1,4 +1,17 @@
 - commits:
+    - subject: Fix the drive widget failing to instantiate the DynamicList
+      hash: ef5338654a1fc3bb908c5e22bf1e54dd6a2ddd68
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        See: https://github.com/balena-io-modules/resin-cli-visuals/commit/934e4effb8cb2922dd30d0d30052f7f50ebe4e28#diff-5e2728e21492a7300db94475e26486447e295ff02d65a905bb3adc3110e26657
+        see: https://github.com/balena-io-modules/resin-cli-visuals/commit/934e4effb8cb2922dd30d0d30052f7f50ebe4e28#diff-5e2728e21492a7300db94475e26486447e295ff02d65a905bb3adc3110e26657
+      author: Thodoris Greasidis
+  version: 1.8.3
+  title: ""
+  date: 2023-05-24T09:37:43.385Z
+- commits:
     - subject: Configure pseudo tty emulation for flowzone
       hash: 99b2ebd564b20591b57c7403220b02b21e046b53
       body: |
