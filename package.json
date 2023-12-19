@@ -1,6 +1,6 @@
 {
   "name": "resin-cli-visuals",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "description": "Resin CLI UI widgets",
   "main": "build/visuals.js",
   "homepage": "https://github.com/balena-io-modules/resin-cli-visuals",
@@ -52,6 +52,6 @@
     "progress-bar-formatter": "^2.0.1"
   },
   "versionist": {
-    "publishedAt": "2023-05-24T09:37:43.538Z"
+    "publishedAt": "2023-12-19T21:49:35.619Z"
   }
 }
