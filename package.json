@@ -39,7 +39,7 @@
     "mocha": "^6.2.3",
     "mochainon": "^2.0.0",
     "resin-lint": "^3.3.1",
-    "typescript": "^4.9.5"
+    "typescript": "^5.4.4"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
