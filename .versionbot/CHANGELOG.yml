@@ -1,4 +1,29 @@
 - commits:
+    - subject: Update etcher-sdk to v9.0.7
+      hash: 257084c005b4b4f01f6b7d1c5d87ed478a123cce
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+    - subject: Update TypeScript to 5.4.4
+      hash: 42bba53b2bbbb77d1f44535476f643971f82812d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: Drop supoport for node < 18
+      hash: 4af801ab4d1dd93a3d54fd4515f20b95d3f3e791
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+  version: 2.0.0
+  title: ""
+  date: 2024-04-08T17:43:28.345Z
+- commits:
     - subject: Remove repo config from flowzone.yml
       hash: 83090b095b1a658b1f422c459d567b5a95b277b1
       body: |

@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v2.0.0
+## (2024-04-08)
+
+* Update etcher-sdk to v9.0.7 [Thodoris Greasidis]
+* Update TypeScript to 5.4.4 [Thodoris Greasidis]
+* Drop supoport for node < 18 [Thodoris Greasidis]
+
 # v1.8.4
 ## (2023-12-19)
 
