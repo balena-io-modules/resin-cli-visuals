@@ -27,6 +27,9 @@
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.0"
+  },
   "devDependencies": {
     "@types/bluebird": "^3.5.32",
     "@types/inquirer": "^7.3.0",
@@ -36,14 +39,14 @@
     "mocha": "^6.2.3",
     "mochainon": "^2.0.0",
     "resin-lint": "^3.3.1",
-    "typescript": "^4.9.5"
+    "typescript": "^5.4.4"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
     "chalk": "^3.0.0",
     "cli-spinner": "^0.2.10",
     "columnify": "^1.5.1",
-    "etcher-sdk": "^8.5.3",
+    "etcher-sdk": "^9.0.7",
     "inquirer": "^7.3.3",
     "is-promise": "^4.0.0",
     "lodash": "^4.17.20",
