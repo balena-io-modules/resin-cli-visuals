@@ -15,11 +15,27 @@ limitations under the License.
 ###
 
 _ = require('lodash')
-moment = require('moment')
-require('moment-duration-format')(moment)
 ProgressBarFormatter = require('progress-bar-formatter')
 
 CARRIAGE_RETURN = '\u001b[1A'
+
+formatDuration = (seconds) ->
+	SECONDS_PER_MINUTE = 60
+	SECONDS_PER_HOUR = 3600
+
+	hours = Math.floor(seconds / SECONDS_PER_HOUR)
+	seconds %= SECONDS_PER_HOUR
+
+	minutes = Math.floor(seconds / SECONDS_PER_MINUTE)
+	seconds = Math.floor(seconds % SECONDS_PER_MINUTE)
+	padSeconds = if seconds < 10 then ('0' + seconds) else seconds
+	padMinutes = if minutes < 10 then ('0' + minutes) else minutes
+
+	if hours > 0
+		return "#{hours}h#{padMinutes}m#{padSeconds}s"
+	if minutes > 0
+		return "#{minutes}m#{padSeconds}s"
+	return "#{seconds}s"
 
 module.exports = class Progress
 
@@ -84,7 +100,7 @@ module.exports = class Progress
 			@_lastLine = "#{state.message}"
 		@_lastLine += " [#{bar}] #{percentage}%"
 		if state.eta?
-			@_lastLine += " eta #{moment.duration(state.eta, 'seconds').format('m[m]ss[s]')}"
+			@_lastLine += " eta #{formatDuration(state.eta)}"
 
 		return @_lastLine
 

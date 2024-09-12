@@ -50,8 +50,6 @@
     "inquirer": "^7.3.3",
     "is-promise": "^4.0.0",
     "lodash": "^4.17.20",
-    "moment": "^2.27.0",
-    "moment-duration-format": "^2.2.2",
     "progress-bar-formatter": "^2.0.1"
   },
   "versionist": {
