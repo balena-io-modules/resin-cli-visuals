@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v2.0.1
+## (2024-09-12)
+
+* Remove `moment` [myarmolinsky]
+
 # v2.0.0
 ## (2024-04-08)
 

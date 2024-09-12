@@ -1,4 +1,15 @@
 - commits:
+    - subject: Remove `moment`
+      hash: 2deeb511e9c00ea20b05bb9c89f21459895b927e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: myarmolinsky
+  version: 2.0.1
+  title: ""
+  date: 2024-09-12T12:20:44.159Z
+- commits:
     - subject: Update etcher-sdk to v9.0.7
       hash: 257084c005b4b4f01f6b7d1c5d87ed478a123cce
       body: ""
