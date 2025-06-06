@@ -1,4 +1,23 @@
 - commits:
+    - subject: Bump etcher-sdk to v10.0.0
+      hash: 5f7da390b2c1d203db687bea4f39fa85017a787d
+      body: |
+        Update etcher-sdk from 9.0.7 to 10.0.0
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Otavio Jacobi
+    - subject: Drop support to node18
+      hash: f8c24137f4ef51532de5b71617e735c28cd77a3b
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Otavio Jacobi
+  version: 3.0.0
+  title: ""
+  date: 2025-06-06T18:08:36.057Z
+- commits:
     - subject: Remove `moment`
       hash: 2deeb511e9c00ea20b05bb9c89f21459895b927e
       body: ""

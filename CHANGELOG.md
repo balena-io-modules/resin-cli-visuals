@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v3.0.0
+## (2025-06-06)
+
+* Bump etcher-sdk to v10.0.0 [Otavio Jacobi]
+* Drop support to node18 [Otavio Jacobi]
+
 # v2.0.1
 ## (2024-09-12)
 
