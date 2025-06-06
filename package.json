@@ -28,7 +28,7 @@
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=18.0"
+    "node": ">=20.0"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.32",
