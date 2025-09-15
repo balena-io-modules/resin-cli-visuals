@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ###
 
-chalk = require('chalk')
+ansis = require('ansis')
 Promise = require('bluebird')
 
 driveToChoice = (drive) ->
@@ -50,7 +50,7 @@ module.exports = (message = 'Select a drive') ->
 		DynamicList = require('./dynamic-list').default
 		list = new DynamicList
 			message: message
-			emptyMessage: "#{chalk.red('x')} No available drives were detected, plug one in!"
+			emptyMessage: "#{ansis.red('x')} No available drives were detected, plug one in!"
 			choices: Array.from(scanner.drives).map(driveToChoice)
 
 		scanner.on('attach', (drive) ->
