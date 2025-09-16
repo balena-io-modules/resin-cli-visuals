@@ -42,8 +42,8 @@
     "typescript": "^5.4.4"
   },
   "dependencies": {
+    "ansis": "^4.1.0",
     "bluebird": "^3.5.1",
-    "chalk": "^3.0.0",
     "cli-spinner": "^0.2.10",
     "columnify": "^1.5.1",
     "etcher-sdk": "^10.0.0",
