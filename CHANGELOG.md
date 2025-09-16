@@ -5,6 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v3.0.1
+## (2025-09-16)
+
+* Replace `chalk` with `ansis` [Matthew Yarmolinsky]
+* Add dependency `ansis` [Matthew Yarmolinsky]
+* Drop dependency `chalk` [Matthew Yarmolinsky]
+
 # v3.0.0
 ## (2025-06-06)
 

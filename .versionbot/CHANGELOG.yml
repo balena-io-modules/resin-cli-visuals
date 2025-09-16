@@ -1,4 +1,29 @@
 - commits:
+    - subject: Replace `chalk` with `ansis`
+      hash: 819bb8f409c17e0b79f90fbdefd768e15897b109
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Add dependency `ansis`
+      hash: 11b4d216d4fc12bef2d2a9f4cc46a13f52d3eb49
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+    - subject: Drop dependency `chalk`
+      hash: 6e993214e7e5c3ad89ba5eca6d98899ba93c8235
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+  version: 3.0.1
+  title: ""
+  date: 2025-09-16T20:49:50.931Z
+- commits:
     - subject: Bump etcher-sdk to v10.0.0
       hash: 5f7da390b2c1d203db687bea4f39fa85017a787d
       body: |
