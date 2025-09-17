@@ -141,8 +141,7 @@ export function horizontal(data: object[], ordering: string[]) {
 			columns: _.map(orderingObj, 'name') as string[],
 			preserveNewLines: true,
 			headingTransform(heading) {
-				// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- TODO Change me to a ?? in the next major to minimize code changes
-				return normalizeTitle(getAlias(orderingObj, heading) || heading);
+				return normalizeTitle(getAlias(orderingObj, heading) ?? heading);
 			},
 		}),
 	);
