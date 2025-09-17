@@ -15,7 +15,6 @@ limitations under the License.
 */
 
 import ansis from 'ansis';
-import Bluebird from 'bluebird';
 import type { AdapterSourceDestination } from 'etcher-sdk/build/scanner/adapters';
 
 const driveToChoice = function (drive: AdapterSourceDestination) {
@@ -44,35 +43,31 @@ const driveToChoice = function (drive: AdapterSourceDestination) {
  * visuals.drive('Please select a drive').then (drive) ->
  * 	console.log(drive)
  */
-export default function (message: string) {
+export default async function (message: string) {
 	message ??= 'Select a drive';
-	const etcherSdkScanner =
-		// eslint-disable-next-line @typescript-eslint/no-require-imports -- convert to an async import in the next major
-		require('etcher-sdk/build/scanner') as typeof import('etcher-sdk/build/scanner');
+	const etcherSdkScanner = await import('etcher-sdk/build/scanner');
 	const adapter = new etcherSdkScanner.adapters.BlockDeviceAdapter({});
 	const scanner = new etcherSdkScanner.Scanner([adapter]);
-	return Bluebird.resolve(scanner.start())
-		.then(function () {
-			// eslint-disable-next-line @typescript-eslint/no-require-imports -- convert to an async import after we change to module export in the next major
-			const DynamicList = require('./dynamic-list').default;
-			const list = new DynamicList({
-				message,
-				emptyMessage: `${ansis.red('x')} No available drives were detected, plug one in!`,
-				choices: Array.from(scanner.drives).map(driveToChoice),
-			});
-
-			scanner.on('attach', function (drive) {
-				list.addChoice(driveToChoice(drive));
-				return list.render();
-			});
-			scanner.on('detach', function (drive) {
-				list.removeChoice(driveToChoice(drive));
-				return list.render();
-			});
-
-			return list.run();
-		})
-		.finally(() => {
-			scanner.stop();
+	try {
+		await scanner.start();
+		const DynamicList = (await import('./dynamic-list')).default;
+		const list = new DynamicList({
+			message,
+			emptyMessage: `${ansis.red('x')} No available drives were detected, plug one in!`,
+			choices: Array.from(scanner.drives).map(driveToChoice),
 		});
+
+		scanner.on('attach', function (drive: AdapterSourceDestination) {
+			list.addChoice(driveToChoice(drive));
+			list.render();
+		});
+		scanner.on('detach', function (drive: AdapterSourceDestination) {
+			list.removeChoice(driveToChoice(drive));
+			list.render();
+		});
+
+		return list.run();
+	} finally {
+		scanner.stop();
+	}
 }

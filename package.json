@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "@balena/lint": "^9.3.6",
-    "@types/bluebird": "^3.5.42",
     "@types/chai": "^4.3.3",
     "@types/chai-as-promised": "^7.1.5",
     "@types/columnify": "^1.5.4",
@@ -53,7 +52,6 @@
   "dependencies": {
     "@types/cli-spinner": "^0.2.3",
     "ansis": "^4.1.0",
-    "bluebird": "^3.5.1",
     "cli-spinner": "^0.2.10",
     "columnify": "^1.5.1",
     "etcher-sdk": "^10.0.0",
