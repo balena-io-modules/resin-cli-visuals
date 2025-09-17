@@ -1,10 +1,4 @@
 /*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
- */
-/*
 Copyright 2016 Resin.io
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,13 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-let Progress;
-const _ = require('lodash');
-const ProgressBarFormatter = require('progress-bar-formatter');
+import * as _ from 'lodash';
+import ProgressBarFormatter from 'progress-bar-formatter';
 
 const CARRIAGE_RETURN = '\u001b[1A';
 
-const formatDuration = function(seconds) {
+const formatDuration = function (seconds: number) {
 	const SECONDS_PER_MINUTE = 60;
 	const SECONDS_PER_HOUR = 3600;
 
@@ -35,8 +28,8 @@ const formatDuration = function(seconds) {
 
 	const minutes = Math.floor(seconds / SECONDS_PER_MINUTE);
 	seconds = Math.floor(seconds % SECONDS_PER_MINUTE);
-	const padSeconds = seconds < 10 ? ('0' + seconds) : seconds;
-	const padMinutes = minutes < 10 ? ('0' + minutes) : minutes;
+	const padSeconds = seconds < 10 ? '0' + seconds : seconds;
+	const padMinutes = minutes < 10 ? '0' + minutes : minutes;
 
 	if (hours > 0) {
 		return `${hours}h${padMinutes}m${padSeconds}s`;
@@ -47,7 +40,16 @@ const formatDuration = function(seconds) {
 	return `${seconds}s`;
 };
 
-module.exports = (Progress = class Progress {
+export interface ProgressState {
+	percentage: number;
+	message?: string;
+	eta?: number;
+}
+
+class Progress {
+	private _message: string;
+	private _bar: ProgressBarFormatter;
+	private _lastLine: string | undefined;
 
 	/**
 	 * @summary Create a CLI Progress Bar
@@ -64,7 +66,7 @@ module.exports = (Progress = class Progress {
 	 * @example
 	 * progress = new visuals.Progress('Hello World')
 	 */
-	constructor(message) {
+	constructor(message: string) {
 		if (_.trim(message) === '') {
 			throw new Error('Missing message');
 		}
@@ -75,7 +77,7 @@ module.exports = (Progress = class Progress {
 			incomplete: ' ',
 
 			// Width of the progress bar
-			length: 24
+			length: 24,
 		});
 	}
 
@@ -100,18 +102,17 @@ module.exports = (Progress = class Progress {
 	 * string = progress._tick(percentage: 49, eta: 300)
 	 * console.log(string)
 	 */
-	_tick(state) {
-
-		if ((state.percentage == null)) {
+	_tick(state: ProgressState) {
+		if (state.percentage == null) {
 			throw new Error('Missing percentage');
 		}
 
 		const bar = this._bar.format(state.percentage / 100);
 		const percentage = Math.floor(state.percentage);
 
-		this._lastLine = `${this._message}`;
+		this._lastLine = this._message;
 		if (state.message != null) {
-			this._lastLine = `${state.message}`;
+			this._lastLine = state.message;
 		}
 		this._lastLine += ` [${bar}] ${percentage}%`;
 		if (state.eta != null) {
@@ -132,7 +133,7 @@ module.exports = (Progress = class Progress {
 	 * progress._eraseLastLine()
 	 */
 	_eraseLastLine() {
-		if ((this._lastLine == null)) {
+		if (this._lastLine == null) {
 			process.stdout.write('\n');
 			return;
 		}
@@ -156,8 +157,10 @@ module.exports = (Progress = class Progress {
 	 * progress = new visuals.Progress('Hello World')
 	 * progress.update(percentage: 49, eta: 300)
 	 */
-	update(state) {
+	update(state: ProgressState) {
 		this._eraseLastLine();
 		return process.stdout.write(CARRIAGE_RETURN + this._tick(state) + '\n');
 	}
-});
+}
+
+module.exports = Progress;

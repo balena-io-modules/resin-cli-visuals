@@ -1,72 +1,68 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
- */
-const m = require('mochainon');
-const stdout = require('../utils/stdout');
+import { expect } from 'chai';
+import * as sinon from 'sinon';
+import * as stdout from '../utils/stdout';
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- will replace after the major that changes the package to use exports
 const Spinner = require('../../lib/widgets/spinner');
 
-describe('Spinner:', function() {
+describe('Spinner:', function () {
+	describe('.constructor()', function () {
+		it('should throw if no message', () =>
+			expect(() => new Spinner(null)).to.throw('Missing message'));
 
-	describe('.constructor()', function() {
-
-		it('should throw if no message', () => m.chai.expect(() => new Spinner(null)).to.throw('Missing message'));
-
-		return it('should throw if message is an empty string', () => m.chai.expect(() => new Spinner('  ')).to.throw('Missing message'));
+		it('should throw if message is an empty string', () =>
+			expect(() => new Spinner('  ')).to.throw('Missing message'));
 	});
 
-	return describe('given a spinner instance', function() {
-
-		beforeEach(function() {
-			return this.spinner = new Spinner('foo');
+	describe('given a spinner instance', function () {
+		beforeEach(function () {
+			return (this.spinner = new Spinner('foo'));
 		});
 
-		return describe('given stdout interceptors', function() {
-
-			beforeEach(function() {
-				return this.stdout = stdout.intercept();
+		describe('given stdout interceptors', function () {
+			beforeEach(function () {
+				return (this.stdout = stdout.intercept());
 			});
 
-			afterEach(function() {
+			afterEach(function () {
 				return this.stdout.restore();
 			});
 
-			describe('#start()', () => it('should print the spinner', function() {
-                const clock = m.sinon.useFakeTimers();
-                m.chai.expect(this.stdout.data).to.equal('');
+			describe('#start()', () =>
+				it('should print the spinner', function () {
+					const clock = sinon.useFakeTimers();
+					expect(this.stdout.data).to.equal('');
 
-                this.spinner.start();
-                clock.tick(60 * 3);
+					this.spinner.start();
+					clock.tick(60 * 3);
 
-                m.chai.expect(this.stdout.data).to.equal([
-                    '\u001b[2K\u001b[1G| foo',
-                    '\u001b[2K\u001b[1G/ foo',
-                    '\u001b[2K\u001b[1G- foo',
-                    '\u001b[2K\u001b[1G\\ foo'
-                ].join('')
-                );
+					expect(this.stdout.data).to.equal(
+						[
+							'\u001b[2K\u001b[1G| foo',
+							'\u001b[2K\u001b[1G/ foo',
+							'\u001b[2K\u001b[1G- foo',
+							'\u001b[2K\u001b[1G\\ foo',
+						].join(''),
+					);
 
-                clock.restore();
-                return this.spinner.stop();
-            }));
+					clock.restore();
+					return this.spinner.stop();
+				}));
 
-			return describe('#stop()', () => it('should stop the spinner', function() {
-                const clock = m.sinon.useFakeTimers();
-                m.chai.expect(this.stdout.data).to.equal('');
+			describe('#stop()', () =>
+				it('should stop the spinner', function () {
+					const clock = sinon.useFakeTimers();
+					expect(this.stdout.data).to.equal('');
 
-                this.spinner.start();
-                clock.tick(60 * 4);
-                this.spinner.stop();
+					this.spinner.start();
+					clock.tick(60 * 4);
+					this.spinner.stop();
 
-                m.chai.expect(this.stdout.data).to.not.equal('');
-                const {
-                    data
-                } = this.stdout;
-                clock.tick(60 * 4);
-                m.chai.expect(this.stdout.data).to.equal(data);
-                return clock.restore();
-            }));
+					expect(this.stdout.data).to.not.equal('');
+					const { data } = this.stdout;
+					clock.tick(60 * 4);
+					expect(this.stdout.data).to.equal(data);
+					clock.restore();
+				}));
 		});
 	});
 });

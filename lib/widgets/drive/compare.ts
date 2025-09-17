@@ -14,15 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-const _ = require('lodash');
+import * as _ from 'lodash';
 
-const containsDeep = (array, item) => _.some(_.map(array, _.partial(_.isEqual, item)));
+const containsDeep = (array: unknown[], item: unknown) =>
+	_.some(_.map(array, _.partial(_.isEqual, item)));
 
-const differenceDeep = (x, y) => _.filter(x, _.partial(_.negate(containsDeep), y));
+const differenceDeep = <T>(x: T[], y: T[]) =>
+	_.filter(x, _.partial(_.negate(containsDeep), y));
 
-const createDiffOperation = (type, element) => ({
-    type,
-    drive: element
+const createDiffOperation = (type: string, element: string) => ({
+	type,
+	drive: element,
 });
 
 /**
@@ -37,15 +39,21 @@ const createDiffOperation = (type, element) => ({
  * @example
  * compare(previousDrives, currentDrives)
  */
-module.exports = function(previous, current) {
+export function compare(previous: unknown[], current: unknown[]) {
 	const additions = differenceDeep(current, previous);
 	const removals = differenceDeep(previous, current);
 
-	const mappingAdditions = _.map(additions, _.partial(createDiffOperation, 'add'));
-	const mappingRemovals = _.map(removals, _.partial(createDiffOperation, 'remove'));
+	const mappingAdditions = _.map(
+		additions,
+		_.partial(createDiffOperation, 'add'),
+	);
+	const mappingRemovals = _.map(
+		removals,
+		_.partial(createDiffOperation, 'remove'),
+	);
 
 	return {
 		drives: current,
-		diff: _.union(mappingAdditions, mappingRemovals)
+		diff: _.union(mappingAdditions, mappingRemovals),
 	};
-};
+}

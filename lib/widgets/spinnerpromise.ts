@@ -1,9 +1,4 @@
 /*
- * decaffeinate suggestions:
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
- */
-/*
 Copyright 2016 Resin.io
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,12 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-let SpinnerPromise;
-const _ = require('lodash');
+import * as _ from 'lodash';
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- will replace after the major that changes the package to use exports
 const Spinner = require('./spinner');
-const isPromise = require('is-promise');
-module.exports = (SpinnerPromise = class SpinnerPromise {
 
+import isPromise from 'is-promise';
+
+export interface SpinnerPromiseOptions {
+	promise: Promise<unknown>;
+	startMessage: string;
+	stopMessage?: string;
+}
+
+class SpinnerPromise {
+	public spinner: any;
 	/**
 	 * @summary Create a CLI Spinner that spins on a promise
 	 * @name SpinnerPromise
@@ -53,29 +56,36 @@ module.exports = (SpinnerPromise = class SpinnerPromise {
 	 *  .then (devices) ->
 	 *		 console.log devices
 	 */
-	constructor(options) {
-
-		if (options == null) { options = {}; }
-		const { promise, startMessage, stopMessage } = options;
-
-		if (!isPromise(promise)) {
-			return Promise.reject(new Error("'promise' must be a Promises/A+ compatible promise"));
+	constructor(options: SpinnerPromiseOptions) {
+		if (options == null || !isPromise(options.promise)) {
+			// @ts-expect-error -- TODO Fix using promises in the constructor in the next major
+			return Promise.reject(
+				new Error("'promise' must be a Promises/A+ compatible promise"),
+			);
 		}
 
-		if (_.trim(startMessage) === '') {
+		if (_.trim(options.startMessage) === '') {
+			// @ts-expect-error -- TODO Fix using promises in the constructor in the next major
 			return Promise.reject(new Error('Missing spinner start message'));
 		}
+
+		const { promise, startMessage, stopMessage } = options;
 
 		const clearSpinner = () => {
 			if (this.spinner != null) {
 				this.spinner.stop();
 			}
-			if (stopMessage != null) { console.log(stopMessage); }
+			if (stopMessage != null) {
+				console.log(stopMessage);
+			}
 			return promise;
 		};
 
 		this.spinner = new Spinner(startMessage);
 		this.spinner.start();
+		// @ts-expect-error -- TODO Fix using promises in the constructor in the next major
 		return promise.then(clearSpinner, clearSpinner);
 	}
-});
+}
+
+module.exports = SpinnerPromise;

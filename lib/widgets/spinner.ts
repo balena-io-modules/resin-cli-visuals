@@ -1,9 +1,4 @@
 /*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
- */
-/*
 Copyright 2016 Resin.io
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,11 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-let Spinner;
-const _ = require('lodash');
-const CliSpinner = require('cli-spinner').Spinner;
+import * as _ from 'lodash';
+import { Spinner as CliSpinner } from 'cli-spinner';
 
-module.exports = (Spinner = class Spinner {
+class Spinner {
+	public spinner: CliSpinner;
+	public started: boolean;
 
 	/**
 	 * @summary Create a CLI Spinner
@@ -40,8 +36,7 @@ module.exports = (Spinner = class Spinner {
 	 * @example
 	 * spinner = new visuals.Spinner('Hello World')
 	 */
-	constructor(message) {
-
+	constructor(message: string) {
 		// The message is not strictly necessary
 		// however we require it to force clients
 		// to be descriptive about the on going process
@@ -67,9 +62,11 @@ module.exports = (Spinner = class Spinner {
 	 * spinner.start()
 	 */
 	start() {
-		if (this.started) { return; }
+		if (this.started) {
+			return;
+		}
 		this.spinner.start();
-		return this.started = true;
+		return (this.started = true);
 	}
 
 	/**
@@ -83,8 +80,12 @@ module.exports = (Spinner = class Spinner {
 	 * spinner.stop()
 	 */
 	stop() {
-		if (!this.started) { return; }
+		if (!this.started) {
+			return;
+		}
 		this.spinner.stop(true);
-		return this.started = false;
+		return (this.started = false);
 	}
-});
+}
+
+module.exports = Spinner;

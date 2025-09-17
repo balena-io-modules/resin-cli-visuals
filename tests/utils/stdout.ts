@@ -1,27 +1,22 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
- */
 // This function provides a handy way to
 // intercept stdout for testing purposes.
-exports.intercept = function() {
-	const {
-        write
-    } = process.stdout;
+export function intercept() {
+	const { write } = process.stdout;
 
-	const result =
-		{data: ''};
-
-	result.restore = function() {
-		result.data = '';
-		return process.stdout.write = write;
+	const result = {
+		data: '',
+		restore: function () {
+			result.data = '';
+			process.stdout.write = write;
+		},
 	};
 
-	process.stdout.write = function(data) {
+	process.stdout.write = function (...args) {
+		const [data] = args;
+		// eslint-disable-next-line @typescript-eslint/restrict-plus-operands -- it's just a test mock
 		result.data += data;
-		return write.apply(process.stdout, arguments);
+		return write.apply(process.stdout, args);
 	};
 
 	return result;
-};
+}

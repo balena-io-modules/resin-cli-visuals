@@ -2,6 +2,7 @@
   "name": "resin-cli-visuals",
   "version": "3.0.1",
   "description": "Resin CLI UI widgets",
+  "type": "commonjs",
   "main": "build/visuals.js",
   "homepage": "https://github.com/balena-io-modules/resin-cli-visuals",
   "repository": {
@@ -19,10 +20,11 @@
     "build/"
   ],
   "scripts": {
-    "lint": "resin-lint lib tests && resin-lint --typescript lib",
-    "prettify": "resin-lint --typescript --fix lib",
-    "test": "npm run lint && mocha --require coffeescript/register --reporter min tests/**/*.spec.coffee",
-    "build": "coffee --bare --output build --compile lib && tsc",
+    "lint": "balena-lint -e ts lib tests typings",
+    "lint-fix": "balena-lint -e ts lib tests typings --fix",
+    "test": "npm run build && npm run lint && mocha -r ts-node/register/transpile-only --reporter spec tests/**/*.spec.ts",
+    "test:fast": "npm run lint-fix; mocha -r ts-node/register/transpile-only --reporter spec tests/**/*.spec.ts",
+    "build": "tsc --project tsconfig.dist.json",
     "readme": "jsdoc2md --template doc/README.hbs `find build -name '*.js'` > README.md"
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
@@ -31,17 +33,25 @@
     "node": ">=20.0"
   },
   "devDependencies": {
-    "@types/bluebird": "^3.5.32",
+    "@balena/lint": "^9.3.6",
+    "@types/bluebird": "^3.5.42",
+    "@types/chai": "^4.3.3",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/columnify": "^1.5.4",
     "@types/inquirer": "^7.3.0",
-    "@types/lodash": "^4.14.159",
-    "coffeescript": "^2.4.1",
-    "jsdoc-to-markdown": "^5.0.3",
-    "mocha": "^6.2.3",
-    "mochainon": "^2.0.0",
-    "resin-lint": "^3.3.1",
+    "@types/lodash": "^4.14.195",
+    "@types/mocha": "^10.0.1",
+    "@types/sinon": "^17.0.3",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "jsdoc-to-markdown": "^9.0.0",
+    "mocha": "^11.0.0",
+    "sinon": "^19.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.4"
   },
   "dependencies": {
+    "@types/cli-spinner": "^0.2.3",
     "ansis": "^4.1.0",
     "bluebird": "^3.5.1",
     "cli-spinner": "^0.2.10",
@@ -50,7 +60,8 @@
     "inquirer": "^7.3.3",
     "is-promise": "^4.0.0",
     "lodash": "^4.17.20",
-    "progress-bar-formatter": "^2.0.1"
+    "progress-bar-formatter": "^2.0.1",
+    "tslib": "^2.8.1"
   },
   "versionist": {
     "publishedAt": "2025-09-16T20:49:51.004Z"

@@ -19,9 +19,11 @@ limitations under the License.
  */
 
 module.exports = {
+	/* eslint-disable @typescript-eslint/no-require-imports -- will replace after the major that changes the package to use exports */
 	Progress: require('./widgets/progress'),
 	Spinner: require('./widgets/spinner'),
 	SpinnerPromise: require('./widgets/spinnerpromise'),
 	table: require('./widgets/table'),
-	drive: require('./widgets/drive')
+	drive: require('./widgets/drive'),
+	/* eslint-enable @typescript-eslint/no-require-imports */
 };
