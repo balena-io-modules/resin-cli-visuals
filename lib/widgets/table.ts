@@ -36,37 +36,35 @@ type Ordering =
  */
 
 const parseOrdering = (ordering: string[], data: object): Ordering[] =>
-	_.compact(
-		_.map(ordering, function (column) {
-			if (_.trim(column) === '') {
-				return {
-					type: 'separator',
-				};
-			}
+	_.map(ordering, function (column) {
+		if (_.trim(column) === '') {
+			return {
+				type: 'separator',
+			};
+		}
 
-			const subtitleMatches = column.match(/^\$(.+)\$$/);
+		const subtitleMatches = column.match(/^\$(.+)\$$/);
 
-			if (subtitleMatches != null) {
-				return {
-					type: 'subtitle',
-					value: subtitleMatches[1],
-				};
-			}
+		if (subtitleMatches != null) {
+			return {
+				type: 'subtitle',
+				value: subtitleMatches[1],
+			};
+		}
 
-			const aliasMatches = column.match(/^(.+) => (.+)$/);
+		const aliasMatches = column.match(/^(.+) => (.+)$/);
 
-			const name =
-				(aliasMatches != null ? aliasMatches[1] : undefined) ?? column;
-			const result = {
-				type: 'column',
-				name: name,
-				alias: (aliasMatches != null ? aliasMatches[2] : undefined) ?? column,
-				value: (data as Record<string, unknown>)[name],
-			} satisfies Ordering;
+		const name =
+			(aliasMatches != null ? aliasMatches[1] : undefined) ?? column;
+		const result = {
+			type: 'column',
+			name: name,
+			alias: (aliasMatches != null ? aliasMatches[2] : undefined) ?? column,
+			value: (data as Record<string, unknown>)[name],
+		} satisfies Ordering;
 
-			return result;
-		}),
-	);
+		return result;
+	});
 
 const getAlias = (ordering: Ordering[], column: string): string | undefined =>
 	_.result(_.find(ordering, { name: column }), 'alias');
