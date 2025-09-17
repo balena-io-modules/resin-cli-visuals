@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as _ from 'lodash';
 import Spinner from './spinner';
 
 import isPromise from 'is-promise';
@@ -63,7 +62,7 @@ class SpinnerPromise {
 			);
 		}
 
-		if (_.trim(options.startMessage) === '') {
+		if (options.startMessage == null || options.startMessage.trim() === '') {
 			// @ts-expect-error -- TODO Fix using promises in the constructor in the next major
 			return Promise.reject(new Error('Missing spinner start message'));
 		}

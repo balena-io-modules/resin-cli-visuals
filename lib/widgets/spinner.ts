@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as _ from 'lodash';
 import { Spinner as CliSpinner } from 'cli-spinner';
 
 class Spinner {
@@ -40,7 +39,7 @@ class Spinner {
 		// The message is not strictly necessary
 		// however we require it to force clients
 		// to be descriptive about the on going process
-		if (_.trim(message) === '') {
+		if (message == null || message.trim() === '') {
 			throw new Error('Missing message');
 		}
 

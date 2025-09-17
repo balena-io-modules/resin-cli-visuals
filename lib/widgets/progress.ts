@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as _ from 'lodash';
 import ProgressBarFormatter from 'progress-bar-formatter';
 
 const CARRIAGE_RETURN = '\u001b[1A';
@@ -67,7 +66,7 @@ class Progress {
 	 * progress = new visuals.Progress('Hello World')
 	 */
 	constructor(message: string) {
-		if (_.trim(message) === '') {
+		if (message == null || message.trim() === '') {
 			throw new Error('Missing message');
 		}
 
@@ -138,7 +137,7 @@ class Progress {
 			return;
 		}
 
-		const eraser = _.repeat(' ', this._lastLine.length);
+		const eraser = ' '.repeat(this._lastLine.length);
 		return process.stdout.write(CARRIAGE_RETURN + eraser + '\n');
 	}
 

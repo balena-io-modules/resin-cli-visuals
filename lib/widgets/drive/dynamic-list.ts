@@ -219,9 +219,7 @@ class DynamicList extends InquirerList {
 		choice: Pick<Choice, 'name' | 'value'> & Partial<Choice>,
 	) {
 		const cleanupList = <T>(list: T[]): T[] =>
-			_.reject(list, (item) =>
-				_.isEqual(_.pick(item, 'name', 'value'), choice),
-			);
+			list.filter((item) => !_.isEqual(_.pick(item, 'name', 'value'), choice));
 
 		// `this.opt.choices` is an instance of Inquirer's Choice class.
 		// This Choice class extends push with the capability of filling

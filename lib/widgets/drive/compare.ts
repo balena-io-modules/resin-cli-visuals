@@ -17,10 +17,10 @@ limitations under the License.
 import * as _ from 'lodash';
 
 const containsDeep = (array: unknown[], item: unknown) =>
-	_.some(_.map(array, _.partial(_.isEqual, item)));
+	array.map(_.partial(_.isEqual, item)).some((x) => x);
 
 const differenceDeep = <T>(x: T[], y: T[]) =>
-	_.filter(x, _.partial(_.negate(containsDeep), y));
+	x.filter(_.partial(_.negate(containsDeep), y));
 
 const createDiffOperation = (type: string, element: string) => ({
 	type,
@@ -43,12 +43,8 @@ export function compare(previous: unknown[], current: unknown[]) {
 	const additions = differenceDeep(current, previous);
 	const removals = differenceDeep(previous, current);
 
-	const mappingAdditions = _.map(
-		additions,
-		_.partial(createDiffOperation, 'add'),
-	);
-	const mappingRemovals = _.map(
-		removals,
+	const mappingAdditions = additions.map(_.partial(createDiffOperation, 'add'));
+	const mappingRemovals = removals.map(
 		_.partial(createDiffOperation, 'remove'),
 	);
 
