@@ -15,8 +15,7 @@ limitations under the License.
 */
 
 import * as _ from 'lodash';
-// eslint-disable-next-line @typescript-eslint/no-require-imports -- will replace after the major that changes the package to use exports
-const Spinner = require('./spinner');
+import Spinner from './spinner';
 
 import isPromise from 'is-promise';
 
@@ -88,4 +87,4 @@ class SpinnerPromise {
 	}
 }
 
-module.exports = SpinnerPromise;
+export default SpinnerPromise;
