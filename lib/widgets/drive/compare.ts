@@ -1,4 +1,4 @@
-###
+/*
 Copyright 2016 Resin.io
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,42 +12,40 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-###
+*/
 
-_ = require('lodash')
+const _ = require('lodash');
 
-containsDeep = (array, item) ->
-	return _.some(_.map(array, _.partial(_.isEqual, item)))
+const containsDeep = (array, item) => _.some(_.map(array, _.partial(_.isEqual, item)));
 
-differenceDeep = (x, y) ->
-	return _.filter(x, _.partial(_.negate(containsDeep), y))
+const differenceDeep = (x, y) => _.filter(x, _.partial(_.negate(containsDeep), y));
 
-createDiffOperation = (type, element) ->
-	return {
-		type: type
-		drive: element
-	}
+const createDiffOperation = (type, element) => ({
+    type,
+    drive: element
+});
 
-###*
-# @summary Detect changes regarding drives between different time intervals
-# @function
-# @protected
-#
-# @param {Array} - previous drive list
-# @param {Array} - current drive list
-# @returns {Object[]} - current drive list, potential differences with previous one
-#
-# @example
-# compare(previousDrives, currentDrives)
-###
-module.exports = (previous, current) ->
-	additions = differenceDeep(current, previous)
-	removals = differenceDeep(previous, current)
+/**
+ * @summary Detect changes regarding drives between different time intervals
+ * @function
+ * @protected
+ *
+ * @param {Array} - previous drive list
+ * @param {Array} - current drive list
+ * @returns {Object[]} - current drive list, potential differences with previous one
+ *
+ * @example
+ * compare(previousDrives, currentDrives)
+ */
+module.exports = function(previous, current) {
+	const additions = differenceDeep(current, previous);
+	const removals = differenceDeep(previous, current);
 
-	mappingAdditions = _.map(additions, _.partial(createDiffOperation, 'add'))
-	mappingRemovals = _.map(removals, _.partial(createDiffOperation, 'remove'))
+	const mappingAdditions = _.map(additions, _.partial(createDiffOperation, 'add'));
+	const mappingRemovals = _.map(removals, _.partial(createDiffOperation, 'remove'));
 
 	return {
-		drives: current
+		drives: current,
 		diff: _.union(mappingAdditions, mappingRemovals)
-	}
+	};
+};

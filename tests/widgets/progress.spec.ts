@@ -1,95 +1,110 @@
-m = require('mochainon')
-stdout = require('../utils/stdout')
-Progress = require('../../lib/widgets/progress')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+const m = require('mochainon');
+const stdout = require('../utils/stdout');
+const Progress = require('../../lib/widgets/progress');
 
-describe 'Progress:', ->
+describe('Progress:', function() {
 
-	describe '.constructor()', ->
+	describe('.constructor()', function() {
 
-		it 'should throw if no message', ->
-			m.chai.expect ->
-				new Progress(null)
-			.to.throw('Missing message')
+		it('should throw if no message', () => m.chai.expect(() => new Progress(null)).to.throw('Missing message'));
 
-		it 'should throw if message is an empty string', ->
-			m.chai.expect ->
-				new Progress('  ')
-			.to.throw('Missing message')
+		return it('should throw if message is an empty string', () => m.chai.expect(() => new Progress('  ')).to.throw('Missing message'));
+	});
 
-	describe 'given a progress instance', ->
+	return describe('given a progress instance', function() {
 
-		beforeEach ->
-			@progress = new Progress('foo')
+		beforeEach(function() {
+			return this.progress = new Progress('foo');
+		});
 
-		describe 'given stdout interceptors', ->
+		return describe('given stdout interceptors', function() {
 
-			beforeEach ->
-				@stdout = stdout.intercept()
+			beforeEach(function() {
+				return this.stdout = stdout.intercept();
+			});
 
-			afterEach ->
-				@stdout.restore()
+			afterEach(function() {
+				return this.stdout.restore();
+			});
 
-			describe '#update()', ->
+			return describe('#update()', function() {
 
-				it 'should throw if no percentage', ->
-					m.chai.expect =>
-						@progress.update(eta: 300)
-					.to.throw('Missing percentage')
+				it('should throw if no percentage', function() {
+					return m.chai.expect(() => {
+						return this.progress.update({eta: 300});
+				}).to.throw('Missing percentage');
+				});
 
-				it 'should hide the eta if not specified', ->
-					m.chai.expect(@stdout.data).to.equal('')
-					@progress.update(percentage: 20)
+				it('should hide the eta if not specified', function() {
+					m.chai.expect(this.stdout.data).to.equal('');
+					this.progress.update({percentage: 20});
 
-					progress = '\n\u001b[1Afoo [=====                   ] 20%\n'
-					m.chai.expect(@stdout.data).to.equal(progress)
+					const progress = '\n\u001b[1Afoo [=====                   ] 20%\n';
+					return m.chai.expect(this.stdout.data).to.equal(progress);
+				});
 
-				it 'should print a progress bar with no progress', ->
-					m.chai.expect(@stdout.data).to.equal('')
-					@progress.update(percentage: 0, eta: 20)
+				it('should print a progress bar with no progress', function() {
+					m.chai.expect(this.stdout.data).to.equal('');
+					this.progress.update({percentage: 0, eta: 20});
 
-					progress = '\n\u001b[1Afoo [                        ] 0% eta 20s\n'
-					m.chai.expect(@stdout.data).to.equal(progress)
+					const progress = '\n\u001b[1Afoo [                        ] 0% eta 20s\n';
+					return m.chai.expect(this.stdout.data).to.equal(progress);
+				});
 
-				it 'should print a progress bar with progress', ->
-					m.chai.expect(@stdout.data).to.equal('')
-					@progress.update(percentage: 20, eta: 20)
+				it('should print a progress bar with progress', function() {
+					m.chai.expect(this.stdout.data).to.equal('');
+					this.progress.update({percentage: 20, eta: 20});
 
-					progress = '\n\u001b[1Afoo [=====                   ] 20% eta 20s\n'
-					m.chai.expect(@stdout.data).to.equal(progress)
+					const progress = '\n\u001b[1Afoo [=====                   ] 20% eta 20s\n';
+					return m.chai.expect(this.stdout.data).to.equal(progress);
+				});
 
-				it 'should print a progress with a long eta', ->
-					m.chai.expect(@stdout.data).to.equal('')
-					@progress.update(percentage: 20, eta: 500)
+				it('should print a progress with a long eta', function() {
+					m.chai.expect(this.stdout.data).to.equal('');
+					this.progress.update({percentage: 20, eta: 500});
 
-					progress = '\n\u001b[1Afoo [=====                   ] 20% eta 8m20s\n'
-					m.chai.expect(@stdout.data).to.equal(progress)
+					const progress = '\n\u001b[1Afoo [=====                   ] 20% eta 8m20s\n';
+					return m.chai.expect(this.stdout.data).to.equal(progress);
+				});
 
-				it 'should print a finished progress bar', ->
-					m.chai.expect(@stdout.data).to.equal('')
-					@progress.update(percentage: 100, eta: 0)
+				it('should print a finished progress bar', function() {
+					m.chai.expect(this.stdout.data).to.equal('');
+					this.progress.update({percentage: 100, eta: 0});
 
-					progress = '\n\u001b[1Afoo [========================] 100% eta 0s\n'
-					m.chai.expect(@stdout.data).to.equal(progress)
+					const progress = '\n\u001b[1Afoo [========================] 100% eta 0s\n';
+					return m.chai.expect(this.stdout.data).to.equal(progress);
+				});
 
-				it 'should erase older lines when printing continuously', ->
-					m.chai.expect(@stdout.data).to.equal('')
-					@progress.update(percentage: 20, eta: 20)
-					@progress.update(percentage: 21, eta: 19)
-					@progress.update(percentage: 22, eta: 18)
+				it('should erase older lines when printing continuously', function() {
+					m.chai.expect(this.stdout.data).to.equal('');
+					this.progress.update({percentage: 20, eta: 20});
+					this.progress.update({percentage: 21, eta: 19});
+					this.progress.update({percentage: 22, eta: 18});
 
-					progress = [
-						'\n\u001b[1Afoo [=====                   ] 20% eta 20s\n'
-						'\u001b[1A                                          '
-						'\n\u001b[1Afoo [=====                   ] 21% eta 19s\n'
-						'\u001b[1A                                          '
+					const progress = [
+						'\n\u001b[1Afoo [=====                   ] 20% eta 20s\n',
+						'\u001b[1A                                          ',
+						'\n\u001b[1Afoo [=====                   ] 21% eta 19s\n',
+						'\u001b[1A                                          ',
 						'\n\u001b[1Afoo [=====                   ] 22% eta 18s\n'
-					].join('')
+					].join('');
 
-					m.chai.expect(@stdout.data).to.equal(progress)
+					return m.chai.expect(this.stdout.data).to.equal(progress);
+				});
 
-				it 'should print progress bar with a new message', ->
-					m.chai.expect(@stdout.data).to.equal('')
-					@progress.update(percentage: 20, eta: 20, message: 'bar')
+				return it('should print progress bar with a new message', function() {
+					m.chai.expect(this.stdout.data).to.equal('');
+					this.progress.update({percentage: 20, eta: 20, message: 'bar'});
 
-					progress = '\n\u001b[1Abar [=====                   ] 20% eta 20s\n'
-					m.chai.expect(@stdout.data).to.equal(progress)
+					const progress = '\n\u001b[1Abar [=====                   ] 20% eta 20s\n';
+					return m.chai.expect(this.stdout.data).to.equal(progress);
+				});
+			});
+		});
+	});
+});

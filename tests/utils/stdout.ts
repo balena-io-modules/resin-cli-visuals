@@ -1,17 +1,27 @@
-# This function provides a handy way to
-# intercept stdout for testing purposes.
-exports.intercept = ->
-	write = process.stdout.write
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+// This function provides a handy way to
+// intercept stdout for testing purposes.
+exports.intercept = function() {
+	const {
+        write
+    } = process.stdout;
 
-	result =
-		data: ''
+	const result =
+		{data: ''};
 
-	result.restore = ->
-		result.data = ''
-		process.stdout.write = write
+	result.restore = function() {
+		result.data = '';
+		return process.stdout.write = write;
+	};
 
-	process.stdout.write = (data) ->
-		result.data += data
-		write.apply(process.stdout, arguments)
+	process.stdout.write = function(data) {
+		result.data += data;
+		return write.apply(process.stdout, arguments);
+	};
 
-	return result
+	return result;
+};

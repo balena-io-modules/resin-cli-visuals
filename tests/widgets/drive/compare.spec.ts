@@ -1,281 +1,315 @@
-m = require('mochainon')
-compare = require('../../../lib/widgets/drive/compare')
+/*
+ * decaffeinate suggestions:
+ * DS102: Remove unnecessary code created because of implicit returns
+ * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
+ */
+const m = require('mochainon');
+const compare = require('../../../lib/widgets/drive/compare');
 
-describe 'Drive Compare:', ->
+describe('Drive Compare:', function() {
 
-	it 'should compare a single drive addition', ->
-		previous = [
+	it('should compare a single drive addition', function() {
+		const previous = [
 			{ foo: 'bar' }
-		]
+		];
 
-		current = [
-			{ foo: 'bar' }
+		const current = [
+			{ foo: 'bar' },
 			{ bar: 'baz' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
-				{ foo: 'bar' }
+				{ foo: 'bar' },
 				{ bar: 'baz' }
-			]
+			],
 			diff: [
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						bar: 'baz'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should compare multiple drive additions while having no other drives attached previously', ->
-		previous = []
+	it('should compare multiple drive additions while having no other drives attached previously', function() {
+		const previous = [];
 
-		current = [
-			{ foo: 'bar' }
+		const current = [
+			{ foo: 'bar' },
 			{ foo: 'baz' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
-				{ foo: 'bar' }
+				{ foo: 'bar' },
 				{ foo: 'baz' }
-			]
+			],
 
 			diff: [
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						foo: 'bar'
-				}
+					}
+				},
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						foo: 'baz'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should compare multiple drive additions', ->
-		previous = [
+	it('should compare multiple drive additions', function() {
+		const previous = [
 			{ foo: 'bar' }
-		]
+		];
 
-		current = [
-			{ foo: 'bar' }
-			{ bar: 'baz' }
+		const current = [
+			{ foo: 'bar' },
+			{ bar: 'baz' },
 			{ baz: 'bar' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
-				{ foo: 'bar' }
-				{ bar: 'baz' }
+				{ foo: 'bar' },
+				{ bar: 'baz' },
 				{ baz: 'bar' }
-			]
+			],
 			diff: [
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						bar: 'baz'
-				}
+					}
+				},
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						baz: 'bar'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should compare a single drive removal', ->
-		previous = [
-			{ foo: 'bar' }
+	it('should compare a single drive removal', function() {
+		const previous = [
+			{ foo: 'bar' },
 			{ bar: 'baz' }
-		]
+		];
 
-		current = [
+		const current = [
 			{ foo: 'bar' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
 				{ foo: 'bar' }
-			]
+			],
 
 			diff: [
 				{
-					type: 'remove'
-					drive:
+					type: 'remove',
+					drive: {
 						bar: 'baz'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should compare multiple drive removals', ->
-		previous = [
-			{ foo: 'bar' }
-			{ bar: 'baz' }
+	it('should compare multiple drive removals', function() {
+		const previous = [
+			{ foo: 'bar' },
+			{ bar: 'baz' },
 			{ baz: 'bar' }
-		]
+		];
 
-		current = [
+		const current = [
 			{ baz: 'bar' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
 				{ baz: 'bar' }
-			]
+			],
 
 			diff: [
 				{
-					type: 'remove'
-					drive:
+					type: 'remove',
+					drive: {
 						foo: 'bar'
-				}
+					}
+				},
 				{
-					type: 'remove'
-					drive:
+					type: 'remove',
+					drive: {
 						bar: 'baz'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should compare drive additions when running the command with no drives attached', ->
-		previous = []
+	it('should compare drive additions when running the command with no drives attached', function() {
+		const previous = [];
 
-		current = [
+		const current = [
 			{ foo: 'bar' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
 				{ foo: 'bar' }
-			]
+			],
 
 			diff: [
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						foo: 'bar'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should compare drive removals when unplugging all the available drives after running the command', ->
-		previous = [
+	it('should compare drive removals when unplugging all the available drives after running the command', function() {
+		const previous = [
 			{ foo: 'bar' }
-		]
+		];
 
-		current = []
+		const current = [];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
-			drives: []
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
+			drives: [],
 
 			diff: [
 				{
-					type: 'remove'
-					drive:
+					type: 'remove',
+					drive: {
 						foo: 'bar'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should do nothing when no change has happened', ->
-		previous = []
+	it('should do nothing when no change has happened', function() {
+		const previous = [];
 
-		current = []
+		const current = [];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
-			drives: []
-			diff: []
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
+			drives: [],
+			diff: []});
+});
 
-	it 'should compare one drive add and removal operation that happened sequentially', ->
-		previous = []
+	it('should compare one drive add and removal operation that happened sequentially', function() {
+		let previous = [];
 
-		current = [
+		let current = [
 			{ foo: 'bar' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
 				{ foo: 'bar' }
-			]
+			],
 
 			diff: [
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						foo: 'bar'
+					}
 				}
-			]
+			]});
 
 		previous = [
 			{ foo: 'bar' }
-		]
+		];
 
-		current = []
+		current = [];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
-			drives: []
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
+			drives: [],
 
 			diff: [
 				{
-					type: 'remove'
-					drive:
+					type: 'remove',
+					drive: {
 						foo: 'bar'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should compare a single drive removal with two drive additions that happened after it', ->
-		previous = [
+	it('should compare a single drive removal with two drive additions that happened after it', function() {
+		const previous = [
 			{ foo: 'bar' }
-		]
+		];
 
-		current = [
-			{ bar: 'baz' }
+		const current = [
+			{ bar: 'baz' },
 			{ baz: 'bar' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
-				{ bar: 'baz' }
+				{ bar: 'baz' },
 				{ baz: 'bar' }
-			]
+			],
 
 			diff: [
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						bar: 'baz'
-				}
+					}
+				},
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						baz: 'bar'
-				}
+					}
+				},
 				{
-					type: 'remove'
-					drive:
+					type: 'remove',
+					drive: {
 						foo: 'bar'
+					}
 				}
-			]
+			]});
+});
 
-	it 'should compare a drive that has been changed', ->
-		previous = [
+	return it('should compare a drive that has been changed', function() {
+		const previous = [
 			{ foo: 'bar' }
-		]
+		];
 
-		current = [
+		const current = [
 			{ foo: 'baz' }
-		]
+		];
 
-		m.chai.expect(compare(previous, current)).to.deep.equal
+		return m.chai.expect(compare(previous, current)).to.deep.equal({
 			drives: [
 				{ foo: 'baz' }
-			]
+			],
 
 			diff: [
 				{
-					type: 'add'
-					drive:
+					type: 'add',
+					drive: {
 						foo: 'baz'
-				}
+					}
+				},
 				{
-					type: 'remove'
-					drive:
+					type: 'remove',
+					drive: {
 						foo: 'bar'
+					}
 				}
-			]
+			]});
+});
+});
