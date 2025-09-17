@@ -89,8 +89,7 @@ const applySubtitles = function (table: string, ordering: Ordering[]) {
 		}
 		const rowWidth = row.length;
 		const rowIndex = _.indexOf(splitTable, row);
-		// @ts-expect-error TODO: explicitly convert the value to a string
-		const value: string = ordering[rowIndex].value;
+		const value = 'value' in ordering[rowIndex] ? `${ordering[rowIndex].value}` : '';
 		return normalizeSubtitle(value, rowWidth);
 	});
 
