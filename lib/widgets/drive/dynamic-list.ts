@@ -26,7 +26,6 @@ THE SOFTWARE.
  * @module dynamiclist
  */
 
-import Bluebird from 'bluebird';
 import type Choice from 'inquirer/lib/objects/choice';
 // eslint-disable-next-line @typescript-eslint/no-require-imports -- TODO Improve the typings in a separate PR
 import InquirerList = require('inquirer/lib/prompts/list');
@@ -252,12 +251,12 @@ class DynamicList extends InquirerList {
 	 * list.run().then (answer) ->
 	 * 	console.log(answer)
 	 */
-	public run() {
-		return Bluebird.resolve(super.run()).tap(() => {
-			// Without using explicitly the ui.close(), the process
-			// won't be able to exit after returning the callback
-			(this.ui as any).close();
-		});
+	public async run() {
+		const result = await super.run();
+		// Without using explicitly the ui.close(), the process
+		// won't be able to exit after returning the callback
+		(this.ui as any).close();
+		return result;
 	}
 }
 
