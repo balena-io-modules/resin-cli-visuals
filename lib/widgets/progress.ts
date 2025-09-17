@@ -163,4 +163,4 @@ class Progress {
 	}
 }
 
-module.exports = Progress;
+export default Progress;

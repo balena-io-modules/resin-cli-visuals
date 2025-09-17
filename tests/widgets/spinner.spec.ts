@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import * as stdout from '../utils/stdout';
-// eslint-disable-next-line @typescript-eslint/no-require-imports -- will replace after the major that changes the package to use exports
-const Spinner = require('../../lib/widgets/spinner');
+import Spinner from '../../lib/widgets/spinner';
 
 describe('Spinner:', function () {
 	describe('.constructor()', function () {
 		it('should throw if no message', () =>
+			// @ts-expect-error testing invalid parameters
 			expect(() => new Spinner(null)).to.throw('Missing message'));
 
 		it('should throw if message is an empty string', () =>

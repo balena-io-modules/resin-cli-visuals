@@ -1,10 +1,10 @@
 import { expect } from 'chai';
-// eslint-disable-next-line @typescript-eslint/no-require-imports -- will replace after the major that changes the package to use exports
-const table = require('../../lib/widgets/table');
+import * as table from '../../lib/widgets/table';
 
 describe('Table:', function () {
 	describe('.horizontal()', function () {
 		it('should return undefined if no data', function () {
+			// @ts-expect-error testing invalid parameters
 			const output = table.horizontal(null);
 			expect(output).to.be.undefined;
 		});

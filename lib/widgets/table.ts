@@ -128,7 +128,7 @@ const trimRight = function (table: string) {
  * John Doe  40
  * Jane Doe  35
  */
-exports.horizontal = function (data: object[], ordering: string[]) {
+export function horizontal(data: object[], ordering: string[]) {
 	if (data == null) {
 		return;
 	}
@@ -146,7 +146,7 @@ exports.horizontal = function (data: object[], ordering: string[]) {
 			},
 		}),
 	);
-};
+}
 
 /**
  * @summary Make a vertical table
@@ -160,7 +160,7 @@ exports.horizontal = function (data: object[], ordering: string[]) {
  * Vertical tables also accept separators and subtitles, which are represented in the ordering configuration as empty strings and strings surrounded by dollar signs respectively.
  *
  * @param {Object} data - table data
- * @param {String[]} ordering - display ordering
+ * @param {String[]} [ordering] - display ordering
  *
  * @example
  * console.log visuals.table.vertical
@@ -183,7 +183,7 @@ exports.horizontal = function (data: object[], ordering: string[]) {
  * == EXTRAS
  * JOB:       Developer
  */
-exports.vertical = function (data: object[], ordering: string[]) {
+export function vertical(data: object, ordering?: string[]) {
 	ordering ??= _.keys(data);
 	let orderingObj = parseOrdering(ordering, data);
 	orderingObj = _.filter(
@@ -226,4 +226,4 @@ exports.vertical = function (data: object[], ordering: string[]) {
 	});
 
 	return trimRight(applySubtitles(table, orderingObj));
-};
+}

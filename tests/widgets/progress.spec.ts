@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import * as stdout from '../utils/stdout';
-// eslint-disable-next-line @typescript-eslint/no-require-imports -- will replace after the major that changes the package to use exports
-const Progress = require('../../lib/widgets/progress');
+import Progress from '../../lib/widgets/progress';
 
 describe('Progress:', function () {
 	describe('.constructor()', function () {
