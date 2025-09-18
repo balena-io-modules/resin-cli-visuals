@@ -20,8 +20,8 @@ limitations under the License.
 
 import Progress from './widgets/progress';
 import Spinner from './widgets/spinner';
-import SpinnerPromise from './widgets/spinnerpromise';
+import * as spinnerPromise from './widgets/spinnerpromise';
 import * as table from './widgets/table';
 import drive from './widgets/drive';
 
-export { Progress, Spinner, SpinnerPromise, table, drive };
+export { Progress, Spinner, spinnerPromise, table, drive };

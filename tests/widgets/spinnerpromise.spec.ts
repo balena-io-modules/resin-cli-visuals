@@ -1,13 +1,13 @@
 import { expect, use as chaiUse } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 chaiUse(chaiAsPromised);
-import SpinnerPromise from '../../lib/widgets/spinnerpromise';
+import { createSpinnerPromise } from '../../lib/widgets/spinnerpromise';
 
 describe('SpinnerPromise:', () =>
 	describe('.constructor()', function () {
 		it('should return rejected promise is not a Promise/A+ compatible promise', () =>
 			expect(
-				new SpinnerPromise({
+				createSpinnerPromise({
 					// @ts-expect-error testing invalid parameters
 					promise: {},
 					startMessage: 'start',
@@ -19,14 +19,14 @@ describe('SpinnerPromise:', () =>
 		it('should return rejected promise if startMessage is an empty string', () =>
 			expect(
 				// @ts-expect-error testing missing parameters
-				new SpinnerPromise({
+				createSpinnerPromise({
 					promise: Promise.resolve(true),
 				}),
 			).to.be.rejectedWith('Missing spinner start message'));
 
 		it('should return resolved native promise', () =>
 			expect(
-				new SpinnerPromise({
+				createSpinnerPromise({
 					promise: Promise.resolve(true),
 					startMessage: 'start',
 				}),
@@ -34,7 +34,7 @@ describe('SpinnerPromise:', () =>
 
 		it('should return rejected native promise', () =>
 			expect(
-				new SpinnerPromise({
+				createSpinnerPromise({
 					promise: Promise.reject(new Error('Rejected native promise')),
 					startMessage: 'start',
 				}),
