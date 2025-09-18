@@ -26,8 +26,10 @@ THE SOFTWARE.
  * @module dynamiclist
  */
 
-import * as Bluebird from 'bluebird';
+import type Choice from 'inquirer/lib/objects/choice';
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- TODO Improve the typings in a separate PR
 import InquirerList = require('inquirer/lib/prompts/list');
+// eslint-disable-next-line @typescript-eslint/no-require-imports -- TODO Improve the typings in a separate PR
 import UI = require('inquirer/lib/ui/baseUI');
 import * as _ from 'lodash';
 
@@ -77,13 +79,9 @@ class DynamicList extends InquirerList {
 		// Even though the name property doesn't have an actual use in the code
 		// Inquirer forces us to declare it. Skipping an explicit choices
 		// declaration would cause an Error during the InquirerList instantiation.
-		if (options.name == null) {
-			options.name = 'dynamic-list';
-		}
+		options.name ??= 'dynamic-list';
 
-		if (options.emptyMessage == null) {
-			options.emptyMessage = 'No options';
-		}
+		options.emptyMessage ??= 'No options';
 
 		const ui = new UI({
 			input: process.stdin,
@@ -92,11 +90,12 @@ class DynamicList extends InquirerList {
 
 		super(options, (ui as any).rl, {});
 
-		this.options = options as DynamicList['options'];
+		// @ts-expect-error TS should be able to realize that name & emptyMessage are set by the ctor if missing
+		this.options = options;
 		this.ui = ui;
 	}
 
-	/**
+	/* *
 	 * @summary Check if the list is empty
 	 * @method
 	 * @private
@@ -119,7 +118,7 @@ class DynamicList extends InquirerList {
 		return this.opt.choices.length === 0;
 	}
 
-	/**
+	/* *
 	 * @summary Event listener for when a choice is selected
 	 * @method
 	 * @private
@@ -128,10 +127,10 @@ class DynamicList extends InquirerList {
 		if (this.isEmpty()) {
 			return;
 		}
-		return super.onSubmit(...args);
+		super.onSubmit(...args);
 	}
 
-	/**
+	/* *
 	 * @summary Render the list
 	 * @method
 	 * @public
@@ -151,13 +150,14 @@ class DynamicList extends InquirerList {
 		if (this.isEmpty()) {
 			// By using this.screen.render() the module
 			// knows how many lines to clean automatically.
-			return this.screen.render(this.options.emptyMessage, undefined as any);
+			this.screen.render(this.options.emptyMessage, undefined as any);
+			return;
 		}
 
-		return super.render(...args);
+		super.render(...args);
 	}
 
-	/**
+	/* *
 	 * @summary Add a choice
 	 * @method
 	 * @public
@@ -177,15 +177,23 @@ class DynamicList extends InquirerList {
 	 * list.render()
 	 */
 	public addChoice(
-		choice: Parameters<DynamicList['opt']['choices']['push']>[0],
+		// It seems that there is a bug in the typings which incorectly have 'short' | 'disabled' as required, while they should be optional
+		// https://github.com/SBoudrias/Inquirer.js/blob/inquirer%407.3.3/packages/inquirer/lib/objects/choice.js
+		// TODO: Repalce w/ just `Parameters<DynamicList['opt']['choices']['push']>[0]` once the cast of `choice` in the function body is no longer needed.
+		choice: Pick<Choice, 'name' | 'value'> & Partial<Choice>,
 	) {
 		// New data about drives are automatically being added to both
 		// this.opt.choices.choices and this.opt.choices.realChoices through the
 		// use of push().
-		return this.opt.choices.push(choice);
+		return this.opt.choices.push(
+			// We shouldn't need this cast, but it seems that the typings have a bug
+			// https://github.com/SBoudrias/Inquirer.js/blob/inquirer%407.3.3/packages/inquirer/lib/objects/choice.js
+			// TODO: Remove once the TODO in the parameter is fixed
+			choice as Parameters<DynamicList['opt']['choices']['push']>[0],
+		);
 	}
 
-	/**
+	/* *
 	 * @summary Remove a choice
 	 * @method
 	 * @public
@@ -205,10 +213,15 @@ class DynamicList extends InquirerList {
 	 * list.render()
 	 */
 	public removeChoice(
-		choice: DynamicList['opt']['choices']['choices'][number],
+		// It seems that there is a bug in the typings which incorectly have 'short' | 'disabled' as required, while they should be optional
+		// https://github.com/SBoudrias/Inquirer.js/blob/inquirer%407.3.3/packages/inquirer/lib/objects/choice.js
+		// TODO: Repalce w/ just `Parameters<DynamicList['opt']['choices']['push']>[0]` once the cast of `choice` in the function body is no longer needed.
+		choice: Pick<Choice, 'name' | 'value'> & Partial<Choice>,
 	) {
 		const cleanupList = <T>(list: T[]): T[] =>
-			_.reject(list, item => _.isEqual(_.pick(item, 'name', 'value'), choice));
+			_.reject(list, (item) =>
+				_.isEqual(_.pick(item, 'name', 'value'), choice),
+			);
 
 		// `this.opt.choices` is an instance of Inquirer's Choice class.
 		// This Choice class extends push with the capability of filling
@@ -218,7 +231,7 @@ class DynamicList extends InquirerList {
 		this.opt.choices.realChoices = cleanupList(this.opt.choices.realChoices);
 	}
 
-	/**
+	/* *
 	 * @summary Run the widget
 	 * @method
 	 * @public
@@ -238,12 +251,12 @@ class DynamicList extends InquirerList {
 	 * list.run().then (answer) ->
 	 * 	console.log(answer)
 	 */
-	public run() {
-		return Bluebird.resolve(super.run()).tap(() => {
-			// Without using explicitly the ui.close(), the process
-			// won't be able to exit after returning the callback
-			(this.ui as any).close();
-		});
+	public async run() {
+		const result = await super.run();
+		// Without using explicitly the ui.close(), the process
+		// won't be able to exit after returning the callback
+		(this.ui as any).close();
+		return result;
 	}
 }
 

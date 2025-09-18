@@ -1,20 +1,21 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "target": "es6",
-    "rootDir": "lib",
-    "outDir": "build",
-    "importHelpers": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "strictNullChecks": true,
-    "skipLibCheck": true
-  },
-  "include": [
-    "lib/**/*.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2018",
+        "importHelpers": true,
+        "esModuleInterop": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "allowJs": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "typings/*.d.ts",
+        "lib/**/*.ts",
+        "tests/**/*.ts"
+    ]
 }
