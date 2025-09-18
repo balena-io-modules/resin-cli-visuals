@@ -5,6 +5,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v4.0.1
+## (2025-09-18)
+
+* progress: Allow null for the ProgressState.eta [Thodoris Greasidis]
+* table: Support using readonly string[] for the ordering [Thodoris Greasidis]
+
 # v4.0.0
 ## (2025-09-18)
 

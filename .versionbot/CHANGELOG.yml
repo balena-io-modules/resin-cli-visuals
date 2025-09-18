@@ -1,4 +1,22 @@
 - commits:
+    - subject: "progress: Allow null for the ProgressState.eta"
+      hash: 799460c79d7b39f944b746c05eb009803be5314a
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: "table: Support using readonly string[] for the ordering"
+      hash: ea77a22b4c1b78cbb0ddde302cc23a302cd51518
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 4.0.1
+  title: ""
+  date: 2025-09-18T13:34:17.574Z
+- commits:
     - subject: "horizontal: Use nullish check to fallback from the alias to the prop
         name"
       hash: 0fc20f2553150d1b83f76ddcde0614fda445723c
