@@ -1,4 +1,59 @@
 - commits:
+    - subject: "horizontal: Use nullish check to fallback from the alias to the prop
+        name"
+      hash: 0fc20f2553150d1b83f76ddcde0614fda445723c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: "vertical: Explicitly convert values to string"
+      hash: c6b77a30febea6832b7418f5fa2969e5f6041bc9
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: Replace the SpinnerPromise class with a createSpinnerPromise factory
+        function
+      hash: 8128eafec8c871bef3f4d8c7ec32cc45863d2fd6
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+    - subject: Switch to async await and drop Bluebird
+      hash: 44eb1cd2f2491f29a47fdcaf127087165a11732b
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+    - subject: Switch target to es2018
+      hash: ffee5bae321f4c0a89beb5d51fec3273388d81d6
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+    - subject: Convert files to use es modules imports & exports
+      hash: 96536195b63518450d8fd32faabbd40257ab5c5e
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+    - subject: Convert to TypeScript & lint
+      hash: 1dc295e50a95b98a73ef5ffe2fd733cec4076316
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 4.0.0
+  title: ""
+  date: 2025-09-18T11:54:36.947Z
+- commits:
     - subject: Replace `chalk` with `ansis`
       hash: 819bb8f409c17e0b79f90fbdefd768e15897b109
       body: ""

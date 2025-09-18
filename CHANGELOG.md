@@ -5,6 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v4.0.0
+## (2025-09-18)
+
+* horizontal: Use nullish check to fallback from the alias to the prop name [Thodoris Greasidis]
+* vertical: Explicitly convert values to string [Thodoris Greasidis]
+* Replace the SpinnerPromise class with a createSpinnerPromise factory function [Thodoris Greasidis]
+* Switch to async await and drop Bluebird [Thodoris Greasidis]
+* Switch target to es2018 [Thodoris Greasidis]
+* Convert files to use es modules imports & exports [Thodoris Greasidis]
+* Convert to TypeScript & lint [Thodoris Greasidis]
+
 # v3.0.1
 ## (2025-09-16)
 
