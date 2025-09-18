@@ -35,7 +35,7 @@ type Ordering =
  * @memberof visuals
  */
 
-const parseOrdering = (ordering: string[], data: object): Ordering[] =>
+const parseOrdering = (ordering: readonly string[], data: object): Ordering[] =>
 	_.compact(
 		_.map(ordering, function (column) {
 			if (_.trim(column) === '') {
@@ -128,7 +128,7 @@ const trimRight = function (table: string) {
  * John Doe  40
  * Jane Doe  35
  */
-export function horizontal(data: object[], ordering: string[]) {
+export function horizontal(data: object[], ordering: readonly string[]) {
 	if (data == null) {
 		return;
 	}
@@ -182,7 +182,7 @@ export function horizontal(data: object[], ordering: string[]) {
  * == EXTRAS
  * JOB:       Developer
  */
-export function vertical(data: object, ordering?: string[]) {
+export function vertical(data: object, ordering?: readonly string[]) {
 	ordering ??= _.keys(data);
 	let orderingObj = parseOrdering(ordering, data);
 	orderingObj = _.filter(

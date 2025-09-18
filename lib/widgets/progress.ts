@@ -43,7 +43,7 @@ const formatDuration = function (seconds: number) {
 export interface ProgressState {
 	percentage: number;
 	message?: string;
-	eta?: number;
+	eta?: number | null;
 }
 
 class Progress {
