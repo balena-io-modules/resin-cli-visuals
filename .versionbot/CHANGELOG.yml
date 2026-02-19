@@ -1,4 +1,17 @@
 - commits:
+    - subject: "Add id-token: write permission for NPM OIDC publishing"
+      hash: fe672fe4c956df8c97c74f342f28619c1ff5374e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+  version: 4.0.2
+  title: ""
+  date: 2026-02-19T02:02:46.374Z
+- commits:
     - subject: "progress: Allow null for the ProgressState.eta"
       hash: 799460c79d7b39f944b746c05eb009803be5314a
       body: ""
