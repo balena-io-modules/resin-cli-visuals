@@ -38,7 +38,6 @@
     "@types/chai-as-promised": "^7.1.5",
     "@types/columnify": "^1.5.4",
     "@types/inquirer": "^7.3.0",
-    "@types/lodash": "^4.14.195",
     "@types/mocha": "^10.0.1",
     "@types/sinon": "^17.0.3",
     "chai": "^4.3.6",
@@ -57,7 +56,6 @@
     "etcher-sdk": "^10.0.0",
     "inquirer": "^7.3.3",
     "is-promise": "^4.0.0",
-    "lodash": "^4.17.20",
     "progress-bar-formatter": "^2.0.1",
     "tslib": "^2.8.1"
   },

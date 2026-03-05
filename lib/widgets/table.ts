@@ -14,14 +14,14 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as _ from 'lodash';
 import columnify from 'columnify';
 
 type Ordering =
-	| { type: 'separator' }
+	| { type: 'separator'; alias?: undefined }
 	| {
 			type: 'subtitle';
 			value: string;
+			alias?: undefined;
 	  }
 	| {
 			type: 'column';
@@ -35,60 +35,61 @@ type Ordering =
  * @memberof visuals
  */
 
-const parseOrdering = (ordering: readonly string[], data: object): Ordering[] =>
-	_.compact(
-		_.map(ordering, function (column) {
-			if (_.trim(column) === '') {
-				return {
-					type: 'separator',
-				};
-			}
+const parseOrdering = (
+	ordering: readonly string[] | undefined,
+	data: object,
+): Ordering[] =>
+	(ordering ?? []).map(function (column): Ordering {
+		if (typeof column !== 'string' || column.trim() === '') {
+			return {
+				type: 'separator',
+			};
+		}
 
-			const subtitleMatches = column.match(/^\$(.+)\$$/);
+		const subtitleMatches = column.match(/^\$(.+)\$$/);
 
-			if (subtitleMatches != null) {
-				return {
-					type: 'subtitle',
-					value: subtitleMatches[1],
-				};
-			}
+		if (subtitleMatches != null) {
+			return {
+				type: 'subtitle',
+				value: subtitleMatches[1],
+			};
+		}
 
-			const aliasMatches = column.match(/^(.+) => (.+)$/);
+		const aliasMatches = column.match(/^(.+) => (.+)$/);
 
-			const name =
-				(aliasMatches != null ? aliasMatches[1] : undefined) ?? column;
-			const result = {
-				type: 'column',
-				name: name,
-				alias: (aliasMatches != null ? aliasMatches[2] : undefined) ?? column,
-				value: (data as Record<string, unknown>)[name],
-			} satisfies Ordering;
+		const name = (aliasMatches != null ? aliasMatches[1] : undefined) ?? column;
+		const result = {
+			type: 'column',
+			name: name,
+			alias: (aliasMatches != null ? aliasMatches[2] : undefined) ?? column,
+			value: (data as Record<string, unknown>)[name],
+		} satisfies Ordering;
 
-			return result;
-		}),
-	);
+		return result;
+	});
 
 const getAlias = (ordering: Ordering[], column: string): string | undefined =>
-	_.result(_.find(ordering, { name: column }), 'alias');
+	ordering.find((item) => 'name' in item && item.name === column)?.alias;
 
 const normalizeTitle = (title: string) =>
-	_.trim(title)
+	title
+		.trim()
 		.replace(/([a-z\d])([A-Z]+)/g, '$1 $2')
 		.replace(/[_-\s]+/g, ' ')
 		.toUpperCase();
 
 const normalizeSubtitle = (subtitle: string, width: number) =>
-	_.padEnd(`== ${normalizeTitle(subtitle)}`, width, ' ');
+	`== ${normalizeTitle(subtitle)}`.padEnd(width, ' ');
 
 const applySubtitles = function (table: string, ordering: Ordering[]) {
 	const splitTable = table.split(/\r\n?|\n/);
 
-	const titleizedTable = _.map(splitTable, function (row) {
-		if (!_.startsWith(row, '$X$')) {
+	const titleizedTable = splitTable.map(function (row) {
+		if (!row.startsWith('$X$')) {
 			return row;
 		}
 		const rowWidth = row.length;
-		const rowIndex = _.indexOf(splitTable, row);
+		const rowIndex = splitTable.indexOf(row);
 		const value =
 			'value' in ordering[rowIndex] ? `${ordering[rowIndex].value}` : '';
 		return normalizeSubtitle(value, rowWidth);
@@ -99,7 +100,7 @@ const applySubtitles = function (table: string, ordering: Ordering[]) {
 
 const trimRight = function (table: string) {
 	let splitTable = table.split(/\r\n?|\n/);
-	splitTable = _.map(splitTable, (row) => _.trimEnd(row));
+	splitTable = splitTable.map((row) => row.trimEnd());
 	return splitTable.join('\n');
 };
 
@@ -128,7 +129,7 @@ const trimRight = function (table: string) {
  * John Doe  40
  * Jane Doe  35
  */
-export function horizontal(data: object[], ordering: readonly string[]) {
+export function horizontal(data: object[], ordering?: readonly string[]) {
 	if (data == null) {
 		return;
 	}
@@ -138,7 +139,9 @@ export function horizontal(data: object[], ordering: readonly string[]) {
 	return trimRight(
 		columnify(data, {
 			// TODO: Try to remove the cast in a follow-up
-			columns: _.map(orderingObj, 'name') as string[],
+			columns: orderingObj
+				.map((item) => ('name' in item ? item.name : undefined))
+				.filter((name): name is NonNullable<typeof name> => name != null),
 			preserveNewLines: true,
 			headingTransform(heading) {
 				return normalizeTitle(getAlias(orderingObj, heading) ?? heading);
@@ -183,14 +186,13 @@ export function horizontal(data: object[], ordering: readonly string[]) {
  * JOB:       Developer
  */
 export function vertical(data: object, ordering?: readonly string[]) {
-	ordering ??= _.keys(data);
+	ordering ??= Object.keys(data);
 	let orderingObj = parseOrdering(ordering, data);
-	orderingObj = _.filter(
-		orderingObj,
+	orderingObj = orderingObj.filter(
 		(column) => column.type !== 'column' || column.value != null,
 	);
 
-	const orderedData = _.map(orderingObj, function (column, index) {
+	const orderedData = orderingObj.map(function (column, index) {
 		if (column.type === 'separator') {
 			return {
 				property: null,
