@@ -31,7 +31,6 @@ import type Choice from 'inquirer/lib/objects/choice';
 import InquirerList = require('inquirer/lib/prompts/list');
 // eslint-disable-next-line @typescript-eslint/no-require-imports -- TODO Improve the typings in a separate PR
 import UI = require('inquirer/lib/ui/baseUI');
-import * as _ from 'lodash';
 
 class DynamicList extends InquirerList {
 	public options: ConstructorParameters<typeof InquirerList>[0] & {
@@ -218,9 +217,13 @@ class DynamicList extends InquirerList {
 		// TODO: Repalce w/ just `Parameters<DynamicList['opt']['choices']['push']>[0]` once the cast of `choice` in the function body is no longer needed.
 		choice: Pick<Choice, 'name' | 'value'> & Partial<Choice>,
 	) {
-		const cleanupList = <T>(list: T[]): T[] =>
-			_.reject(list, (item) =>
-				_.isEqual(_.pick(item, 'name', 'value'), choice),
+		const cleanupList = <T extends object>(list: T[]): T[] =>
+			list.filter(
+				(item) =>
+					!('name' in item) ||
+					item.name !== choice.name ||
+					!('value' in item) ||
+					item.value !== choice.value,
 			);
 
 		// `this.opt.choices` is an instance of Inquirer's Choice class.

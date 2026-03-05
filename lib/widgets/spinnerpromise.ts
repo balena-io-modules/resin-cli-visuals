@@ -14,7 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import * as _ from 'lodash';
 import Spinner from './spinner';
 
 import isPromise from 'is-promise';
@@ -59,7 +58,10 @@ export const createSpinnerPromise = async function <T>(
 		throw new Error("'promise' must be a Promises/A+ compatible promise");
 	}
 
-	if (_.trim(options.startMessage) === '') {
+	if (
+		typeof options.startMessage !== 'string' ||
+		options.startMessage.trim() === ''
+	) {
 		throw new Error('Missing spinner start message');
 	}
 
