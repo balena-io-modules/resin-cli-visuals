@@ -1,4 +1,15 @@
 - commits:
+    - subject: Remove unused/not exported file
+      hash: fb69d986a358140c971bd013d295539c775a02ea
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+  version: 4.0.3
+  title: ""
+  date: 2026-03-09T02:12:51.899Z
+- commits:
     - subject: "Add id-token: write permission for NPM OIDC publishing"
       hash: fe672fe4c956df8c97c74f342f28619c1ff5374e
       body: ""

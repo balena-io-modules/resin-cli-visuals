@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## v1.4.2 - 2018-05-07
 
+# v4.0.3
+## (2026-03-09)
+
+* Remove unused/not exported file [Pagan Gazzard]
+
 # v4.0.2
 ## (2026-02-19)
 
