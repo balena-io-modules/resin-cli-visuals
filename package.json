@@ -1,6 +1,6 @@
 {
   "name": "resin-cli-visuals",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Resin CLI UI widgets",
   "type": "commonjs",
   "main": "build/visuals.js",
@@ -60,6 +60,6 @@
     "tslib": "^2.8.1"
   },
   "versionist": {
-    "publishedAt": "2026-03-09T02:12:51.971Z"
+    "publishedAt": "2026-03-12T14:21:52.331Z"
   }
 }

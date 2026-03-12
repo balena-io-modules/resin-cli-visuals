@@ -1,4 +1,15 @@
 - commits:
+    - subject: Remove lodash
+      hash: 483857a087d234779e02b2e3dc1b61c02a7b4a01
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+  version: 4.0.4
+  title: ""
+  date: 2026-03-12T14:21:52.239Z
+- commits:
     - subject: Remove unused/not exported file
       hash: fb69d986a358140c971bd013d295539c775a02ea
       body: ""
